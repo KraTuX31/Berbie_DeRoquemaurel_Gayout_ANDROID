@@ -11,8 +11,6 @@ android:
     - build-tools-23.0.2
     - extra-google-m2repository
     - extra-android-m2repository
-    - addon-google_apis-google-21
-    - extra
 
 
 before_script:
