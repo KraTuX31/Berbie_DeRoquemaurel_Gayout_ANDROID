@@ -7,7 +7,10 @@ env:
 android:
   components:
     - tool
+    - android-24      
     - build-tools-23.0.2
+    - extra-google-m2repository
+      #  - extra-android-m2repository
 
 
 before_script:
