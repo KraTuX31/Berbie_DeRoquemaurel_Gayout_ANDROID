@@ -15,4 +15,4 @@ email: false
 sudo: false
 
 script:
-    - ./gradlew clean build
+    - cd MakeAFocalpoint && ./gradlew clean build
