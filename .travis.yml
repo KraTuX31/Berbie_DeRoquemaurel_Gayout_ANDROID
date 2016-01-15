@@ -14,20 +14,10 @@ android:
     # - tools
 
     # The BuildTools version used by your project
-    - build-tools-23.0.2
-
+    - build-tools-19.1.0
 
     # The SDK version used to compile your project
     - android-15
-
-    # Additional components
-    - extra-google-google_play_services
-    - extra-google-m2repository
-    - extra-android-m2repository
-    - addon-google_apis-google-15
-
-os:
-      - linux
 
 before_script:
   # Create and start emulator
