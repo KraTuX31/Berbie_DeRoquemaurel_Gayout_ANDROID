@@ -7,6 +7,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
@@ -38,7 +39,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     public void onMapReady(final GoogleMap googleMap) {
         mMap = googleMap;
 
-        LatLng upsPosition = new LatLng(48.856614,2.3522219000000177);
+        LatLng upsPosition = new LatLng(43.56053780000001,1.468691900000067);
         mMap.moveCamera(CameraUpdateFactory.newLatLng(upsPosition));
+        mMap.animateCamera(CameraUpdateFactory.zoomIn());
+
+
+
     }
 }
