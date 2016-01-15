@@ -2,6 +2,9 @@ package com.m2dl.maf.makeafocalpoint;
 
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuInflater;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -18,7 +21,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_maps);
+//        setContentView(R.layout.main_layout);
+
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
@@ -42,8 +46,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         LatLng upsPosition = new LatLng(43.56053780000001,1.468691900000067);
         mMap.moveCamera(CameraUpdateFactory.newLatLng(upsPosition));
         mMap.animateCamera(CameraUpdateFactory.zoomTo(17F));
-
-
-
     }
+
+//    @Override
+//    public boolean onCreateOptionsMenu(final Menu menu) {
+//        MenuInflater inflater = getMenuInflater();
+//        inflater.inflate(R.menu.shorts_items_menu, menu);
+//        return true;
+//    }
 }
