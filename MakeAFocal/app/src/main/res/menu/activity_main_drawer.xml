@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_user"
+            android:icon="@drawable/ic_account_circle_white_24dp"
+            android:title="User name" />
+        <item
+            android:id="@+id/nav_filter"
+            android:icon="@drawable/ic_filter_list_white_24dp"
+            android:title="@string/filter" />
+        <item
+            android:id="@+id/nav_search"
+            android:icon="@drawable/ic_search_white_24dp"
+            android:title="@string/search" />
+        <item
+            android:id="@+id/nav_add_location"
+            android:icon="@drawable/ic_add_location_white_24dp"
+            android:title="@string/add_location" />
+        <item
+            android:id="@+id/nav_about"
+            android:title="@string/about" />
+
+    </group>
+
+    <!--<item android:title="Communicate">-->
+        <!--<menu>-->
+            <!--<item-->
+                <!--android:id="@+id/nav_share"-->
+                <!--android:icon="@android:drawable/ic_menu_share"-->
+                <!--android:title="Share" />-->
+            <!--<item-->
+                <!--android:id="@+id/nav_send"-->
+                <!--android:icon="@android:drawable/ic_menu_send"-->
+                <!--android:title="Send" />-->
+        <!--</menu>-->
+    <!--</item>-->
+
+</menu>
