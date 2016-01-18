@@ -18,4 +18,8 @@
     <string name="yes">Oui</string>
     <string name="no">Non</string>
     <string name="about">À propos</string>
+    <string name="maf_repository">MakeAFocalPoint</string>
+    <string name="repository_created">Répertoire créé</string>
+    <string name="repository_fail_created">Impossible de créer le répertoire</string>
+    <string name="error_take_photo">Erreur à la création de la photo</string>
 </resources>

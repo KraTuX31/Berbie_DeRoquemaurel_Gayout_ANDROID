@@ -139,13 +139,22 @@ public class MainActivity extends AppCompatActivity
     }
 
 
-    public void onPhotoButtonClick(View view) {
+    /**
+     * Treatment when the user click on Floating Photo Button of the <i>view</i>.
+     * @param view Current view.
+     */
+    public void onPhotoButtonClick(final View view) {
         Intent intent = new Intent(
                 MainActivity.this, TakePhotoActivity.class);
         startActivity(intent);
     }
 
-    public void onMyLocationButtonClick(View view) {
+    /**
+     * Treatment when the user click on Floating "My Location" Button of the
+     * <i>view</i>.
+     * @param view Current view.
+     */
+    public void onMyLocationButtonClick(final View view) {
         moveToMyLocation();
     }
 

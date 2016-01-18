@@ -48,7 +48,10 @@ public class TakePhotoActivity extends Activity {
 
 
         //Création du fichier image
-        File photo = new File(Environment.getExternalStorageDirectory()+"/MakeAFocalPoint",  String.valueOf(seconds)+ ".jpg");
+        File photo = new File(
+                Environment.getExternalStorageDirectory()
+                    + "/" + R.string.maf_repository,
+                String.valueOf(seconds)+ ".jpg");
         intent.putExtra(MediaStore.EXTRA_OUTPUT,
                 Uri.fromFile(photo));
         imageUri = Uri.fromFile(photo);
@@ -84,7 +87,10 @@ public class TakePhotoActivity extends Activity {
                                 .show();
 
                     } catch (Exception e) {
-                        Toast.makeText(this, "Failed to load", Toast.LENGTH_SHORT)
+                        Toast.makeText(
+                                this,
+                                R.string.error_take_photo,
+                                Toast.LENGTH_SHORT)
                                 .show();
                         Log.e("Camera", e.toString());
                     }
@@ -94,15 +100,19 @@ public class TakePhotoActivity extends Activity {
 
 
     public void  createDirIfNotExists() {
-        File folder = new File(Environment.getExternalStorageDirectory() + "/MakeAFocalPoint");
+        File folder = new File(
+                Environment.getExternalStorageDirectory()
+                        + "/" + R.string.maf_repository);
         boolean success = true;
         if (!folder.exists()) {
             success = folder.mkdir();
         }
         if (success) {
-            Toast.makeText(this,"Repertoire créer", Toast.LENGTH_SHORT);
+            Toast.makeText(
+                    this, R.string.repository_created, Toast.LENGTH_SHORT);
         } else {
-            Toast.makeText(this,"Failed to create", Toast.LENGTH_SHORT);
+            Toast.makeText(
+                    this,R.string.repository_fail_created, Toast.LENGTH_SHORT);
         }
     }
 }
