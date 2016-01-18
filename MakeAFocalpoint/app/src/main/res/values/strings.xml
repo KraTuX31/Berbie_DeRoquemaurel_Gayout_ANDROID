@@ -1,8 +1,0 @@
-<resources>
-    <string name="app_name">Make A Focal point</string>
-    <string name="title_activity_maps">Map</string>
-    <string name="filter">Filtrer</string>
-    <string name="add_location">Ajouter un lieu</string>
-    <string name="search">Rechercher</string>
-    <string name="main_activity_title">Make A Focal</string>
-</resources>
