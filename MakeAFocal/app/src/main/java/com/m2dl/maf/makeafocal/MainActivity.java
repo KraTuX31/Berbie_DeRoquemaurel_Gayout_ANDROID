@@ -1,11 +1,9 @@
 package com.m2dl.maf.makeafocal;
 
-import android.app.AlertDialog;
+import android.annotation.TargetApi;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.location.Location;
-import android.location.LocationManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -22,18 +20,26 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
+import com.m2dl.maf.makeafocal.controller.GPSLocationListener;
 
-public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener,
+public class MainActivity
+        extends AppCompatActivity
+        implements
+        NavigationView.OnNavigationItemSelectedListener,
         OnMapReadyCallback {
 
     private GoogleMap mMap;
+    public static Context context;
+    private GPSLocationListener gps;
 
 
+    @TargetApi(Build.VERSION_CODES.M)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        context = getBaseContext();
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -56,28 +62,10 @@ public class MainActivity extends AppCompatActivity
                         .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
+
+
     }
 
-    /**
-     * Manipulates the map once available.
-     * This callback is triggered when the map is ready to be used.
-     * This is where we can add markers or lines, add listeners or move the camera. In this case,
-     * we just add a marker near Sydney, Australia.
-     * If Google Play services is not installed on the device, the user will be prompted to install
-     * it inside the SupportMapFragment. This method will only be triggered once the user has
-     * installed Google Play services and returned to the app.
-     */
-    @Override
-    public void onMapReady(final GoogleMap googleMap) {
-        mMap = googleMap;
-
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(
-                new LatLng(43.56053780000001, 1.468691900000067)));
-        mMap.animateCamera(CameraUpdateFactory.zoomTo(17F));
-
-
-        //You can also use LocationManager.GPS_PROVIDER and LocationManager.PASSIVE_PROVIDER
-    }
 
     @Override
     public void onBackPressed() {
@@ -155,52 +143,51 @@ public class MainActivity extends AppCompatActivity
      * @param view Current view.
      */
     public void onMyLocationButtonClick(final View view) {
-        moveToMyLocation();
-    }
+        gps = new GPSLocationListener(MainActivity.this);
 
-    private void moveToMyLocation() {
-        LocationManager locationManager =
-                (LocationManager) getSystemService(Context.LOCATION_SERVICE );
+        // Check if GPS enabled
+        if(gps.canGetLocation()) {
 
-        if (!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-            buildAlertMessageNoGps();
-        } else {
-            Location location = mMap.getMyLocation();
+            LatLng myLocation = new LatLng(gps.getLatitude(), gps.getLongitude());
+            // \n is for new line
+
             mMap.moveCamera(
-                    CameraUpdateFactory.newLatLng(
-                            new LatLng(
-                                    location.getLatitude(),
-                                    location.getLongitude())));
+                    CameraUpdateFactory.newLatLng(myLocation));
             mMap.animateCamera(CameraUpdateFactory.zoomTo(17F));
+            mMap.getUiSettings().setMyLocationButtonEnabled(true);
+            mMap.addMarker(
+                    new MarkerOptions().position(myLocation)
+                            .title("Vous êtes ici"));
+        } else {
+            // Can't get location.
+            // GPS or network is not enabled.
+            // Ask user to enable GPS/network in settings.
+            gps.showSettingsAlert();
         }
-
     }
-    private void buildAlertMessageNoGps() {
-        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage(R.string.alert_msg_no_gps)
-                .setCancelable(false)
-                .setPositiveButton(
-                        R.string.yes,
-                        new DialogInterface.OnClickListener() {
-                    public void onClick(
-                        @SuppressWarnings("unused")
-                        final DialogInterface dialog,
-                        @SuppressWarnings("unused") final int id) {
-                        startActivity(
-                            new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS));
-                    }
-                })
-                .setNegativeButton(
-                        R.string.no,
-                        new DialogInterface.OnClickListener() {
-                    public void onClick(
-                        final DialogInterface dialog,
-                        @SuppressWarnings("unused") final int id) {
-                            dialog.cancel();
-                    }
-                });
-        final AlertDialog alert = builder.create();
-        alert.show();
+
+
+    //--------------------------------------------------------------------------
+    // Get current location
+    //--------------------------------------------------------------------------
+
+    /**
+     * Init map <i>googleMap</i> when Activity starts.
+     * @param googleMap Map to init.
+     */
+    @TargetApi(Build.VERSION_CODES.M)
+    @Override
+    public void onMapReady(final GoogleMap googleMap) {
+        mMap = googleMap;
+        mMap.setMyLocationEnabled(true);
+        mMap.getUiSettings().setMyLocationButtonEnabled(true);
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(
+                new LatLng(43.56053780000001, 1.468691900000067)));
+        mMap.animateCamera(CameraUpdateFactory.zoomTo(17F));
+        mMap.getUiSettings().setMyLocationButtonEnabled(false);
+
+
+
     }
 
 
