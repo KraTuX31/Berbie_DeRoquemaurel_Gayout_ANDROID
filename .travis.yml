@@ -5,7 +5,7 @@ env:
     - ANDROID_SDKS=android-18,sysimg-18  ANDROID_TARGET=android-18  ANDROID_ABI=armeabi-v7a
 
 before_install:
-  - chmod +x MakeAFocalpoint/gradlew
+  - chmod +x MakeAFocal/gradlew
   # Install base Android SDK
   - sudo apt-get update -qq
   - if [ `uname -m` = x86_64 ]; then sudo apt-get install -qq --force-yes libgd2-xpm ia32-libs ia32-libs-multiarch > /dev/null; fi
@@ -33,8 +33,8 @@ before_install:
 install:
   - true
 before_script:
-  - chmod +x Scripts/wait_for_emulator.sh
-  - Scripts/wait_for_emulator.sh
+  - chmod +x MakeAFocal/Scripts/wait_for_emulator.sh
+  - MakeAFocal/Scripts/wait_for_emulator.sh
   - adb shell input keyevent 82 &
 script:
-  - cd MakeAFocalpoint && TERM=dumb ./gradlew connectedInstrumentTest
+  - cd MakeAFocal && TERM=dumb ./gradlew connectedInstrumentTest
