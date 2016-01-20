@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Make A Focal</string>
+
+    <string name="navigation_drawer_open">Ouvrir le tiroir de navigation</string>
+    <string name="navigation_drawer_close">Fermer le tiroir de navigation</string>
+
+    <string name="action_settings">Paramètres</string>
+
+    <string name="title_activity_maps">Carte de l\'Université</string>
+    <string name="filter">Filtrer</string>
+    <string name="add_location">Ajouter un lieu</string>
+    <string name="search">Rechercher</string>
+    <string name="main_activity_title">Make A Focal</string>
+    <string name="alert_msg_no_gps">
+        Votre GPS est désactivé, voulez-vous l\'activer?
+    </string>
+    <string name="yes">Oui</string>
+    <string name="no">Non</string>
+    <string name="about">À propos</string>
+    <string name="maf_repository">MakeAFocalPoint</string>
+    <string name="repository_created">Répertoire créé</string>
+    <string name="repository_fail_created">Impossible de créer le répertoire</string>
+    <string name="error_take_photo">Erreur à la création de la photo</string>
+</resources>

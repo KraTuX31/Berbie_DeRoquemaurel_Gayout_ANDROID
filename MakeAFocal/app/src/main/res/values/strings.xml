@@ -1,0 +1,23 @@
+<resources>
+    <string name="app_name">Make A Focal</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+
+    <string name="title_activity_maps">University map</string>
+    <string name="filter">Filter</string>
+    <string name="add_location">Add a location</string>
+    <string name="search">Search</string>
+    <string name="main_activity_title">Make A Focal</string>
+    <string name="alert_msg_no_gps">Your GPS seems to be disabled, do you want to enable it?</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="about">About</string>
+    <string name="maf_repository">MakeAFocalPoint</string>
+    <string name="repository_created">Répertoire créé</string>
+    <string name="repository_fail_created">Impossible to create repository</string>
+    <string name="error_take_photo">Failed to load photo</string>
+
+</resources>

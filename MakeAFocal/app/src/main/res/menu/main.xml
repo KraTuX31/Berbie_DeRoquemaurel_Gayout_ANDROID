@@ -1,0 +1,21 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".MainActivity">
+
+    <item
+        android:id="@+id/shortcut_filter"
+        android:title="@string/filter"
+        android:icon="@drawable/ic_filter_list_white_24dp"
+        android:orderInCategory="100" />
+    <item
+        android:id="@+id/shortcut_add_location"
+        android:title="@string/add_location"
+        android:icon="@drawable/ic_add_location_white_24dp"
+        android:orderInCategory="100"  />
+    <item
+        android:id="@+id/shortcut_search"
+        android:title="@string/search"
+        android:icon="@drawable/ic_search_white_24dp"
+        android:orderInCategory="100" />
+</menu>
