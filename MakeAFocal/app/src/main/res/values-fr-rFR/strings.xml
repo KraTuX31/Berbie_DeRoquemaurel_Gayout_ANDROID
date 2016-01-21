@@ -24,4 +24,5 @@
     <string name="error_take_photo">Erreur à la création de la photo</string>
     <string name="add">Ajouter</string>
     <string name="new_tag">nouveau tag</string>
+    <string name="gps_disabled">GPS désactivé</string>
 </resources>
