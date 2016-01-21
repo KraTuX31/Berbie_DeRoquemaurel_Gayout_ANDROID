@@ -6,16 +6,26 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 
 public class Database extends SQLiteOpenHelper {
+    public static Map<Context, Database> instances;
     public static final String DATABASE_NAME = "makeafocal.db";
+
+    public static Database instance(Context c) {
+        if (instances.get(c) == null) {
+            instances.put(c, new Database(c));
+        }
+
+        return instances.get(c);
+    }
 
     /**
      * The current context
      * @param context The context of database
      */
-    public Database(Context context) {
+    private Database(Context context) {
         super(context, DATABASE_NAME , null, 1);
     }
 

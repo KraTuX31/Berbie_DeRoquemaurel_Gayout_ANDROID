@@ -1,11 +1,12 @@
 package com.m2dl.maf.makeafocal.model;
 
+import android.content.Context;
 import android.util.Pair;
 
 /**
  * Created by aroquemaurel on 21/01/16.
  */
-public class Zone {
+public class Zone extends Model {
     private Pair<Integer, Integer> position;
     private int size;
 
@@ -14,7 +15,8 @@ public class Zone {
      * @param pos The position of the zone (x, y)
      * @param size The diameter size in pixels
      */
-    public Zone(Pair<Integer, Integer> pos, final int size) {
+    public Zone(Context c, Pair<Integer, Integer> pos, final int size) {
+        super(c);
         position = pos;
         this.size = size;
     }
@@ -34,4 +36,15 @@ public class Zone {
     public void setPosition(Pair<Integer, Integer> position) {
         this.position = position;
     }
+
+    @Override
+    public void create() {
+
+    }
+
+    @Override
+    public void delete() {
+
+    }
+
 }

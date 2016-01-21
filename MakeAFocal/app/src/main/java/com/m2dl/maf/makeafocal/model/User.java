@@ -3,7 +3,7 @@ package com.m2dl.maf.makeafocal.model;
 /**
  * Created by aroquemaurel on 21/01/16.
  */
-public class User {
+public class User implements IModel {
     private String userName;
 
     /**
