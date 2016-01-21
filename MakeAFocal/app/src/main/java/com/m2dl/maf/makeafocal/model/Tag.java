@@ -1,6 +1,7 @@
 package com.m2dl.maf.makeafocal.model;
 
 import android.content.Context;
+import android.database.Cursor;
 import android.util.Pair;
 
 /**
@@ -39,7 +40,15 @@ public class Tag extends Model {
 
     @Override
     public void create() {
+        Cursor c = db.getTag(tagName).;
 
+        if(c == null) {
+            db.insertTag(this);
+        } else {
+            c.moveToFirst();
+
+            id = c.getInt(c.getColumnIndex("id"));
+        }
     }
 
     @Override

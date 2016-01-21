@@ -1,16 +1,19 @@
 package com.m2dl.maf.makeafocal.model;
 
+import android.content.Context;
+
 /**
  * Created by aroquemaurel on 21/01/16.
  */
-public class User implements IModel {
+public class User extends Model {
     private String userName;
 
     /**
      * Create a user
      * @param username The name of the user
      */
-    public User(String username) {
+    public User(Context c, String username) {
+        super(c);
         this.userName = username;
     }
 
@@ -20,5 +23,15 @@ public class User implements IModel {
 
     public void setUserName(String userName) {
         this.userName = userName;
+    }
+
+    @Override
+    public void create() {
+        db.createUser(this);
+    }
+
+    @Override
+    public void delete() {
+
     }
 }

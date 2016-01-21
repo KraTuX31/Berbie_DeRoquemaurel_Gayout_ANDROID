@@ -6,7 +6,7 @@ import android.util.Pair;
 /**
  * Created by aroquemaurel on 21/01/16.
  */
-public class Zone extends Model {
+public class Zone {
     private Pair<Integer, Integer> position;
     private int size;
 
@@ -15,8 +15,7 @@ public class Zone extends Model {
      * @param pos The position of the zone (x, y)
      * @param size The diameter size in pixels
      */
-    public Zone(Context c, Pair<Integer, Integer> pos, final int size) {
-        super(c);
+    public Zone(Pair<Integer, Integer> pos, final int size) {
         position = pos;
         this.size = size;
     }
@@ -36,15 +35,4 @@ public class Zone extends Model {
     public void setPosition(Pair<Integer, Integer> position) {
         this.position = position;
     }
-
-    @Override
-    public void create() {
-
-    }
-
-    @Override
-    public void delete() {
-
-    }
-
 }
