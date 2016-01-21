@@ -34,7 +34,7 @@ install:
   - true
 before_script:
   - chmod +x MakeAFocal/Scripts/wait_for_emulator.sh
-  - MakeAFocal/Scripts/wait_for_emulator.sh
+    #  - MakeAFocal/Scripts/wait_for_emulator.sh
   - adb shell input keyevent 82 &
 script:
   - cd MakeAFocal && TERM=dumb ./gradlew connectedInstrumentTest
