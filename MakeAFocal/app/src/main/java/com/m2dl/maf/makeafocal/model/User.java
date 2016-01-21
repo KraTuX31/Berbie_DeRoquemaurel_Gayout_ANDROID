@@ -17,6 +17,10 @@ public class User extends Model {
         this.userName = username;
     }
 
+    public User(Context c, final int id) {
+        super(c, id);
+    }
+
     public String getUserName() {
         return userName;
     }

@@ -22,6 +22,11 @@ public class Tag extends Model {
         this.zone = zone;
     }
 
+    public Tag(Context c, final int id) {
+        super(c, id);
+        throw new RuntimeException("Not implemented");
+    }
+
     public Zone getZone() {
         return zone;
     }
@@ -40,7 +45,7 @@ public class Tag extends Model {
 
     @Override
     public void create() {
-        Cursor c = db.getTag(tagName).;
+        Cursor c = (Cursor) db.getTag(tagName);
 
         if(c == null) {
             db.insertTag(this);

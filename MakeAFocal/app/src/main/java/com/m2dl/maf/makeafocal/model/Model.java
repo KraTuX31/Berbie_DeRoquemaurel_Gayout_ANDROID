@@ -14,6 +14,10 @@ public abstract class Model {
     public Model(Context c) {
         db = Database.instance(c);
     }
+
+    public Model(Context c, final int id) {
+        this.id = id;
+    }
     public long getId() {
         return id;
     }

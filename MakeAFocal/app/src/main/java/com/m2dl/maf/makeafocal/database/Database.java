@@ -6,25 +6,33 @@ import android.database.Cursor;
 import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Pair;
 
 import com.m2dl.maf.makeafocal.model.Photo;
 import com.m2dl.maf.makeafocal.model.Tag;
 import com.m2dl.maf.makeafocal.model.User;
+import com.m2dl.maf.makeafocal.model.Zone;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
 
 public class Database extends SQLiteOpenHelper {
-    public static Map<Context, Database> instances;
-    public static final String DATABASE_NAME = "makeafocal.db";
+    private static Map<Context, Database> instances;
+    private static final String DATABASE_NAME = "makeafocal.db";
+    private static Context context;
 
     public static Database instance(Context c) {
+        if (instances == null) {
+            instances = new HashMap<>();
+        }
         if (instances.get(c) == null) {
             instances.put(c, new Database(c));
         }
-
+        context = c;
         return instances.get(c);
     }
 
@@ -41,16 +49,17 @@ public class Database extends SQLiteOpenHelper {
         // Creates table
         db.execSQL(
                 "create table photos " +
-                "(id integer primary key, path text, longitude float, latitude fkiat, user text)"
+                "(id integer primary key, path text, longitude float, latitude float, user id)"
        );
         db.execSQL("create table tags (id integer, tagName text, x float, y float, size float)");
         db.execSQL("create table photos_tags (idTag integer, idPhoto integer)");
         db.execSQL("create table user (id integer, userName text)");
 
         // Alters table
-        db.execSQL("alter table photos_tags add primary key (idTag, idPhoto)");
-        db.execSQL("alter table photos_tags add foreign key(idTag) references (tag)");
-        db.execSQL("alter table photos_tags add foreign key(idPhoto references (photo)");
+     /*   db.execSQL("alter table photos_tags add constraint pkidtagphoto primary key (idTag, idPhoto)");
+        db.execSQL("alter table photos_tags add constraint fkidtag foreign key(idTag) references (tag)");
+        db.execSQL("alter table photos_tags add constraint fkphoto foreign key(idPhoto references (photo)");
+        */
     }
 
     @Override
@@ -61,10 +70,10 @@ public class Database extends SQLiteOpenHelper {
     public boolean insertPhoto (Photo p) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
-        contentValues.put("path", p.getUri().toString());
-        contentValues.put("longitude", p.getLocation().getLongitude());
-        contentValues.put("latitude", p.getLocation().getLatitude());
-        contentValues.put("user", p.getUser().getUserName());
+        contentValues.put("path", p.getPath().toString());
+        contentValues.put("longitude", p.getLocation().first);
+        contentValues.put("latitude", p.getLocation().second);
+        contentValues.put("user", p.getUser().getId());
 
         p.setId(db.insert("photos", null, contentValues));
 
@@ -82,13 +91,6 @@ public class Database extends SQLiteOpenHelper {
             contentValues.put("idPhoto", p.getId());
             db.insert("photos_tags", null, contentValues);
         }
-    }
-
-    public Cursor getData(int id){
-/*        SQLiteDatabase db = this.getReadableDatabase();
-        Cursor res =  db.rawQuery( "select * from contacts where id="+id+"", null );
-        return res;*/
-        return null;
     }
 
     public int numberOfPhoto(){
@@ -111,34 +113,6 @@ public class Database extends SQLiteOpenHelper {
         return true;
     }
 
-    public Integer deleteContact (Integer id)
-    {
-        /*SQLiteDatabase db = this.getWritableDatabase();
-        return db.delete("contacts",
-                "id = ? ",
-                new String[] { Integer.toString(id) });
-                */
-        return null;
-    }
-
-    public ArrayList<String> getAllCotacts()
-    {
-     /*   ArrayList<String> array_list = new ArrayList<String>();
-
-        //hp = new HashMap();
-        SQLiteDatabase db = this.getReadableDatabase();
-        Cursor res =  db.rawQuery( "select * from contacts", null );
-        res.moveToFirst();
-
-        while(!res.isAfterLast()){
-            array_list.add(res.getString(res.getColumnIndex(CONTACTS_COLUMN_NAME)));
-            res.moveToNext();
-        }
-        return array_list;
-        */
-        return null;
-    }
-
     public void insertTag(Tag t) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
@@ -149,9 +123,15 @@ public class Database extends SQLiteOpenHelper {
         t.setId(db.insert("tags", null, contentValues));
     }
 
-    public Object getTag(String tagName) {
+    public Cursor getTag(String tagName) {
         SQLiteDatabase db = this.getReadableDatabase();
         return db.rawQuery( "select * from tags where tagName='"+tagName+"'", null );
+    }
+
+    public Cursor getPhoto(final int id) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        return db.rawQuery( "select path, longitude, latitude, user.id as u from photo,user " +
+                "where user=user.id and id='"+id+"'", null);
     }
 
     public void createUser(User u) {
@@ -159,5 +139,33 @@ public class Database extends SQLiteOpenHelper {
         ContentValues contentValues = new ContentValues();
         contentValues.put("userName", u.getUserName());
         u.setId(db.insert("user", null, contentValues));
+    }
+
+    public List<Photo> getAllPhotos() {
+        List<Photo> ret = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor res =  db.rawQuery( "select * from photos", null );
+        res.moveToFirst();
+
+        while(!res.isAfterLast()){
+            String path = res.getString(res.getColumnIndex("path"));
+            User u = new User(context, res.getInt(res.getColumnIndex("user")));
+            Photo p = new Photo(context, path, new Pair<>(0d,0d), u);
+            p.setId(res.getInt(res.getColumnIndex("id")));
+            Cursor res2 =  db.rawQuery( "select * from tags where id_photo="+p.getId(), null );
+            res2.moveToFirst();
+            while(!res2.isAfterLast()) {
+                Tag t = (new Tag(context, res.getString(res.getColumnIndex("tagName")),
+                        new Zone(new Pair<>(0,0), 0)));
+                t.setId(res.getInt(res.getColumnIndex("id")));
+                p.addTag(t);
+                res2.moveToNext();
+            }
+            ret.add(p);
+
+            res.moveToNext();
+        }
+        return ret;
     }
 }
