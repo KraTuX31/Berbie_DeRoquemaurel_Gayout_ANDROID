@@ -13,6 +13,7 @@ public class Photo {
     private Bitmap image; // The Bitmap image of the photo
     private Location location; // The position of the photo
     private Set<Tag> tags; // Tags of the photo
+    private User user; // THe user which take the photo
 
     /**
      * Create an empty photo
