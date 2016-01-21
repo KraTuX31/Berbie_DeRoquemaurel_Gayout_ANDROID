@@ -184,7 +184,7 @@ public class GPSLocationListener extends Service implements LocationListener {
          AlertDialog.Builder alertDialog = new AlertDialog.Builder(context);
 
         // Setting Dialog Title
-        alertDialog.setTitle("GPS disabled");
+        alertDialog.setTitle(R.string.gps_disabled);
 
         // Setting Dialog Message
         alertDialog.setMessage(R.string.alert_msg_no_gps);
