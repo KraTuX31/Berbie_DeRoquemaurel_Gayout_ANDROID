@@ -22,27 +22,22 @@ import java.util.Calendar;
  */
 public class TakePhotoActivity extends Activity {
     private Uri imageUri;
+    private ImageView imageView;
     private static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 100;
-    private ImageView image;
-    private Bitmap bitmapImg;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_tags_to_image);
-        image = (ImageView) findViewById(R.id.iv_photo_to_tag);
-        takePhoto(image);
+        imageView = (ImageView) findViewById(R.id.iv_photo_to_tag);
 
-        Bitmap bitmapIB
-        image.setImageBitmap();
-        Log.d("Test", "TEST");
-
+        takePhoto();
     }
 
     /**
      * Take a photo in the <i>view</i>.
-     * @param view View to take a photo.
      */
-    public void takePhoto(View view) {
+    public void takePhoto() {
         //Création d'un intent
         createDirIfNotExists();
         Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
@@ -56,7 +51,7 @@ public class TakePhotoActivity extends Activity {
         //Création du fichier image
         File photo = new File(
                 Environment.getExternalStorageDirectory()
-                    + "/" + R.string.maf_repository,
+                        + "/" + R.string.maf_repository,
                 String.valueOf(seconds)+ ".jpg");
         intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(photo));
         imageUri = Uri.fromFile(photo);
@@ -69,8 +64,6 @@ public class TakePhotoActivity extends Activity {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        Bitmap bitmap = null;
-        Bundle extras = data.getExtras();
         switch (requestCode) {
             //Si l'activité était une prise de photo
             case CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE:
@@ -80,21 +73,18 @@ public class TakePhotoActivity extends Activity {
 
                     //ImageView imageView = (ImageView) findViewById(R.id.ImageView);
                     ContentResolver cr = getContentResolver();
-
+                    Bitmap bitmap;
                     try {
                         bitmap = android.provider.MediaStore.Images.Media
                                 .getBitmap(cr, selectedImage);
-                        Bitmap bmp = (Bitmap) extras.get("data");
 
-//                        image.setImageBitmap(bitmap);
+                        imageView.setImageBitmap(bitmap);
                         //Affichage de l'infobulle
 //                        Toast.makeText(
 //                                this,
 //                                selectedImage.toString(),
 //                                Toast.LENGTH_LONG)
 //                                .show();
-
-
 
                     } catch (Exception e) {
                         Toast.makeText(
@@ -105,26 +95,24 @@ public class TakePhotoActivity extends Activity {
                         Log.e("Camera", e.toString());
                     }
                 }
-
         }
-
-
     }
 
 
     public void  createDirIfNotExists() {
         File folder = new File(
-                Environment.getExternalStorageDirectory() + "/" + R.string.maf_repository);
+                Environment.getExternalStorageDirectory()
+                        + "/" + R.string.maf_repository);
         boolean success = true;
         if (!folder.exists()) {
             success = folder.mkdir();
         }
         if (success) {
             Toast.makeText(
-                    this, R.string.repository_created, Toast.LENGTH_SHORT).show();
+                    this, R.string.repository_created, Toast.LENGTH_SHORT);
         } else {
             Toast.makeText(
-                    this,R.string.repository_fail_created, Toast.LENGTH_SHORT).show();
+                    this, R.string.repository_fail_created, Toast.LENGTH_SHORT);
         }
     }
 }

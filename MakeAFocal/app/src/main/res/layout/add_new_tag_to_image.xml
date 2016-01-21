@@ -1,22 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="horizontal">
 
     <AutoCompleteTextView
-        android:layout_width="350dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/new_tag"
         android:id="@+id/tv_add_new_tag"/>
 
     <ImageButton
-        android:layout_width="match_parent"
-        android:layout_height="37dp"
+        android:layout_width="42dp"
+        android:layout_height="36dp"
         android:id="@+id/btnimg_add_tag"
         android:background="@android:color/holo_blue_dark"
-        android:src="@drawable/ic_local_offer_white_24dp"/>
+        android:src="@drawable/ic_local_offer_white_24dp"
+        android:layout_alignRight="@id/tv_add_new_tag"/>
 
 
-</LinearLayout>
+</RelativeLayout>
