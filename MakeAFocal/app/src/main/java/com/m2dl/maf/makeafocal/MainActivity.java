@@ -3,6 +3,7 @@ package com.m2dl.maf.makeafocal;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
@@ -132,9 +133,26 @@ public class MainActivity
      * @param view Current view.
      */
     public void onPhotoButtonClick(final View view) {
-        Intent intent = new Intent(
-                MainActivity.this, TakePhotoActivity.class);
-        startActivity(intent);
+//        Intent intent = new Intent(
+//                MainActivity.this, TakePhotoActivity.class);
+//        startActivity(intent);
+        Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+        startActivityForResult(cameraIntent, 1888);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == 1888 && resultCode == RESULT_OK) {
+            //Bundle extras = data.getExtras();
+            Bitmap imageBitmap = (Bitmap) data.getExtras().get("data");
+            //imageView.setImageBitmap(imageBitmap);
+
+            Bundle b = new Bundle();
+            b.putParcelable("data", imageBitmap);
+            Intent intent = new Intent(
+                    MainActivity.this, TagsActivity.class);
+            startActivity(intent);
+        }
     }
 
     /**
