@@ -110,8 +110,13 @@ public class TakePhotoActivity extends Activity {
 
     public void onAddTagButtonClick(final View view) {
         TextView tv = (TextView) findViewById(R.id.tv_add_new_tag);
-        tags.add(new Tag(tv.getText().toString()));
-        tagsAdapter.notifyDataSetChanged();
+        String txt = tv.getText().toString();
+        if (!txt.isEmpty()) {
+            for (String tag : txt.split(" ")) {
+                tags.add(new Tag(tag));
+                tagsAdapter.notifyDataSetChanged();
+            }
+        }
     }
 
     public boolean  createDirIfNotExists() {
