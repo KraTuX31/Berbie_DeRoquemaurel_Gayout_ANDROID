@@ -117,8 +117,8 @@ public class Database extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put("tagName", t.getTagName());
-        contentValues.put("x", t.getZone().getPosition().first);
-        contentValues.put("y", t.getZone().getPosition().second);
+        contentValues.put("x", t.getZone().getX());
+        contentValues.put("y", t.getZone().getY());
         contentValues.put("size", t.getZone().getSize());
         t.setId(db.insert("tags", null, contentValues));
     }
@@ -151,13 +151,13 @@ public class Database extends SQLiteOpenHelper {
         while(!res.isAfterLast()){
             String path = res.getString(res.getColumnIndex("path"));
             User u = new User(context, res.getInt(res.getColumnIndex("user")));
-            Photo p = new Photo(context, path, new Pair<>(0d,0d), u);
+            Photo p = new Photo(path, new Pair<>(0d,0d), u);
             p.setId(res.getInt(res.getColumnIndex("id")));
             Cursor res2 =  db.rawQuery( "select * from tags where id_photo="+p.getId(), null );
             res2.moveToFirst();
             while(!res2.isAfterLast()) {
-                Tag t = (new Tag(context, res.getString(res.getColumnIndex("tagName")),
-                        new Zone(new Pair<>(0,0), 0)));
+                Tag t = new Tag(context, res.getString(res.getColumnIndex("tagName")),
+                        new Zone(0, 0, 0));
                 t.setId(res.getInt(res.getColumnIndex("id")));
                 p.addTag(t);
                 res2.moveToNext();

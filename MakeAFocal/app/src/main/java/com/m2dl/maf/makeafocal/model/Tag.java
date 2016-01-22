@@ -1,8 +1,6 @@
 package com.m2dl.maf.makeafocal.model;
 
 import android.content.Context;
-import android.database.Cursor;
-import android.util.Pair;
 
 /**
  * Created by aroquemaurel on 21/01/16.
@@ -11,6 +9,17 @@ public class Tag extends Model {
     private String tagName;
     private Zone zone;
 
+    public Tag(Zone zone) {
+        super(null);
+        this.zone = zone;
+        tagName = "";
+    }
+
+    public Tag(final String tagName, final Zone zone) {
+        super(null);
+        this.tagName = tagName;
+        this.zone = zone;
+    }
     /**
      * Create a tag
      * @param tagName The name of the tag
@@ -25,6 +34,16 @@ public class Tag extends Model {
     public Tag(Context c, final int id) {
         super(c, id);
         throw new RuntimeException("Not implemented");
+    }
+
+    @Override
+    public void create() {
+
+    }
+
+    @Override
+    public void delete() {
+
     }
 
     public Zone getZone() {
@@ -47,21 +66,4 @@ public class Tag extends Model {
     public String toString() {
         return "#" + tagName;
     }
-
-    public void create() {
-        Cursor c = (Cursor) db.getTag(tagName);
-
-        if(c == null) {
-            db.insertTag(this);
-        } else {
-            c.moveToFirst();
-
-            id = c.getInt(c.getColumnIndex("id"));
-        }
-    }
-
-    @Override
-    public void delete() {
-	}
-
 }

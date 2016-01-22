@@ -8,18 +8,20 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
-import android.support.design.widget.Snackbar;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.m2dl.maf.makeafocal.adapter.TagsArrayAdapter;
+import com.m2dl.maf.makeafocal.controller.OnImageTouchListener;
+import com.m2dl.maf.makeafocal.model.Photo;
 import com.m2dl.maf.makeafocal.model.Tag;
+import com.m2dl.maf.makeafocal.model.Zone;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -34,23 +36,24 @@ public class TakePhotoActivity extends Activity {
     private Uri imageUri;
     /** Container for the photo taken. */
     private ImageView imageView;
-    /** List of tags. */
-    private List<Tag> tags = new ArrayList<>();
-    private TagsArrayAdapter tagsAdapter;
-    /** View containing the list of existing tags. */
-    private ListView listView;
+    private TextView textViewTags;
+    private Photo photo;
 
     private static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 100;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_tags_to_image);
-        imageView = (ImageView) findViewById(R.id.iv_photo_to_tag);
-        listView = (ListView) findViewById(R.id.list_tags_added);
 
-        tagsAdapter = new TagsArrayAdapter(this, tags);
-        listView.setAdapter(tagsAdapter);
+        photo = new Photo();
+        textViewTags = (TextView) findViewById(R.id.tv_tags_added);
+
+        imageView = (ImageView) findViewById(R.id.iv_photo_to_tag);
+        OnImageTouchListener imageViewListener = new OnImageTouchListener(this);
+        imageView.setOnTouchListener(imageViewListener);
+        imageView.setOnLongClickListener(imageViewListener);
 
         takePhoto();
     }
@@ -68,14 +71,19 @@ public class TakePhotoActivity extends Activity {
         int seconds = c.get(Calendar.SECOND);
 
         //Création du fichier image
-        File photo = new File(
+        File filePhoto = new File(
             Environment.getExternalStorageDirectory() + "/" + R.string.maf_repository,
             String.valueOf(seconds)+ ".jpg");
-        intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(photo));
-        imageUri = Uri.fromFile(photo);
+        intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(filePhoto));
+        imageUri = Uri.fromFile(filePhoto);
 
         //On lance l'intent
         startActivityForResult(intent, CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);
+    }
+
+    public void onAcceptButtonClick(View v) {
+        Intent intent = new Intent(TakePhotoActivity.this, MainActivity.class);
+        startActivity(intent);
     }
 
     //On a reçu le résultat d'une activité
@@ -90,12 +98,11 @@ public class TakePhotoActivity extends Activity {
                 getContentResolver().notifyChange(selectedImage, null);
 
                 ContentResolver cr = getContentResolver();
-                Bitmap bitmap;
                 try {
-                    bitmap = android.provider.MediaStore.Images.Media
-                            .getBitmap(cr, selectedImage);
+                    photo.setImage(android.provider.MediaStore.Images.Media
+                            .getBitmap(cr, selectedImage));
 
-                    imageView.setImageBitmap(bitmap);
+                    imageView.setImageBitmap(photo.getImage());
                 } catch (Exception e) {
                     Toast.makeText(
                             this,
@@ -104,17 +111,6 @@ public class TakePhotoActivity extends Activity {
                             .show();
                     Log.e("Camera", e.toString());
                 }
-            }
-        }
-    }
-
-    public void onAddTagButtonClick(final View view) {
-        TextView tv = (TextView) findViewById(R.id.tv_add_new_tag);
-        String txt = tv.getText().toString();
-        if (!txt.isEmpty()) {
-            for (String tag : txt.split(" ")) {
-                tags.add(new Tag(tag, null));
-                tagsAdapter.notifyDataSetChanged();
             }
         }
     }
@@ -128,5 +124,13 @@ public class TakePhotoActivity extends Activity {
         }
 
         return success;
+    }
+
+    public Photo getPhoto() {
+        return photo;
+    }
+
+    public TextView getTextViewTags() {
+        return textViewTags;
     }
 }

@@ -24,12 +24,14 @@ public class Photo extends Model {
      * Create an empty photo
      * TODO : search usefull constructors
      */
-    public Photo(Context c, String path, Pair<Double, Double> location, User u) {
-        super(c);
+    public Photo(String path, Pair<Double, Double> location, User u) {
+        super(null);
         this.tags = new HashSet<>();
         this.path = path;
         this.location = location;
         this.user = u;
+        tags = new HashSet<>();
+        image = null;
     }
 
     public Photo(Context c, final int id) {
@@ -42,8 +44,25 @@ public class Photo extends Model {
                             cur.getDouble(cur.getColumnIndex("longitude")));
     }
 
+
+    public Photo (final Bitmap bitmap) {
+        super(null);
+        image = bitmap;
+        tags = new HashSet<>();
+    }
+
+    public Photo() {
+        super(null); // TODO remove me
+    }
+
     public void addTag(Tag tag) {
         this.tags.add(tag);
+    }
+
+    public void addTag(Tag...tags) {
+        for (Tag t : tags) {
+            this.tags.add(t);
+        }
     }
 
     public Set<Tag> getTags() {
@@ -53,22 +72,19 @@ public class Photo extends Model {
     @Override
     public void create() {
         for(Tag t : tags) {
-            t.create();
+          //  t.create();
+            // TODO...
         }
         db.insertPhoto(this);
+    }
+
+    public Bitmap getImage() {
+        return image;
     }
 
     @Override
     public void delete() {
         // TODO
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
     }
 
     public String getPath() {
@@ -79,11 +95,26 @@ public class Photo extends Model {
         this.path = path;
     }
 
+    public void setLocation(Pair<Double, Double> location) {
+        this.location = location;
+    }
+    public void setImage(Bitmap image) {
+        this.image = image;
+    }
+
     public Pair<Double, Double> getLocation() {
         return location;
     }
 
-    public void setLocation(Pair<Double, Double> location) {
-        this.location = location;
+    public void setTags(Set<Tag> tags) {
+        this.tags = tags;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }

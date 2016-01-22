@@ -25,4 +25,7 @@
     <string name="add">Ajouter</string>
     <string name="new_tag">Nouveau tag</string>
     <string name="gps_disabled">GPS désactivé</string>
+    <string name="add_your_tags">Ajouter vos tags</string>
+    <string name="tags">Tags:</string>
+    <string name="valid">Valider</string>
 </resources>

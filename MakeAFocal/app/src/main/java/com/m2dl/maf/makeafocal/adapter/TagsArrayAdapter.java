@@ -16,6 +16,7 @@ import com.m2dl.maf.makeafocal.model.Tag;
 
 import java.sql.Array;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by florent on 21/01/16.
@@ -25,7 +26,10 @@ public class TagsArrayAdapter extends ArrayAdapter<Tag> {
     private TextView textView;
 
     public TagsArrayAdapter(final Context context, final List<Tag> tags) {
-        super(context, android.R.layout.simple_expandable_list_item_1, tags);
+        super(
+                context,
+                android.R.layout.simple_expandable_list_item_1,
+                tags);
     }
 
     public View geView(int position, View convertView, ViewGroup parent) {
