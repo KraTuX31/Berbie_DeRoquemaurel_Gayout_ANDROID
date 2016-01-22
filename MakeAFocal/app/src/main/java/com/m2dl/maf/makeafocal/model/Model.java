@@ -27,4 +27,5 @@ public abstract class Model {
     }
     public abstract void create();
     public abstract void delete();
+    public abstract void update();
 }

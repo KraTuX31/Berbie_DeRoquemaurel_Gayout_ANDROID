@@ -63,6 +63,11 @@ public class Photo extends Model {
         // TODO
     }
 
+    @Override
+    public void update() {
+
+    }
+
     public User getUser() {
         return user;
     }

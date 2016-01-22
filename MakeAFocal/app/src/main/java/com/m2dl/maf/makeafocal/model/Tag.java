@@ -64,4 +64,9 @@ public class Tag extends Model {
     public void delete() {
 	}
 
+    @Override
+    public void update() {
+
+    }
+
 }

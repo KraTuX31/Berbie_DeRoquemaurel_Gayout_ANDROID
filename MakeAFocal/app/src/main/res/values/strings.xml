@@ -22,5 +22,9 @@
     <string name="add">Add</string>
     <string name="new_tag">new tag</string>
     <string name="gps_disabled">GPS disabled</string>
+    <string name="choose_new_pseudo">Choisir un nouveau pseudal</string>
+    <string name="hint_new_pseudo">Pseudal</string>
+    <string name="valider">Valider</string>
+    <string name="userName">Username</string>
 
 </resources>

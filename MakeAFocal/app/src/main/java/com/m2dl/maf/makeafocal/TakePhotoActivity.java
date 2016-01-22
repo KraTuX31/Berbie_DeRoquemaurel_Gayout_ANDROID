@@ -113,7 +113,7 @@ public class TakePhotoActivity extends Activity {
         String txt = tv.getText().toString();
         if (!txt.isEmpty()) {
             for (String tag : txt.split(" ")) {
-                tags.add(new Tag(tag, null));
+                tags.add(new Tag(null, tag, null));
                 tagsAdapter.notifyDataSetChanged();
             }
         }

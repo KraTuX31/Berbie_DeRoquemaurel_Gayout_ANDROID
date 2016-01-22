@@ -38,4 +38,13 @@ public class User extends Model {
     public void delete() {
 
     }
+
+    @Override
+    public void update() {
+        throw new RuntimeException("Not implemeted");
+    }
+
+    public boolean pseudoExists() {
+        return db.pseudoExists(this.userName);
+    }
 }

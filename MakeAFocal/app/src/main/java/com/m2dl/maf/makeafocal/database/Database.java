@@ -168,4 +168,10 @@ public class Database extends SQLiteOpenHelper {
         }
         return ret;
     }
+
+    public boolean pseudoExists(String userName) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor c = db.rawQuery( "select * from User where userName='"+userName+"'", null );
+        return (c.getCount() != 0);
+    }
 }
