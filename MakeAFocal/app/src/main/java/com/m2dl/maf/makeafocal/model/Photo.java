@@ -34,12 +34,10 @@ public class Photo extends Model {
 
     public Photo(Context c, final int id) {
         super(c, id);
-        Cursor cur = getDb(c).getPhoto(id);
-        user = new User(c, cur.getInt(cur.getColumnIndex("u")));
-        path = cur.getString(cur.getColumnIndex("path"));
-        location =
-                new Pair<>(cur.getDouble(cur.getColumnIndex("latitude")),
-                            cur.getDouble(cur.getColumnIndex("longitude")));
+        Photo p = getDb(c).getPhoto(id);
+        user = p.getUser();
+        path = p.getPath();
+        location = p.getLocation();
     }
 
     public void addTag(Tag tag) {

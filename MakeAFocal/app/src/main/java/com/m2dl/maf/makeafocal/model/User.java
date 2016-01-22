@@ -2,6 +2,8 @@ package com.m2dl.maf.makeafocal.model;
 
 import android.content.Context;
 
+import com.m2dl.maf.makeafocal.database.Database;
+
 /**
  * Created by aroquemaurel on 21/01/16.
  */
@@ -19,6 +21,9 @@ public class User extends Model {
 
     public User(Context c, final int id) {
         super(c, id);
+        User u = getDb(c).getUser(id);
+        setUserName(u.getUserName());
+        setId(u.getId());;
     }
 
     public String getUserName() {
