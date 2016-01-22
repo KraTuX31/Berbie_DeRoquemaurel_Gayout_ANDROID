@@ -1,5 +1,6 @@
 package com.m2dl.maf.makeafocal.util;
 
+import android.os.AsyncTask;
 import android.util.JsonReader;
 import android.util.JsonToken;
 import android.content.res.Resources;
@@ -22,7 +23,7 @@ import java.util.List;
 /**
  * Created by florent on 22/01/16.
  */
-public class JsonMarkerParser {
+public class JsonMarkerParser extends AsyncTask<Void, Void, Void>{
 
     private InputStream in;
 
@@ -31,14 +32,12 @@ public class JsonMarkerParser {
     public JsonMarkerParser(Resources resources) {
         this.in = resources.openRawResource(R.raw.markers);
         markers = new ArrayList<PointOfInterest>();
-        getPointsOfInterest();
     }
 
     public void getPointsOfInterest() {
         try {
             JsonReader reader = new JsonReader(
                     new InputStreamReader(in, "UTF-8"));
-
 
             reader.beginArray();
             while (reader.hasNext()) {
@@ -55,7 +54,7 @@ public class JsonMarkerParser {
 
 
     public PointOfInterest readMessage(JsonReader reader) throws IOException {
-        String name = null;
+        String title = null;
         float latitude = 0;
         float longitude = 0;
         String color = null;
@@ -65,14 +64,14 @@ public class JsonMarkerParser {
         while (reader.hasNext()) {
             elt = reader.nextName();
             if (elt.equals("name")) {
-                name = reader.nextString();
-                if (name.equals("Carton")) {
+                title = reader.nextString();
+                if (title.equals("Carton")) {
                     color = "#DBA901";
-                } else if (name.equals("Papier")) {
+                } else if (title.equals("Papier")) {
                     color = "#FAFAFA";
-                } else if (name.equals("Textile")) {
+                } else if (title.equals("Textile")) {
                     color = "#9F81F7";
-                } else if (name.equals("Verre")) {
+                } else if (title.equals("Verre")) {
                     color = "#81F781";
                 } else {
                     color = "#2E2E2E";
@@ -85,11 +84,18 @@ public class JsonMarkerParser {
                 reader.skipValue();
             }
         }
-
         reader.endObject();
-        PointOfInterest p = new PointOfInterest(name, latitude, longitude, color);
-        Log.d("PARSER", p.toString());
-        return p;
+
+        return new PointOfInterest(title, latitude, longitude, color);
     }
 
+    @Override
+    protected Void doInBackground(Void... params) {
+        getPointsOfInterest();
+        return null;
+    }
+
+    public List<PointOfInterest> getMarkers() {
+        return markers;
+    }
 }

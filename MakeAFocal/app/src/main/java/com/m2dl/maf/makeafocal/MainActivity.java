@@ -11,7 +11,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Pair;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -23,8 +23,7 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.m2dl.maf.makeafocal.controller.GPSLocationListener;
-import com.m2dl.maf.makeafocal.database.Database;
-import com.m2dl.maf.makeafocal.model.Photo;
+import com.m2dl.maf.makeafocal.model.PointOfInterest;
 import com.m2dl.maf.makeafocal.model.Session;
 import com.m2dl.maf.makeafocal.model.User;
 import com.m2dl.maf.makeafocal.util.JsonMarkerParser;
@@ -38,7 +37,7 @@ public class MainActivity
     private GoogleMap mMap;
     public static Context context;
     private GPSLocationListener gps;
-
+    private JsonMarkerParser parser;
 
     @TargetApi(Build.VERSION_CODES.M)
     @Override
@@ -46,6 +45,10 @@ public class MainActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         context = getBaseContext();
+
+        parser = new JsonMarkerParser(getResources());
+        parser.execute();
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -69,7 +72,7 @@ public class MainActivity
         mapFragment.getMapAsync(this);
         Session.instance().setCurrentUser(new User("userName"));
 
-        new JsonMarkerParser(getResources());
+
     }
 
 
@@ -186,12 +189,14 @@ public class MainActivity
     @Override
     public void onMapReady(final GoogleMap googleMap) {
         mMap = googleMap;
+        for (PointOfInterest p : parser.getMarkers()) {
+//            Log.d("MARKER", p.toString());
+        }
         mMap.setMyLocationEnabled(true);
-        mMap.getUiSettings().setMyLocationButtonEnabled(true);
+//        mMap.getUiSettings().setMyLocationButtonEnabled(true);
         mMap.moveCamera(CameraUpdateFactory.newLatLng(
                 new LatLng(43.56053780000001, 1.468691900000067)));
         mMap.animateCamera(CameraUpdateFactory.zoomTo(17F));
-        mMap.getUiSettings().setMyLocationButtonEnabled(false);
 
 
 

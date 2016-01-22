@@ -1,5 +1,5 @@
-{
-	"markers": [{
+[
+  	{
 		"name": "U1",
 		"description": "",
 		"latitude": "43.562750",
@@ -774,5 +774,5 @@
 		"description": "Point de tri",
 		"latitude": "43.56731",
 		"longitude": "1.46477"
-	}]
-}
+	}
+]

@@ -4,23 +4,28 @@ package com.m2dl.maf.makeafocal.model;
  * Created by florent on 22/01/16.
  */
 public class PointOfInterest {
-    private String title;
+    private String name;
     private float latitude;
     private float longitude;
     private String color;
 
-    public PointOfInterest(final String title, float latitude, float longitude, String color) {
-        this.latitude = latitude;
-        this.longitude = longitude;
-        this.color = color;
+    public PointOfInterest(
+            final String title,
+            final float lat, final float lng,
+            final String colorString) {
+        name = title;
+        latitude = lat;
+        longitude = lng;
+        color = colorString;
     }
+
 
     @Override
     public String toString() {
         return "PointOfInterest{" +
-                "title='" + title + '\'' +
-                ", latitude=" + latitude +
-                ", longitude=" + longitude +
+                "name='" + name + '\'' +
+                ", lat=" + latitude +
+                ", lng=" + longitude +
                 ", color='" + color + '\'' +
                 '}';
     }
