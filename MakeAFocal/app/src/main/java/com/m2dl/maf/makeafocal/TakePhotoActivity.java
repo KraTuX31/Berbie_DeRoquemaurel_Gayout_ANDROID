@@ -3,30 +3,21 @@ package com.m2dl.maf.makeafocal;
 import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Log;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.m2dl.maf.makeafocal.adapter.TagsArrayAdapter;
 import com.m2dl.maf.makeafocal.controller.OnImageTouchListener;
 import com.m2dl.maf.makeafocal.model.Photo;
-import com.m2dl.maf.makeafocal.model.Tag;
-import com.m2dl.maf.makeafocal.model.Zone;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.List;
 
 /**
  * Created by florent on 17/01/16.
@@ -40,6 +31,7 @@ public class TakePhotoActivity extends Activity {
     private Photo photo;
 
     private static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 100;
+
 
 
     @Override

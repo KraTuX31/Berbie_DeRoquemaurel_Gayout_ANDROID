@@ -1,0 +1,778 @@
+[
+  	{
+		"name": "U1",
+		"description": "",
+		"latitude": "43.562750",
+		"longitude": "1.469271"
+	}, {
+		"name": "U2",
+		"description": "",
+		"latitude": "43.562750",
+		"longitude": "1.469271"
+	}, {
+		"name": "U3",
+		"description": "",
+		"latitude": "43.562045",
+		"longitude": "1.469942"
+	}, {
+		"name": "U4",
+		"description": "U4",
+		"latitude": "43.562742",
+		"longitude": "1.469174"
+	}, {
+		"name": "IRIT",
+		"description": "Institut de recherche en Informatique",
+		"latitude": "43.561965",
+		"longitude": "1.467987"
+	}, {
+		"name": "IMT",
+		"description": "Institut de Mathématiques de Toulouse",
+		"latitude": "43.562750",
+		"longitude": "1.469271"
+	}, {
+		"name": "IRSAMC",
+		"description": "Centre National de la Recherche Scientifique",
+		"latitude": "43.562750",
+		"longitude": "1.469271"
+	}, {
+		"name": "LPT",
+		"description": "Laboratoire de Physique Théorique",
+		"latitude": "43.562750",
+		"longitude": "1.469271"
+	}, {
+		"name": "UFR PCA",
+		"description": "UFR Physique Chimie Automatique",
+		"latitude": "43.560992",
+		"longitude": "1.468362"
+	}, {
+		"name": "UFR LV",
+		"description": "UFR Langues Vivantes",
+		"latitude": "43.558280",
+		"longitude": "1.470030"
+	}, {
+		"name": "Carton",
+		"description": "Point de tri",
+		"latitude": "43.55773",
+		"longitude": "1.46920"
+	}, {
+		"name": "Carton",
+		"description": "Point de tri",
+		"latitude": "43.55780",
+		"longitude": "1.46934"
+	}, {
+		"name": "Carton",
+		"description": "Point de tri",
+		"latitude": "43.55745",
+		"longitude": "1.46969"
+	}, {
+		"name": "Carton",
+		"description": "Point de tri",
+		"latitude": "43.55738",
+		"longitude": "1.46954"
+	}, {
+		"name": "Carton",
+		"description": "Point de tri",
+		"latitude": "43.55992",
+		"longitude": "1.47172"
+	}, {
+		"name": "Carton",
+		"description": "Point de tri",
+		"latitude": "43.56000",
+		"longitude": "1.47186"
+	}, {
+		"name": "Carton",
+		"description": "Point de tri",
+		"latitude": "43.55948",
+		"longitude": "1.47236"
+	}, {
+		"name": "Carton",
+		"description": "Point de tri",
+		"latitude": "43.55942",
+		"longitude": "1.47220"
+	}, {
+		"name": "Carton",
+		"description": "Point de tri",
+		"latitude": "43.5622",
+		"longitude": "1.46751"
+	}, {
+		"name": "Carton",
+		"description": "Point de tri",
+		"latitude": "43.56231",
+		"longitude": "1.4677"
+	}, {
+		"name": "Carton",
+		"description": "Point de tri",
+		"latitude": "43.56206",
+		"longitude": "1.46795"
+	}, {
+		"name": "Carton",
+		"description": "Point de tri",
+		"latitude": "43.56197",
+		"longitude": "1.46772"
+	}, {
+		"name": "Carton",
+		"description": "Point de tri",
+		"latitude": "43.56449",
+		"longitude": "1.4656"
+	}, {
+		"name": "Carton",
+		"description": "Point de tri",
+		"latitude": "43.56455",
+		"longitude": "1.46576"
+	}, {
+		"name": "Carton",
+		"description": "Point de tri",
+		"latitude": "43.56406",
+		"longitude": "1.46625"
+	}, {
+		"name": "Carton",
+		"description": "Point de tri",
+		"latitude": "43.56398",
+		"longitude": "1.46609"
+	}, {
+		"name": "Carton",
+		"description": "Point de tri",
+		"latitude": "43.56577",
+		"longitude": "1.46736"
+	}, {
+		"name": "Carton",
+		"description": "Point de tri",
+		"latitude": "43.56593",
+		"longitude": "1.46769"
+	}, {
+		"name": "Carton",
+		"description": "Point de tri",
+		"latitude": "43.56577",
+		"longitude": "1.46785"
+	}, {
+		"name": "Carton",
+		"description": "Point de tri",
+		"latitude": "43.5656",
+		"longitude": "1.46753"
+	}, {
+		"name": "Carton",
+		"description": "Point de tri",
+		"latitude": "43.56665",
+		"longitude": "1.4695"
+	}, {
+		"name": "Carton",
+		"description": "Point de tri",
+		"latitude": "43.56674",
+		"longitude": "1.46968"
+	}, {
+		"name": "Carton",
+		"description": "Point de tri",
+		"latitude": "43.56657",
+		"longitude": "1.46985"
+	}, {
+		"name": "Carton",
+		"description": "Point de tri",
+		"latitude": "43.5665",
+		"longitude": "1.46965"
+	}, {
+		"name": "Papier",
+		"description": "Point de tri",
+		"latitude": "43.562890",
+		"longitude": "1.466045"
+	}, {
+		"name": "Papier",
+		"description": "Point de tri",
+		"latitude": "43.56758",
+		"longitude": "1.46950"
+	}, {
+		"name": "Papier",
+		"description": "Point de tri",
+		"latitude": "43.56773",
+		"longitude": "1.46989"
+	}, {
+		"name": "Papier",
+		"description": "Point de tri",
+		"latitude": "43.56733",
+		"longitude": "1.47026"
+	}, {
+		"name": "Papier",
+		"description": "Point de tri",
+		"latitude": "43.56716",
+		"longitude": "1.46991"
+	}, {
+		"name": "Papier",
+		"description": "Point de tri",
+		"latitude": "43.56666",
+		"longitude": "1.46950"
+	}, {
+		"name": "Papier",
+		"description": "Point de tri",
+		"latitude": "43.56674",
+		"longitude": "1.46967"
+	}, {
+		"name": "Papier",
+		"description": "Point de tri",
+		"latitude": "43.56667",
+		"longitude": "1.46975"
+	}, {
+		"name": "Papier",
+		"description": "Point de tri",
+		"latitude": "43.56657",
+		"longitude": "1.46958"
+	}, {
+		"name": "Papier",
+		"description": "Point de tri",
+		"latitude": "43.56497",
+		"longitude": "1.46513"
+	}, {
+		"name": "Papier",
+		"description": "Point de tri",
+		"latitude": "43.56504",
+		"longitude": "1.46529"
+	}, {
+		"name": "Papier",
+		"description": "Point de tri",
+		"latitude": "43.56461",
+		"longitude": "1.4657"
+	}, {
+		"name": "Papier",
+		"description": "Point de tri",
+		"latitude": "43.56454",
+		"longitude": "1.46554"
+	}, {
+		"name": "Papier",
+		"description": "Point de tri",
+		"latitude": "43.56542",
+		"longitude": "1.46363"
+	}, {
+		"name": "Papier",
+		"description": "Point de tri",
+		"latitude": "43.56554",
+		"longitude": "1.4639"
+	}, {
+		"name": "Papier",
+		"description": "Point de tri",
+		"latitude": "43.5652",
+		"longitude": "1.46422"
+	}, {
+		"name": "Papier",
+		"description": "Point de tri",
+		"latitude": "43.56508",
+		"longitude": "1.46391"
+	}, {
+		"name": "Papier",
+		"description": "Point de tri",
+		"latitude": "43.56372",
+		"longitude": "1.46478"
+	}, {
+		"name": "Papier",
+		"description": "Point de tri",
+		"latitude": "43.56393",
+		"longitude": "1.46529"
+	}, {
+		"name": "Papier",
+		"description": "Point de tri",
+		"latitude": "43.56426",
+		"longitude": "1.46496"
+	}, {
+		"name": "Papier",
+		"description": "Point de tri",
+		"latitude": "43.56403",
+		"longitude": "1.46448"
+	}, {
+		"name": "Papier",
+		"description": "Point de tri",
+		"latitude": "43.56349",
+		"longitude": "1.46428"
+	}, {
+		"name": "Papier",
+		"description": "Point de tri",
+		"latitude": "43.56362",
+		"longitude": "1.4646"
+	}, {
+		"name": "Papier",
+		"description": "Point de tri",
+		"latitude": "43.56323",
+		"longitude": "1.46499"
+	}, {
+		"name": "Papier",
+		"description": "Point de tri",
+		"latitude": "43.56311",
+		"longitude": "1.46473"
+	}, {
+		"name": "Papier",
+		"description": "Point de tri",
+		"latitude": "43.5632",
+		"longitude": "1.465620"
+	}, {
+		"name": "Papier",
+		"description": "Point de tri",
+		"latitude": "43.56335",
+		"longitude": "1.4659"
+	}, {
+		"name": "Papier",
+		"description": "Point de tri",
+		"latitude": "43.56263",
+		"longitude": "1.46661"
+	}, {
+		"name": "Papier",
+		"description": "Point de tri",
+		"latitude": "43.56249",
+		"longitude": "1.46632"
+	}, {
+		"name": "Papier",
+		"description": "Point de tri",
+		"latitude": "43.56377",
+		"longitude": "1.46168"
+	}, {
+		"name": "Papier",
+		"description": "Point de tri",
+		"latitude": "43.56384",
+		"longitude": "1.46181"
+	}, {
+		"name": "Papier",
+		"description": "Point de tri",
+		"latitude": "43.56375",
+		"longitude": "1.46195"
+	}, {
+		"name": "Papier",
+		"description": "Point de tri",
+		"latitude": "43.56367",
+		"longitude": "1.4618"
+	}, {
+		"name": "Papier",
+		"description": "Point de tri",
+		"latitude": "43.56123",
+		"longitude": "1.46364"
+	}, {
+		"name": "Papier",
+		"description": "Point de tri",
+		"latitude": "43.56137",
+		"longitude": "1.46392"
+	}, {
+		"name": "Papier",
+		"description": "Point de tri",
+		"latitude": "43.56086",
+		"longitude": "1.46442"
+	}, {
+		"name": "Papier",
+		"description": "Point de tri",
+		"latitude": "43.56072",
+		"longitude": "1.46414"
+	}, {
+		"name": "Papier",
+		"description": "Point de tri",
+		"latitude": "43.56151",
+		"longitude": "1.46595"
+	}, {
+		"name": "Papier",
+		"description": "Point de tri",
+		"latitude": "43.56161",
+		"longitude": "1.46623"
+	}, {
+		"name": "Papier",
+		"description": "Point de tri",
+		"latitude": "43.56186",
+		"longitude": "1.46599"
+	}, {
+		"name": "Papier",
+		"description": "Point de tri",
+		"latitude": "43.56175",
+		"longitude": "1.46571"
+	}, {
+		"name": "Papier",
+		"description": "Point de tri",
+		"latitude": "43.56146",
+		"longitude": "1.46600"
+	}, {
+		"name": "Papier",
+		"description": "Point de tri",
+		"latitude": "43.56154",
+		"longitude": "1.46615"
+	}, {
+		"name": "Papier",
+		"description": "Point de tri",
+		"latitude": "43.56112",
+		"longitude": "1.46656"
+	}, {
+		"name": "Papier",
+		"description": "Point de tri",
+		"latitude": "43.56104",
+		"longitude": "1.46641"
+	}, {
+		"name": "Papier",
+		"description": "Point de tri",
+		"latitude": "43.56202",
+		"longitude": "1.46603"
+	}, {
+		"name": "Papier",
+		"description": "Point de tri",
+		"latitude": "43.5621",
+		"longitude": "1.46618"
+	}, {
+		"name": "Papier",
+		"description": "Point de tri",
+		"latitude": "43.5615",
+		"longitude": "1.46678"
+	}, {
+		"name": "Papier",
+		"description": "Point de tri",
+		"latitude": "43.56142",
+		"longitude": "1.46663"
+	}, {
+		"name": "Papier",
+		"description": "Point de tri",
+		"latitude": "43.56146",
+		"longitude": "1.46709"
+	}, {
+		"name": "Papier",
+		"description": "Point de tri",
+		"latitude": "43.56156",
+		"longitude": "1.4673"
+	}, {
+		"name": "Papier",
+		"description": "Point de tri",
+		"latitude": "43.5614",
+		"longitude": "1.46745"
+	}, {
+		"name": "Papier",
+		"description": "Point de tri",
+		"latitude": "43.5613",
+		"longitude": "1.46725"
+	}, {
+		"name": "Papier",
+		"description": "Point de tri",
+		"latitude": "43.56245",
+		"longitude": "1.4669"
+	}, {
+		"name": "Papier",
+		"description": "Point de tri",
+		"latitude": "43.56253",
+		"longitude": "1.46706"
+	}, {
+		"name": "Papier",
+		"description": "Point de tri",
+		"latitude": "43.5623",
+		"longitude": "1.46728"
+	}, {
+		"name": "Papier",
+		"description": "Point de tri",
+		"latitude": "43.56222",
+		"longitude": "1.46713"
+	}, {
+		"name": "Papier",
+		"description": "Point de tri",
+		"latitude": "43.5618",
+		"longitude": "1.4677"
+	}, {
+		"name": "Papier",
+		"description": "Point de tri",
+		"latitude": "43.56197",
+		"longitude": "1.46805"
+	}, {
+		"name": "Papier",
+		"description": "Point de tri",
+		"latitude": "43.56174",
+		"longitude": "1.46827"
+	}, {
+		"name": "Papier",
+		"description": "Point de tri",
+		"latitude": "43.56157",
+		"longitude": "1.46793 "
+	}, {
+		"name": "Papier",
+		"description": "Point de tri",
+		"latitude": "43.56263",
+		"longitude": "1.46908"
+	}, {
+		"name": "Papier",
+		"description": "Point de tri",
+		"latitude": "43.56277",
+		"longitude": "1.46939"
+	}, {
+		"name": "Papier",
+		"description": "Point de tri",
+		"latitude": "43.5625",
+		"longitude": "1.46965"
+	}, {
+		"name": "Papier",
+		"description": "Point de tri",
+		"latitude": "43.56236",
+		"longitude": "1.46932"
+	}, {
+		"name": "Papier",
+		"description": "Point de tri",
+		"latitude": "43.56189",
+		"longitude": "1.46903"
+	}, {
+		"name": "Papier",
+		"description": "Point de tri",
+		"latitude": "43.56201",
+		"longitude": "1.4693"
+	}, {
+		"name": "Papier",
+		"description": "Point de tri",
+		"latitude": "43.56185",
+		"longitude": "1.46944"
+	}, {
+		"name": "Papier",
+		"description": "Point de tri",
+		"latitude": "43.56173",
+		"longitude": "1.46916"
+	}, {
+		"name": "Papier",
+		"description": "Point de tri",
+		"latitude": "43.56134",
+		"longitude": "1.46839"
+	}, {
+		"name": "Papier",
+		"description": "Point de tri",
+		"latitude": "43.56141",
+		"longitude": "1.46855"
+	}, {
+		"name": "Papier",
+		"description": "Point de tri",
+		"latitude": "43.56101",
+		"longitude": "1.46896"
+	}, {
+		"name": "Papier",
+		"description": "Point de tri",
+		"latitude": "43.56093",
+		"longitude": "1.46881"
+	}, {
+		"name": "Papier",
+		"description": "Point de tri",
+		"latitude": "43.56141",
+		"longitude": "1.46894"
+	}, {
+		"name": "Papier",
+		"description": "Point de tri",
+		"latitude": "43.56169",
+		"longitude": "1.46951"
+	}, {
+		"name": "Papier",
+		"description": "Point de tri",
+		"latitude": "43.56105",
+		"longitude": "1.47007"
+	}, {
+		"name": "Papier",
+		"description": "Point de tri",
+		"latitude": "43.56079",
+		"longitude": "1.46955"
+	}, {
+		"name": "Papier",
+		"description": "Point de tri",
+		"latitude": "43.56153",
+		"longitude": "1.47001"
+	}, {
+		"name": "Papier",
+		"description": "Point de tri",
+		"latitude": "43.56088",
+		"longitude": "1.47064"
+	}, {
+		"name": "Papier",
+		"description": "Point de tri",
+		"latitude": "43.56107",
+		"longitude": "1.47108"
+	}, {
+		"name": "Papier",
+		"description": "Point de tri",
+		"latitude": "43.56173",
+		"longitude": "1.47041"
+	}, {
+		"name": "Papier",
+		"description": "Point de tri",
+		"latitude": "43.55933",
+		"longitude": "1.47231"
+	}, {
+		"name": "Papier",
+		"description": "Point de tri",
+		"latitude": "43.55939",
+		"longitude": "1.47246"
+	}, {
+		"name": "Papier",
+		"description": "Point de tri",
+		"latitude": "43.55886",
+		"longitude": "1.47299"
+	}, {
+		"name": "Papier",
+		"description": "Point de tri",
+		"latitude": "43.55879",
+		"longitude": "1.47284"
+	}, {
+		"name": "Papier",
+		"description": "Point de tri",
+		"latitude": "43.56076",
+		"longitude": "1.46724"
+	}, {
+		"name": "Papier",
+		"description": "Point de tri",
+		"latitude": "43.56084",
+		"longitude": "1.46739"
+	}, {
+		"name": "Papier",
+		"description": "Point de tri",
+		"latitude": "43.55942",
+		"longitude": "1.46883"
+	}, {
+		"name": "Papier",
+		"description": "Point de tri",
+		"latitude": "43.55934",
+		"longitude": "1.46868"
+	}, {
+		"name": "Papier",
+		"description": "Point de tri",
+		"latitude": "43.56025",
+		"longitude": "1.46732"
+	}, {
+		"name": "Papier",
+		"description": "Point de tri",
+		"latitude": "43.56032",
+		"longitude": "1.46748"
+	}, {
+		"name": "Papier",
+		"description": "Point de tri",
+		"latitude": "43.55976",
+		"longitude": "1.46805"
+	}, {
+		"name": "Papier",
+		"description": "Point de tri",
+		"latitude": "43.55968",
+		"longitude": "1.46787"
+	}, {
+		"name": "Papier",
+		"description": "Point de tri",
+		"latitude": "43.55844",
+		"longitude": "1.46891"
+	}, {
+		"name": "Papier",
+		"description": "Point de tri",
+		"latitude": "43.55852",
+		"longitude": "1.46906"
+	}, {
+		"name": "Papier",
+		"description": "Point de tri",
+		"latitude": "43.55798",
+		"longitude": "1.4696"
+	}, {
+		"name": "Papier",
+		"description": "Point de tri",
+		"latitude": "43.5579",
+		"longitude": "1.46945"
+	}, {
+		"name": "Pile",
+		"description": "Point de tri",
+		"latitude": "43.56362",
+		"longitude": "1.46487"
+	}, {
+		"name": "Pile",
+		"description": "Point de tri",
+		"latitude": "43.56381",
+		"longitude": "1.46537"
+	}, {
+		"name": "Pile",
+		"description": "Point de tri",
+		"latitude": "43.56354",
+		"longitude": "1.4657"
+	}, {
+		"name": "Pile",
+		"description": "Point de tri",
+		"latitude": "43.5633",
+		"longitude": "1.46522"
+	}, {
+		"name": "Pile",
+		"description": "Point de tri",
+		"latitude": "43.56456",
+		"longitude": "1.46589"
+	}, {
+		"name": "Pile",
+		"description": "Point de tri",
+		"latitude": "43.56472",
+		"longitude": "1.46617"
+	}, {
+		"name": "Pile",
+		"description": "Point de tri",
+		"latitude": "43.56458",
+		"longitude": "1.46629"
+	}, {
+		"name": "Pile",
+		"description": "Point de tri",
+		"latitude": "43.56446",
+		"longitude": "1.46602"
+	}, {
+		"name": "Textile",
+		"description": "Point de tri",
+		"latitude": "43.55505",
+		"longitude": "1.46811"
+	}, {
+		"name": "Textile",
+		"description": "Point de tri",
+		"latitude": "43.56305",
+		"longitude": "1.45935"
+	}, {
+		"name": "Verre",
+		"description": "Point de tri",
+		"latitude": "43.55891",
+		"longitude": "1.47303"
+	}, {
+		"name": "Verre",
+		"description": "Point de tri",
+		"latitude": "43.55999",
+		"longitude": "1.47194"
+	}, {
+		"name": "Verre",
+		"description": "Point de tri",
+		"latitude": "43.55995",
+		"longitude": "1.47195"
+	}, {
+		"name": "Verre",
+		"description": "Point de tri",
+		"latitude": "43.56439",
+		"longitude": "1.47053"
+	}, {
+		"name": "Verre",
+		"description": "Point de tri",
+		"latitude": "43.56355",
+		"longitude": "1.47579"
+	}, {
+		"name": "Verre",
+		"description": "Point de tri",
+		"latitude": "43.55509",
+		"longitude": "1.46816"
+	}, {
+		"name": "Verre",
+		"description": "Point de tri",
+		"latitude": "43.56295",
+		"longitude": "1.46311"
+	}, {
+		"name": "Verre",
+		"description": "Point de tri",
+		"latitude": "43.56305",
+		"longitude": "1.45939"
+	}, {
+		"name": "Verre",
+		"description": "Point de tri",
+		"latitude": "43.56068",
+		"longitude": "1.45738"
+	}, {
+		"name": "Verre",
+		"description": "Point de tri",
+		"latitude": "43.56376",
+		"longitude": "1.45531"
+	}, {
+		"name": "Verre",
+		"description": "Point de tri",
+		"latitude": "43.56850",
+		"longitude": "1.46620"
+	}, {
+		"name": "Verre",
+		"description": "Point de tri",
+		"latitude": "43.56735",
+		"longitude": "1.46726"
+	}, {
+		"name": "Verre",
+		"description": "Point de tri",
+		"latitude": "43.57124",
+		"longitude": "1.46269"
+	}, {
+		"name": "Verre",
+		"description": "Point de tri",
+		"latitude": "43.56731",
+		"longitude": "1.46477"
+	}
+]
