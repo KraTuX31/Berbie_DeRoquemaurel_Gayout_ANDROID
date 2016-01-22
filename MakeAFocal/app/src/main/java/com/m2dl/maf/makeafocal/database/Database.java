@@ -49,11 +49,11 @@ public class Database extends SQLiteOpenHelper {
         // Creates table
         db.execSQL(
                 "create table photos " +
-                "(id integer primary key, path text, longitude float, latitude float, user id)"
+                "(id integer primary key autoincrement not null, path text, longitude float, latitude float, user id)"
        );
         db.execSQL("create table tags (id integer, tagName text, x float, y float, size float)");
-        db.execSQL("create table photos_tags (idTag integer, idPhoto integer)");
-        db.execSQL("create table user (id integer, userName text)");
+        db.execSQL("create table photos_tags (idTag integer primary key autoincrement not null, idPhoto integer)");
+        db.execSQL("create table user (id integer primary key autoincrement not null, userName text)");
 
         // Alters table
      /*   db.execSQL("alter table photos_tags add constraint pkidtagphoto primary key (idTag, idPhoto)");
@@ -151,12 +151,12 @@ public class Database extends SQLiteOpenHelper {
         while(!res.isAfterLast()){
             String path = res.getString(res.getColumnIndex("path"));
             User u = new User(context, res.getInt(res.getColumnIndex("user")));
-            Photo p = new Photo(context, path, new Pair<>(0d,0d), u);
+            Photo p = new Photo(path, new Pair<>(0d,0d), u);
             p.setId(res.getInt(res.getColumnIndex("id")));
             Cursor res2 =  db.rawQuery( "select * from tags where id_photo="+p.getId(), null );
             res2.moveToFirst();
             while(!res2.isAfterLast()) {
-                Tag t = (new Tag(context, res.getString(res.getColumnIndex("tagName")),
+                Tag t = (new Tag(res.getString(res.getColumnIndex("tagName")),
                         new Zone(new Pair<>(0,0), 0)));
                 t.setId(res.getInt(res.getColumnIndex("id")));
                 p.addTag(t);
@@ -167,5 +167,13 @@ public class Database extends SQLiteOpenHelper {
             res.moveToNext();
         }
         return ret;
+    }
+
+    public User getUser(long id) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cur = db.rawQuery( "select * from user " +
+                "where id="+id, null);
+        cur.moveToFirst();
+        return new User(cur.getString(cur.getColumnIndex("userName")));
     }
 }

@@ -8,11 +8,9 @@ import com.m2dl.maf.makeafocal.database.Database;
  * Created by aroquemaurel on 21/01/16.
  */
 public abstract class Model {
-    protected Database db;
     protected long id;
 
-    public Model(Context c) {
-        db = Database.instance(c);
+    public Model() {
     }
 
     public Model(Context c, final int id) {
@@ -25,6 +23,10 @@ public abstract class Model {
     public void setId(long id) {
         this.id = id;
     }
-    public abstract void create();
-    public abstract void delete();
+    public abstract void create(Context c);
+    public abstract void delete(Context c);
+
+    public Database getDb(Context c) {
+        return Database.instance(c);
+    }
 }

@@ -24,8 +24,8 @@ public class Photo extends Model {
      * Create an empty photo
      * TODO : search usefull constructors
      */
-    public Photo(Context c, String path, Pair<Double, Double> location, User u) {
-        super(c);
+    public Photo(String path, Pair<Double, Double> location, User u) {
+        super();
         this.tags = new HashSet<>();
         this.path = path;
         this.location = location;
@@ -34,7 +34,7 @@ public class Photo extends Model {
 
     public Photo(Context c, final int id) {
         super(c, id);
-        Cursor cur = db.getPhoto(id);
+        Cursor cur = getDb(c).getPhoto(id);
         user = new User(c, cur.getInt(cur.getColumnIndex("u")));
         path = cur.getString(cur.getColumnIndex("path"));
         location =
@@ -51,15 +51,15 @@ public class Photo extends Model {
     }
 
     @Override
-    public void create() {
+    public void create(Context c) {
         for(Tag t : tags) {
-            t.create();
+            t.create(c);
         }
-        db.insertPhoto(this);
+        getDb(c).insertPhoto(this);
     }
 
     @Override
-    public void delete() {
+    public void delete(Context c) {
         // TODO
     }
 

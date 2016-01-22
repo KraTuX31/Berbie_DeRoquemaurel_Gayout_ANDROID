@@ -14,10 +14,10 @@ public class Tag extends Model {
     /**
      * Create a tag
      * @param tagName The name of the tag
-     * @param position The position of the tag in the picture
+     * @param zone The position of the tag in the picture
      */
-    public Tag(Context c, String tagName, Zone zone) {
-        super(c);
+    public Tag(String tagName, Zone zone) {
+        super();
         this.tagName = tagName;
         this.zone = zone;
     }
@@ -48,20 +48,21 @@ public class Tag extends Model {
         return "#" + tagName;
     }
 
-    public void create() {
-        Cursor c = (Cursor) db.getTag(tagName);
+    @Override
+    public void create(Context c) {
+        Cursor cur = (Cursor) getDb(c).getTag(tagName);
 
-        if(c == null) {
-            db.insertTag(this);
+        if(cur == null) {
+            getDb(c).insertTag(this);
         } else {
-            c.moveToFirst();
+            cur.moveToFirst();
 
-            id = c.getInt(c.getColumnIndex("id"));
+            id = cur.getInt(cur.getColumnIndex("id"));
         }
     }
 
     @Override
-    public void delete() {
+    public void delete(Context c) {
 	}
 
 }

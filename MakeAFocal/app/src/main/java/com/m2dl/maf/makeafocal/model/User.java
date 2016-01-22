@@ -12,8 +12,8 @@ public class User extends Model {
      * Create a user
      * @param username The name of the user
      */
-    public User(Context c, String username) {
-        super(c);
+    public User(String username) {
+        super();
         this.userName = username;
     }
 
@@ -30,12 +30,12 @@ public class User extends Model {
     }
 
     @Override
-    public void create() {
-        db.createUser(this);
+    public void create(Context c) {
+        getDb(c).createUser(this);
     }
 
     @Override
-    public void delete() {
+    public void delete(Context c) {
 
     }
 }
