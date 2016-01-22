@@ -27,6 +27,7 @@ import com.m2dl.maf.makeafocal.database.Database;
 import com.m2dl.maf.makeafocal.model.Photo;
 import com.m2dl.maf.makeafocal.model.Session;
 import com.m2dl.maf.makeafocal.model.User;
+import com.m2dl.maf.makeafocal.util.JsonMarkerParser;
 
 public class MainActivity
         extends AppCompatActivity
@@ -68,6 +69,7 @@ public class MainActivity
         mapFragment.getMapAsync(this);
         Session.instance().setCurrentUser(new User("userName"));
 
+        new JsonMarkerParser(getResources());
     }
 
 
