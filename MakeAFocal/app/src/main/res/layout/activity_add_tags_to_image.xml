@@ -6,8 +6,9 @@
     android:orientation="vertical">
 
     <TextView
-        android:layout_width="match_parent"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:padding="5dp"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="@string/add_your_tags" />
 
@@ -20,33 +21,22 @@
         android:layout_weight="1"/>
 
     <TextView
-        android:layout_width="match_parent"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text=""
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="@string/tags"
+        android:padding="5dp"
         android:textColor="@color/wallet_hint_foreground_holo_dark"
-        android:id="@+id/tv_tags_added" />
+        android:id="@+id/tv_tags_added"/>
 
-    <!--<LinearLayout-->
-        <!--android:layout_width="fill_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:orientation="vertical">-->
-
-        <!--<include-->
-            <!--layout="@layout/tags_list"-->
-            <!--android:id="@+id/layout_list"-->
-            <!--android:layout_height="0dp"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_weight="1"-->
-            <!--android:layout_gravity="right"/>-->
-
-        <!--<include-->
-            <!--layout="@layout/add_new_tag_to_image"-->
-            <!--android:layout_gravity="@id/layout_list"-->
-            <!--android:layout_height="0dp"-->
-            <!--android:layout_width="fill_parent"-->
-            <!--android:layout_weight="1"/>-->
-
-    <!--</LinearLayout>-->
+    <Button
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        android:text="@string/valid"
+        android:textColor="@color/common_google_signin_btn_text_dark_pressed"
+        android:id="@+id/btn_accept_tags"
+        android:onClick="onAcceptButtonClick"
+        android:layout_gravity="center_horizontal" />
 
 </LinearLayout>

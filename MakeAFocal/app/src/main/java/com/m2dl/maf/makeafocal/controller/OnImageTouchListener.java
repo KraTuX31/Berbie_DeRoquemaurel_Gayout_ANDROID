@@ -21,16 +21,13 @@ import com.m2dl.maf.makeafocal.model.Zone;
  */
 public class OnImageTouchListener implements View.OnTouchListener, View.OnLongClickListener {
 
-    private Photo photo;
     private Tag tag;
     private TakePhotoActivity context;
     private boolean isLongClick;
     private int x;
     private int y;
 
-    public OnImageTouchListener(TakePhotoActivity activity, final Photo photo, final Tag tmpTag) {
-        this.photo = photo;
-        this.tag = tmpTag;
+    public OnImageTouchListener(TakePhotoActivity activity) {
         context = activity;
         isLongClick = false;
     }
@@ -54,13 +51,10 @@ public class OnImageTouchListener implements View.OnTouchListener, View.OnLongCl
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder.setTitle("Title");
 
-// Set up the input
         final AutoCompleteTextView input = new AutoCompleteTextView(context);
-// Specify the type of input expected; this, for example, sets the input as a password, and will mask the text
         input.setInputType(InputType.TYPE_CLASS_TEXT);
         builder.setView(input);
 
-// Set up the buttons
         builder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
@@ -68,12 +62,13 @@ public class OnImageTouchListener implements View.OnTouchListener, View.OnLongCl
                 if (!txt.isEmpty()) {
                     for (String t: txt.split(" ")) {
                         tag.setTagName(t);
-                        photo.addTag(tag);
-                        context.getTextViewTags().append(tag.toString() + ",");
+                        context.getPhoto().addTag(tag);
+                        context.getTextViewTags().append(tag.toString() + ", ");
                     }
                     String tvText = context.getTextViewTags().getText().toString();
-                    if (txt.endsWith(",")) {
-                        context.getTextViewTags().setText(tvText.substring(0, tvText.length()-2));
+                    if (txt.endsWith(", ")) {
+                        context.getTextViewTags().setText(
+                                tvText.substring(0, tvText.lastIndexOf(",")));
                     }
 //                    context.getTagsAdapter().notifyDataSetChanged();
                 }
@@ -92,7 +87,7 @@ public class OnImageTouchListener implements View.OnTouchListener, View.OnLongCl
 
     @Override
     public boolean onLongClick(View v) {
-        if (photo.getImage() == null) {
+        if (context.getPhoto().getImage() == null) {
             return false;
         }
         Vibrator vibrator = (Vibrator) this.context.getSystemService(Context.VIBRATOR_SERVICE);
