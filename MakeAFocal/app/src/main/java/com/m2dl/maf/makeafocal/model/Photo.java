@@ -20,16 +20,50 @@ public class Photo {
      * TODO : search usefull constructors
      */
     public Photo() {
-        this.tags = new HashSet<>();
+        tags = new HashSet<>();
+        image = null;
     }
 
-    public void addTag(Tag tag) {
-        this.tags.add(tag);
+    public Photo (final Bitmap bitmap) {
+        image = bitmap;
+        tags = new HashSet<>();
+    }
+
+    public void addTag(Tag...tags) {
+        for (Tag t : tags) {
+            this.tags.add(t);
+        }
     }
 
     public Set<Tag> getTags() {
         return this.tags;
     }
 
+    public Bitmap getImage() {
+        return image;
+    }
 
+    public void setImage(Bitmap image) {
+        this.image = image;
+    }
+
+    public Location getLocation() {
+        return location;
+    }
+
+    public void setLocation(Location location) {
+        this.location = location;
+    }
+
+    public void setTags(Set<Tag> tags) {
+        this.tags = tags;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 }

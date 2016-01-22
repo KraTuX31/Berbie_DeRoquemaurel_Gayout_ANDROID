@@ -6,7 +6,9 @@ import android.util.Pair;
  * Created by aroquemaurel on 21/01/16.
  */
 public class Zone {
-    private Pair<Integer, Integer> position;
+
+    private int x;
+    private int y;
     private int size;
 
     /**
@@ -14,8 +16,9 @@ public class Zone {
      * @param pos The position of the zone (x, y)
      * @param size The diameter size in pixels
      */
-    public Zone(Pair<Integer, Integer> pos, final int size) {
-        position = pos;
+    public Zone(final int i, final int j, final int size) {
+        x = i;
+        y = j;
         this.size = size;
     }
 
@@ -27,11 +30,15 @@ public class Zone {
         this.size = size;
     }
 
-    public Pair<Integer, Integer> getPosition() {
-        return position;
+    public int getX() {
+        return x;
     }
 
-    public void setPosition(Pair<Integer, Integer> position) {
-        this.position = position;
+    public void setX(int x) {
+        this.x = x;
+    }
+
+    public int getY() {
+        return y;
     }
 }

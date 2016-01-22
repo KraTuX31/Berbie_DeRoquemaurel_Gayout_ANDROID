@@ -22,5 +22,6 @@
     <string name="add">Add</string>
     <string name="new_tag">new tag</string>
     <string name="gps_disabled">GPS disabled</string>
+    <string name="add_your_tags">Add your tags</string>
 
 </resources>

@@ -9,12 +9,13 @@ public class Tag {
     private String tagName;
     private Zone zone;
 
-    /**
-     * Create a tag
-     * @param tagName The name of the tag
-     * @param position The position of the tag in the picture
-     */
-    public Tag(String tagName, Zone zone) {
+    public Tag(Zone zone) {
+        this.zone = zone;
+        tagName = "";
+    }
+
+
+    public Tag(final String tagName, final Zone zone) {
         this.tagName = tagName;
         this.zone = zone;
     }
