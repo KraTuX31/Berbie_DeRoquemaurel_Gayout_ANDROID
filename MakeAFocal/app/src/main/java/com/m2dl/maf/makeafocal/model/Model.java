@@ -25,6 +25,7 @@ public abstract class Model {
     }
     public abstract void create(Context c);
     public abstract void delete(Context c);
+    public abstract void update(Context c);
 
     public Database getDb(Context c) {
         return Database.instance(c);

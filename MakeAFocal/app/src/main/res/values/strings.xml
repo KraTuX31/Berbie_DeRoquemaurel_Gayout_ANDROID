@@ -25,5 +25,8 @@
     <string name="add_your_tags">Add your tags</string>
     <string name="tags">Tags: </string>
     <string name="valid">Accept</string>
-
+    <string name="choose_new_pseudo">Choisir un nouveau pseudal</string>
+    <string name="hint_new_pseudo">Pseudal</string>
+    <string name="valider">Valider</string>
+    <string name="userName">Username</string>
 </resources>

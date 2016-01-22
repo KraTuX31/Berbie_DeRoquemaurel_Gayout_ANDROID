@@ -26,6 +26,7 @@
             android:name=".TakePhotoActivity"
             android:label="@string/title_activity_maps" >
         </activity>
+        <activity android:name=".ModificationPseudoActivity"/>
     </application>
     <uses-feature android:name="android.hardware.camera"/>
 

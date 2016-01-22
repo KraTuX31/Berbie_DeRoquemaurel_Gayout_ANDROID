@@ -43,4 +43,13 @@ public class User extends Model {
     public void delete(Context c) {
 
     }
+
+    @Override
+    public void update(Context c) {
+        throw new RuntimeException("Not implemeted");
+    }
+
+    public boolean pseudoExists(Context c) {
+        return getDb(c).pseudoExists(this.userName);
+    }
 }

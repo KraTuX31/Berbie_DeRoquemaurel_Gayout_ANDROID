@@ -25,6 +25,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.m2dl.maf.makeafocal.controller.GPSLocationListener;
 import com.m2dl.maf.makeafocal.database.Database;
 import com.m2dl.maf.makeafocal.model.Photo;
+import com.m2dl.maf.makeafocal.model.Session;
 import com.m2dl.maf.makeafocal.model.User;
 
 public class MainActivity
@@ -65,6 +66,8 @@ public class MainActivity
                 (SupportMapFragment) getSupportFragmentManager()
                         .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+        Session.instance().setCurrentUser(new User("userName"));
+
     }
 
 
@@ -112,6 +115,8 @@ public class MainActivity
 
         if (id == R.id.nav_user) {
             // Handle the camera action
+            Intent intent = new Intent(this,ModificationPseudoActivity.class);
+            startActivity(intent);
         } else if (id == R.id.nav_filter) {
 
         } else if (id == R.id.nav_add_location) {

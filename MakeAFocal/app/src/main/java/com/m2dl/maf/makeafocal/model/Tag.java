@@ -70,4 +70,9 @@ public class Tag extends Model {
     public void delete(Context c) {
 	}
 
+    @Override
+    public void update(Context c) {
+
+    }
+
 }

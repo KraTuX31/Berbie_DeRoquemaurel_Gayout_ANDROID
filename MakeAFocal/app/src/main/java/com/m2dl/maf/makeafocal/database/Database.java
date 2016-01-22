@@ -181,4 +181,11 @@ public class Database extends SQLiteOpenHelper {
         cur.moveToFirst();
         return new User(cur.getString(cur.getColumnIndex("userName")));
     }
+
+
+    public boolean pseudoExists(String userName) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor c = db.rawQuery( "select * from User where userName='"+userName+"'", null );
+        return (c.getCount() != 0);
+    }
 }

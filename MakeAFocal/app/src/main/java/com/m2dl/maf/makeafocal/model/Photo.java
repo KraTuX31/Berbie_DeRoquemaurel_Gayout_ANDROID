@@ -1,10 +1,7 @@
 package com.m2dl.maf.makeafocal.model;
 
 import android.content.Context;
-import android.database.Cursor;
 import android.graphics.Bitmap;
-import android.location.Location;
-import android.net.Uri;
 import android.util.Pair;
 
 import java.util.HashSet;
@@ -85,6 +82,10 @@ public class Photo extends Model {
         // TODO
     }
 
+    @Override
+    public void update(Context c) {
+
+    }
     public String getPath() {
         return path;
     }
