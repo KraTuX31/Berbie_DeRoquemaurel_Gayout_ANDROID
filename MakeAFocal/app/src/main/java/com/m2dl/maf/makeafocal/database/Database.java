@@ -48,12 +48,12 @@ public class Database extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         // Creates table
         db.execSQL(
-                "create table photos " +
-                "(id integer primary key, path text, longitude float, latitude float, user id)"
+                "create table photo " +
+                "(id integer primary key autoincrement not null, path text, longitude float, latitude float, user integer)"
        );
-        db.execSQL("create table tags (id integer, tagName text, x float, y float, size float)");
-        db.execSQL("create table photos_tags (idTag integer, idPhoto integer)");
-        db.execSQL("create table user (id integer, userName text)");
+        db.execSQL("create table tag (id integer, tagName text, x float, y float, size float)");
+        db.execSQL("create table photo_tag (idTag integer primary key autoincrement not null, idPhoto integer)");
+        db.execSQL("create table user (id integer primary key autoincrement not null, userName text)");
 
         // Alters table
      /*   db.execSQL("alter table photos_tags add constraint pkidtagphoto primary key (idTag, idPhoto)");
@@ -75,7 +75,7 @@ public class Database extends SQLiteOpenHelper {
         contentValues.put("latitude", p.getLocation().second);
         contentValues.put("user", p.getUser().getId());
 
-        p.setId(db.insert("photos", null, contentValues));
+        p.setId(db.insert("photo", null, contentValues));
 
         insertTagsReferences(p, p.getTags());
 
@@ -89,14 +89,14 @@ public class Database extends SQLiteOpenHelper {
             ContentValues contentValues = new ContentValues();
             contentValues.put("idTag", t.getId());
             contentValues.put("idPhoto", p.getId());
-            db.insert("photos_tags", null, contentValues);
+            db.insert("photo_tag", null, contentValues);
         }
     }
 
     public int numberOfPhoto(){
         SQLiteDatabase db = this.getReadableDatabase();
 
-        return (int) DatabaseUtils.queryNumEntries(db, "photos");
+        return (int) DatabaseUtils.queryNumEntries(db, "photo");
     }
 
     public boolean updateContact (Integer id, String name, String phone, String email, String street,String place)
@@ -128,10 +128,15 @@ public class Database extends SQLiteOpenHelper {
         return db.rawQuery( "select * from tags where tagName='"+tagName+"'", null );
     }
 
-    public Cursor getPhoto(final int id) {
+    public Photo getPhoto(final long id) {
         SQLiteDatabase db = this.getReadableDatabase();
-        return db.rawQuery( "select path, longitude, latitude, user.id as u from photo,user " +
-                "where user=user.id and id='"+id+"'", null);
+        Cursor cur = db.rawQuery( "select * from photo " +
+                "where id='"+id+"'", null);
+        cur.moveToFirst();
+        return new Photo(cur.getString(cur.getColumnIndex("path")),
+                        new Pair<>(cur.getDouble(cur.getColumnIndex("latitude")), cur.getDouble(cur.getColumnIndex("longitude"))
+                                ),
+                        new User(context, cur.getInt(cur.getColumnIndex("user"))));
     }
 
     public void createUser(User u) {
@@ -145,7 +150,7 @@ public class Database extends SQLiteOpenHelper {
         List<Photo> ret = new ArrayList<>();
         SQLiteDatabase db = this.getReadableDatabase();
 
-        Cursor res =  db.rawQuery( "select * from photos", null );
+        Cursor res =  db.rawQuery( "select * from photo", null );
         res.moveToFirst();
 
         while(!res.isAfterLast()){
@@ -153,10 +158,10 @@ public class Database extends SQLiteOpenHelper {
             User u = new User(context, res.getInt(res.getColumnIndex("user")));
             Photo p = new Photo(path, new Pair<>(0d,0d), u);
             p.setId(res.getInt(res.getColumnIndex("id")));
-            Cursor res2 =  db.rawQuery( "select * from tags where id_photo="+p.getId(), null );
+            Cursor res2 =  db.rawQuery( "select * from tag where id_photo="+p.getId(), null );
             res2.moveToFirst();
             while(!res2.isAfterLast()) {
-                Tag t = new Tag(context, res.getString(res.getColumnIndex("tagName")),
+                Tag t = new Tag(res.getString(res.getColumnIndex("tagName")),
                         new Zone(0, 0, 0));
                 t.setId(res.getInt(res.getColumnIndex("id")));
                 p.addTag(t);
@@ -167,5 +172,13 @@ public class Database extends SQLiteOpenHelper {
             res.moveToNext();
         }
         return ret;
+    }
+
+    public User getUser(long id) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cur = db.rawQuery( "select * from user " +
+                "where id="+id, null);
+        cur.moveToFirst();
+        return new User(cur.getString(cur.getColumnIndex("userName")));
     }
 }

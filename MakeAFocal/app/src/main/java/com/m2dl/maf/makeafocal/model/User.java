@@ -2,6 +2,8 @@ package com.m2dl.maf.makeafocal.model;
 
 import android.content.Context;
 
+import com.m2dl.maf.makeafocal.database.Database;
+
 /**
  * Created by aroquemaurel on 21/01/16.
  */
@@ -12,13 +14,16 @@ public class User extends Model {
      * Create a user
      * @param username The name of the user
      */
-    public User(Context c, String username) {
-        super(c);
+    public User(String username) {
+        super();
         this.userName = username;
     }
 
     public User(Context c, final int id) {
         super(c, id);
+        User u = getDb(c).getUser(id);
+        setUserName(u.getUserName());
+        setId(u.getId());;
     }
 
     public String getUserName() {
@@ -30,12 +35,12 @@ public class User extends Model {
     }
 
     @Override
-    public void create() {
-        db.createUser(this);
+    public void create(Context c) {
+        getDb(c).createUser(this);
     }
 
     @Override
-    public void delete() {
+    public void delete(Context c) {
 
     }
 }
