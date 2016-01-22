@@ -20,6 +20,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.m2dl.maf.makeafocal.controller.GPSLocationListener;
@@ -190,13 +191,15 @@ public class MainActivity
     public void onMapReady(final GoogleMap googleMap) {
         mMap = googleMap;
         for (PointOfInterest p : parser.getMarkers()) {
-//            Log.d("MARKER", p.toString());
+            mMap.addMarker(new MarkerOptions()
+                    .position(new LatLng(p.getLatitude(), p.getLongitude()))
+                    .title(p.getName())
+                    .icon(BitmapDescriptorFactory.defaultMarker(p.getColor())));
         }
         mMap.setMyLocationEnabled(true);
-//        mMap.getUiSettings().setMyLocationButtonEnabled(true);
         mMap.moveCamera(CameraUpdateFactory.newLatLng(
                 new LatLng(43.56053780000001, 1.468691900000067)));
-        mMap.animateCamera(CameraUpdateFactory.zoomTo(17F));
+        mMap.animateCamera(CameraUpdateFactory.zoomTo(15F));
 
 
 

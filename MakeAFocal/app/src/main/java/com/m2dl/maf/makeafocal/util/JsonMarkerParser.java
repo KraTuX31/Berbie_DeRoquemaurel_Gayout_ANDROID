@@ -1,5 +1,6 @@
 package com.m2dl.maf.makeafocal.util;
 
+import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.util.JsonReader;
 import android.util.JsonToken;
@@ -7,6 +8,7 @@ import android.content.res.Resources;
 import android.util.Log;
 
 
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.nearby.messages.Message;
 import com.m2dl.maf.makeafocal.R;
 import com.m2dl.maf.makeafocal.model.PointOfInterest;
@@ -28,6 +30,14 @@ public class JsonMarkerParser extends AsyncTask<Void, Void, Void>{
     private InputStream in;
 
     private List<PointOfInterest> markers;
+
+    private final float COLOR_CARTON = BitmapDescriptorFactory.HUE_ORANGE;
+    private final float COLOR_PAPER = BitmapDescriptorFactory.HUE_CYAN;
+    private final float COLOR_BATTERY = BitmapDescriptorFactory.HUE_VIOLET;
+    private final float COLOR_TEXTILE = BitmapDescriptorFactory.HUE_ROSE;
+    private final float COLOR_GLASS = BitmapDescriptorFactory.HUE_GREEN;
+    private final float COLOR_BUILDING = BitmapDescriptorFactory.HUE_RED;
+
 
     public JsonMarkerParser(Resources resources) {
         this.in = resources.openRawResource(R.raw.markers);
@@ -55,9 +65,9 @@ public class JsonMarkerParser extends AsyncTask<Void, Void, Void>{
 
     public PointOfInterest readMessage(JsonReader reader) throws IOException {
         String title = null;
-        float latitude = 0;
-        float longitude = 0;
-        String color = null;
+        float latitude = 0F;
+        float longitude = 0F;
+        float color = 0F;
 
         reader.beginObject();
         String elt;
@@ -66,15 +76,17 @@ public class JsonMarkerParser extends AsyncTask<Void, Void, Void>{
             if (elt.equals("name")) {
                 title = reader.nextString();
                 if (title.equals("Carton")) {
-                    color = "#DBA901";
+                    color = COLOR_CARTON;
                 } else if (title.equals("Papier")) {
-                    color = "#FAFAFA";
+                    color = COLOR_PAPER;
                 } else if (title.equals("Textile")) {
-                    color = "#9F81F7";
+                    color = COLOR_TEXTILE;
+                } else if (title.equals("Pile")) {
+                    color = COLOR_BATTERY;
                 } else if (title.equals("Verre")) {
-                    color = "#81F781";
+                    color = COLOR_GLASS;
                 } else {
-                    color = "#2E2E2E";
+                    color = COLOR_BUILDING;
                 }
             } else if (elt.equals("latitude")) {
                 latitude = (float) reader.nextDouble();

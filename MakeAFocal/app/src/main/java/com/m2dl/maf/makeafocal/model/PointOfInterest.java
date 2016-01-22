@@ -7,18 +7,33 @@ public class PointOfInterest {
     private String name;
     private float latitude;
     private float longitude;
-    private String color;
+    private float color;
 
     public PointOfInterest(
             final String title,
             final float lat, final float lng,
-            final String colorString) {
+            final float colorString) {
         name = title;
         latitude = lat;
         longitude = lng;
         color = colorString;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public float getLatitude() {
+        return latitude;
+    }
+
+    public float getLongitude() {
+        return longitude;
+    }
+
+    public float getColor() {
+        return color;
+    }
 
     @Override
     public String toString() {
