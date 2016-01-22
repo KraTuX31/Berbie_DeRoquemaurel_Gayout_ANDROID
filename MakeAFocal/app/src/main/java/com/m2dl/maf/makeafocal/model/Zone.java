@@ -1,5 +1,6 @@
 package com.m2dl.maf.makeafocal.model;
 
+import android.content.Context;
 import android.util.Pair;
 
 /**

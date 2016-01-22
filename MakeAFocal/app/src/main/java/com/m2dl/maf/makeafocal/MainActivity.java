@@ -11,6 +11,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Pair;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -22,6 +23,9 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.m2dl.maf.makeafocal.controller.GPSLocationListener;
+import com.m2dl.maf.makeafocal.database.Database;
+import com.m2dl.maf.makeafocal.model.Photo;
+import com.m2dl.maf.makeafocal.model.User;
 
 public class MainActivity
         extends AppCompatActivity
@@ -61,9 +65,6 @@ public class MainActivity
                 (SupportMapFragment) getSupportFragmentManager()
                         .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
-
-
-
     }
 
 
