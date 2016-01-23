@@ -8,11 +8,13 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Log;
+import android.util.Pair;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.m2dl.maf.makeafocal.controller.GPSLocationListener;
 import com.m2dl.maf.makeafocal.controller.OnImageTouchListener;
 import com.m2dl.maf.makeafocal.model.Photo;
 
@@ -48,6 +50,7 @@ public class TakePhotoActivity extends Activity {
         imageView.setOnLongClickListener(imageViewListener);
 
         takePhoto();
+        applyLocationToPhoto();
     }
 
     /**
@@ -93,7 +96,6 @@ public class TakePhotoActivity extends Activity {
                 try {
                     photo.setImage(android.provider.MediaStore.Images.Media
                             .getBitmap(cr, selectedImage));
-
                     imageView.setImageBitmap(photo.getImage());
                 } catch (Exception e) {
                     Toast.makeText(
@@ -116,6 +118,20 @@ public class TakePhotoActivity extends Activity {
         }
 
         return success;
+    }
+
+    public void applyLocationToPhoto() {
+        GPSLocationListener gps = new GPSLocationListener(TakePhotoActivity.this);
+
+        // Check if GPS enabled
+        if(gps.canGetLocation()) {
+            photo.setLocation(new Pair<>(gps.getLatitude(), gps.getLongitude()));
+        } else {
+            // Can't get location.
+            // GPS or network is not enabled.
+            // Ask user to enable GPS/network in settings.
+            gps.showSettingsAlert();
+        }
     }
 
     public Photo getPhoto() {

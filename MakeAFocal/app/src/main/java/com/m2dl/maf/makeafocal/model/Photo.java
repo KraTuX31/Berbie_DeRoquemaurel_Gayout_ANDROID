@@ -116,4 +116,6 @@ public class Photo extends Model {
     public void setUser(User user) {
         this.user = user;
     }
+
+
 }
