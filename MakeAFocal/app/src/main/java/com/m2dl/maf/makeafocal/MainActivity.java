@@ -10,13 +10,10 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -26,7 +23,6 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.m2dl.maf.makeafocal.controller.GPSLocationListener;
-import com.m2dl.maf.makeafocal.controller.OnSearchQueryListener;
 import com.m2dl.maf.makeafocal.model.PointOfInterest;
 import com.m2dl.maf.makeafocal.model.Session;
 import com.m2dl.maf.makeafocal.model.User;
@@ -38,7 +34,7 @@ public class MainActivity
         NavigationView.OnNavigationItemSelectedListener,
         OnMapReadyCallback {
 
-    private GoogleMap mMap;
+    private GoogleMap map;
     public static Context context;
     private GPSLocationListener gps;
     private JsonMarkerParser parser;
@@ -94,10 +90,6 @@ public class MainActivity
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
-        MenuItem myActionMenuItem = menu.findItem( R.id.action_filter);
-        SearchView searchView = (SearchView) myActionMenuItem.getActionView();
-        searchView.setOnQueryTextListener(new OnSearchQueryListener());
-
         return true;
     }
 
@@ -169,11 +161,11 @@ public class MainActivity
             LatLng myLocation = new LatLng(gps.getLatitude(), gps.getLongitude());
             // \n is for new line
 
-            mMap.moveCamera(
+            map.moveCamera(
                     CameraUpdateFactory.newLatLng(myLocation));
-            mMap.animateCamera(CameraUpdateFactory.zoomTo(17F));
-            mMap.getUiSettings().setMyLocationButtonEnabled(true);
-            mMap.addMarker(
+            map.animateCamera(CameraUpdateFactory.zoomTo(17F));
+            map.getUiSettings().setMyLocationButtonEnabled(true);
+            map.addMarker(
                     new MarkerOptions().position(myLocation)
                             .title("Vous êtes ici"));
         } else {
@@ -196,17 +188,17 @@ public class MainActivity
     @TargetApi(Build.VERSION_CODES.M)
     @Override
     public void onMapReady(final GoogleMap googleMap) {
-        mMap = googleMap;
-        for (PointOfInterest p : parser.getMarkers()) {
-            mMap.addMarker(new MarkerOptions()
+        map = googleMap;
+        for (PointOfInterest p : parser.getPointsOfInterest()) {
+            map.addMarker(new MarkerOptions()
                     .position(new LatLng(p.getLatitude(), p.getLongitude()))
                     .title(p.getName())
                     .icon(BitmapDescriptorFactory.defaultMarker(p.getColor())));
         }
-        mMap.setMyLocationEnabled(true);
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(
+        map.setMyLocationEnabled(true);
+        map.moveCamera(CameraUpdateFactory.newLatLng(
                 new LatLng(43.56053780000001, 1.468691900000067)));
-        mMap.animateCamera(CameraUpdateFactory.zoomTo(15F));
+        map.animateCamera(CameraUpdateFactory.zoomTo(15F));
 
 
 
