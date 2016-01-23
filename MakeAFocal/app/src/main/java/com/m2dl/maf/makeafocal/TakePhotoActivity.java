@@ -17,9 +17,12 @@ import android.widget.Toast;
 import com.m2dl.maf.makeafocal.controller.GPSLocationListener;
 import com.m2dl.maf.makeafocal.controller.OnImageTouchListener;
 import com.m2dl.maf.makeafocal.model.Photo;
+import com.m2dl.maf.makeafocal.model.User;
 
 import java.io.File;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 /**
  * Created by florent on 17/01/16.
@@ -42,6 +45,8 @@ public class TakePhotoActivity extends Activity {
         setContentView(R.layout.activity_add_tags_to_image);
 
         photo = new Photo();
+        photo.setUser(new User("Toto")); // to change
+
         textViewTags = (TextView) findViewById(R.id.tv_tags_added);
 
         imageView = (ImageView) findViewById(R.id.iv_photo_to_tag);
@@ -54,31 +59,35 @@ public class TakePhotoActivity extends Activity {
     }
 
     /**
-     * Take a photo in the <i>view</i>.
+     *
      */
     public void takePhoto() {
-        //Création d'un intent
+        // Create intent to take photo
         createDirIfNotExists();
         Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
 
-        //Récupération de l'heure pour le nom fichier
-        Calendar c = Calendar.getInstance();
-        int seconds = c.get(Calendar.SECOND);
+        // Get date of the photo
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        photo.setDate(sdf.format(new Date()));
 
-        //Création du fichier image
+        // File to save photo
         File filePhoto = new File(
-            Environment.getExternalStorageDirectory() + "/" + R.string.maf_repository,
-            String.valueOf(seconds)+ ".jpg");
+            Environment.getExternalStorageDirectory()
+                + "/" + R.string.maf_repository,
+            String.valueOf(
+                    Calendar.getInstance().get(Calendar.SECOND)) + ".jpg");
         intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(filePhoto));
         imageUri = Uri.fromFile(filePhoto);
 
-        //On lance l'intent
+        photo.setPath(imageUri.getPath());
+
         startActivityForResult(intent, CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);
     }
 
     public void onAcceptButtonClick(View v) {
-        Intent intent = new Intent(TakePhotoActivity.this, MainActivity.class);
-        startActivity(intent);
+        // TODO remove Toast: only use to test
+        Toast.makeText(this, photo.toString(), Toast.LENGTH_LONG).show();
+        finish();
     }
 
     //On a reçu le résultat d'une activité

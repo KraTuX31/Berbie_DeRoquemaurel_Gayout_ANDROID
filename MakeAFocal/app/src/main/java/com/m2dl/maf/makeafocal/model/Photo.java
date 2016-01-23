@@ -11,11 +11,19 @@ import java.util.Set;
  * Created by aroquemaurel on 21/01/16.
  */
 public class Photo extends Model {
-    private Bitmap image; // The Bitmap image of the photo
-    private Pair<Double, Double> location; // The position of the photo
-    private Set<Tag> tags; // Tags of the photo
-    private User user; // THe user which take the photo
+    /** The Bitmap image of the photo. */
+    private Bitmap image;
+    /** The position of the photo. */
+    private Pair<Double, Double> location;
+    /** Tags of the photo. */
+    private Set<Tag> tags;
+    /** The user which take the photo. */
+    private User user;
+    /** Path to photo. */
     private String path;
+    /** Date when photo has beed captured. */
+    private String date;
+
 
     /**
      * Create an empty photo
@@ -117,5 +125,19 @@ public class Photo extends Model {
         this.user = user;
     }
 
+    public void setDate(String date) {
+        this.date = date;
+    }
 
+    @Override
+    public String toString() {
+        return "Photo{" +
+//                "image=" + image +
+//                ", location=" + location +
+//                ", tags=" + tags +
+//                ", user=" + user +
+                ", path='" + path + '\'' +
+//                ", date='" + date + '\'' +
+                '}';
+    }
 }

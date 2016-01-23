@@ -60,8 +60,9 @@ public class OnImageTouchListener implements View.OnTouchListener, View.OnLongCl
             public void onClick(DialogInterface dialog, int which) {
                 String txt = input.getText().toString();
                 if (!txt.isEmpty()) {
+
                     for (String t: txt.split(" ")) {
-                        tag.setTagName(t);
+                        tag = new Tag(t, new Zone(x, y, 250));
                         context.getPhoto().addTag(tag);
                         context.getTextViewTags().append(tag.toString() + ", ");
                     }
@@ -70,7 +71,6 @@ public class OnImageTouchListener implements View.OnTouchListener, View.OnLongCl
                         context.getTextViewTags().setText(
                                 tvText.substring(0, tvText.lastIndexOf(",")));
                     }
-//                    context.getTagsAdapter().notifyDataSetChanged();
                 }
 
             }
@@ -90,11 +90,9 @@ public class OnImageTouchListener implements View.OnTouchListener, View.OnLongCl
         if (context.getPhoto().getImage() == null) {
             return false;
         }
-        Vibrator vibrator = (Vibrator) this.context.getSystemService(Context.VIBRATOR_SERVICE);
-        // Vibrate for 500 milliseconds
+        Vibrator vibrator = (Vibrator)
+                this.context.getSystemService(Context.VIBRATOR_SERVICE);
         vibrator.vibrate(100);
-        Log.d("IMG", "longClick: (" + x + "," + y + ")");
-        tag = new Tag(new Zone(x, y, 250));
         displayPopup();
 
         return false;
