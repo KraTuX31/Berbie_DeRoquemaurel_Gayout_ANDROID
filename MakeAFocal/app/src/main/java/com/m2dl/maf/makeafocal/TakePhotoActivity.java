@@ -17,6 +17,7 @@ import android.widget.Toast;
 import com.m2dl.maf.makeafocal.controller.GPSLocationListener;
 import com.m2dl.maf.makeafocal.controller.OnImageTouchListener;
 import com.m2dl.maf.makeafocal.model.Photo;
+import com.m2dl.maf.makeafocal.model.Session;
 import com.m2dl.maf.makeafocal.model.User;
 
 import java.io.File;
@@ -45,7 +46,7 @@ public class TakePhotoActivity extends Activity {
         setContentView(R.layout.activity_add_tags_to_image);
 
         photo = new Photo();
-        photo.setUser(new User("Toto")); // to change
+        photo.setUser(Session.instance().getCurrentUser()); // On set l'user courant
 
         textViewTags = (TextView) findViewById(R.id.tv_tags_added);
 
@@ -87,6 +88,7 @@ public class TakePhotoActivity extends Activity {
     public void onAcceptButtonClick(View v) {
         // TODO remove Toast: only use to test
         Toast.makeText(this, photo.toString(), Toast.LENGTH_LONG).show();
+        Session.instance().setPhotoToAddToMap(photo);
         finish();
     }
 

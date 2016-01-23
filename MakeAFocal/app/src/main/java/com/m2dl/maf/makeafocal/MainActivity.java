@@ -3,6 +3,8 @@ package com.m2dl.maf.makeafocal;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
@@ -12,6 +14,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.util.Pair;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -20,10 +23,12 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.m2dl.maf.makeafocal.controller.GPSLocationListener;
+import com.m2dl.maf.makeafocal.model.Photo;
 import com.m2dl.maf.makeafocal.model.PointOfInterest;
 import com.m2dl.maf.makeafocal.model.Session;
 import com.m2dl.maf.makeafocal.model.User;
@@ -72,6 +77,27 @@ public class MainActivity
                         .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
         Session.instance().setCurrentUser(new User("userName"));
+
+
+    }
+
+    @Override
+    public void onResume(){
+        super.onResume();
+        if(Session.instance().getPhotoToAddToMap() != null){
+            Photo photoToAdd = Session.instance().getPhotoToAddToMap();
+            Pair<Double,Double> location = photoToAdd.getLocation();
+            //redimensionnement de l'image
+            BitmapDescriptor icon = BitmapDescriptorFactory.fromBitmap(photoToAdd.getImage().createScaledBitmap(photoToAdd.getImage(),120,120,false));
+            //Marker
+            mMap.addMarker(new MarkerOptions()
+                    .position(new LatLng(location.first,location.second))
+                    .title(photoToAdd.getTags().toString())
+                    .snippet(photoToAdd.getUser().getUserName())
+                    .icon(icon));
+            //on vide la photo en attente d'affichage
+            Session.instance().setPhotoToAddToMap(null);
+        }
 
 
     }
@@ -200,6 +226,7 @@ public class MainActivity
         mMap.moveCamera(CameraUpdateFactory.newLatLng(
                 new LatLng(43.56053780000001, 1.468691900000067)));
         mMap.animateCamera(CameraUpdateFactory.zoomTo(15F));
+
 
 
 

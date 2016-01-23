@@ -7,6 +7,16 @@ public class Session {
     private static Session instance;
     private User currentUser;
 
+    public Photo getPhotoToAddToMap() {
+        return photoToAddToMap;
+    }
+
+    public void setPhotoToAddToMap(Photo photoToAddToMap) {
+        this.photoToAddToMap = photoToAddToMap;
+    }
+
+    private Photo photoToAddToMap;
+
     public static Session instance() {
         if(instance == null) {
             instance = new Session();
