@@ -4,18 +4,19 @@
     tools:context=".MainActivity">
 
     <item
-        android:id="@+id/shortcut_filter"
+        android:id="@+id/action_filter"
         android:title="@string/filter"
-        android:icon="@drawable/ic_filter_list_white_24dp"
-        android:orderInCategory="100" />
-    <item
-        android:id="@+id/shortcut_add_location"
-        android:title="@string/add_location"
-        android:icon="@drawable/ic_add_location_white_24dp"
-        android:orderInCategory="100"  />
-    <item
-        android:id="@+id/shortcut_search"
-        android:title="@string/search"
-        android:icon="@drawable/ic_search_white_24dp"
-        android:orderInCategory="100" />
+        app:showAsAction="always|collapseActionView"
+        app:actionViewClass="android.support.v7.widget.SearchView"
+        android:icon="@drawable/ic_search_white_24dp"/>
+    <!--<item-->
+        <!--android:id="@+id/shortcut_add_location"-->
+        <!--android:title="@string/add_location"-->
+        <!--app:showAsAction="never|collapseActionView"-->
+        <!--android:icon="@drawable/ic_add_location_white_24dp"  />-->
+    <!--<item-->
+        <!--android:id="@+id/shortcut_search"-->
+        <!--android:title="@string/search"-->
+        <!--android:icon="@drawable/ic_search_white_24dp"-->
+        <!--android:orderInCategory="100" />-->
 </menu>
