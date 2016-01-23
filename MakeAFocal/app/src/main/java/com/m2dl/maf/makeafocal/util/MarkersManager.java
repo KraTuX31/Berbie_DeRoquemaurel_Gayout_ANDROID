@@ -59,9 +59,10 @@ public class MarkersManager {
 
     }
 
-    public void setVisibleTag(final String[] tags) {
+    public void setVisibleTags(final String[] tags) {
         context.runOnUiThread(new Runnable() {
             public void run() {
+
                 for (String tag : tags) {
                     if (mapTagMarkers.containsKey(tag)) {
                         for (Marker m : mapTagMarkers.get(tag)) {
@@ -86,18 +87,19 @@ public class MarkersManager {
         addPointsOfInterest(parser.getPointsOfInterest(), map);
     }
 
+    public void setVisibleAllTags() {
+        context.runOnUiThread(new Runnable() {
+            public void run() {
+                for (String tag : mapTagMarkers.keySet()) {
+                    for (Marker m : mapTagMarkers.get(tag)) {
+                        m.setVisible(true);
+                    }
+                }
+            }
+        });
+    }
 
-//    public void addTag(final Marker marker, final String tagName) {
-//
-//        if (mapTagMarkers.containsKey(tagName)) {
-//            mapTagMarkers.get(tagName).add(marker);
-//        } else {
-//            List<Marker> list = new ArrayList<>();
-//            list.add(marker);
-//            mapTagMarkers.put(tagName, list);
-//        }
-//
-//    }
+
 
 
 }

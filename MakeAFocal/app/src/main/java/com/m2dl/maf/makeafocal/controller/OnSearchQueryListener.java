@@ -18,6 +18,7 @@ public class OnSearchQueryListener implements SearchView.OnQueryTextListener {
     /** Manger. */
     private MarkersManager manager;
 
+
     /**
      * Construct a Manager of event inputted in search bar.
      * @param markersManager
@@ -45,12 +46,11 @@ public class OnSearchQueryListener implements SearchView.OnQueryTextListener {
      * @param inputQuery Inputted query.
      */
     private void filterQuery(String inputQuery) {
-        if (!inputQuery.isEmpty()) {
-            stopTimer();
-            query = inputQuery;
-            startTimer();
-        }
+        stopTimer();
+        query = inputQuery;
+        startTimer();
     }
+
 
     /**
      * Start timer.
@@ -85,7 +85,14 @@ public class OnSearchQueryListener implements SearchView.OnQueryTextListener {
     public void executeQuery() {
         // TODO
         // Here execute query with filter bar
-        manager.setVisibleTag(query.toLowerCase().split(" "));
+        String[] split = query.toLowerCase().split(" ");
+//        if (split.length == 0) {
+//            manager.setVisibleAllTags();
+//        } else {
+            manager.setVisibleTags(split);
+//        }
+
+
     }
 
 
