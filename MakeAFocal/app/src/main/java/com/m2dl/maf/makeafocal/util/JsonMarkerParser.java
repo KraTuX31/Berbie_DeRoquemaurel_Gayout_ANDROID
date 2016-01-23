@@ -100,6 +100,11 @@ public class JsonMarkerParser extends AsyncTask<Void, Void, Void>{
         return null;
     }
 
+    @Override
+    protected void onPostExecute(Void aVoid) {
+        super.onPostExecute(aVoid);
+    }
+
     public List<PointOfInterest> getPointsOfInterest() {
         return pointOfInterest;
     }

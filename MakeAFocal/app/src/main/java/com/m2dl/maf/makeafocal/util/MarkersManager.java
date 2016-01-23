@@ -1,5 +1,6 @@
 package com.m2dl.maf.makeafocal.util;
 
+import android.app.Activity;
 import android.content.res.Resources;
 
 import com.google.android.gms.maps.GoogleMap;
@@ -10,38 +11,93 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.m2dl.maf.makeafocal.model.PointOfInterest;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 /**
  * Created by florent on 23/01/16.
  */
 public class MarkersManager {
 
-    private List<Marker> markers;
+    private Map<String, List<Marker>> mapTagMarkers;
 
     private JsonMarkerParser parser;
 
-    private GoogleMap map;
+    private Activity context;
 
-    public MarkersManager(final Resources resources, GoogleMap gMap) {
-        markers = new ArrayList<>();
-        map = gMap;
-        parser = new JsonMarkerParser(resources);
+    public MarkersManager(final Activity activity) {
+        context = activity;
+        mapTagMarkers = new TreeMap<>();
+        parser = new JsonMarkerParser(activity.getResources());
         parser.execute();
 
-        addPointsOfInterest(parser.getPointsOfInterest());
+
     }
 
-    private void addPointsOfInterest(final List<PointOfInterest> points) {
-
+    private void addPointsOfInterest(final List<PointOfInterest> points, final GoogleMap map) {
         for (PointOfInterest p : points) {
-            markers.add(
+            addMarker(
                 map.addMarker(new MarkerOptions()
                     .position(new LatLng(p.getLatitude(), p.getLongitude()))
                     .title(p.getName())
                     .icon(BitmapDescriptorFactory.defaultMarker(p.getColor()))));
         }
     }
+
+    public void addMarker(final Marker marker) {
+        String tagName = marker.getTitle().toLowerCase();
+
+        if (mapTagMarkers.containsKey(tagName)) {
+            mapTagMarkers.get(tagName).add(marker);
+        } else {
+            List<Marker> list = new ArrayList<>();
+            list.add(marker);
+            mapTagMarkers.put(tagName, list);
+        }
+
+    }
+
+    public void setVisibleTag(final String[] tags) {
+        context.runOnUiThread(new Runnable() {
+            public void run() {
+                for (String tag : tags) {
+                    if (mapTagMarkers.containsKey(tag)) {
+                        for (Marker m : mapTagMarkers.get(tag)) {
+                            m.setVisible(true);
+                        }
+                    }
+                }
+
+                for (String other : mapTagMarkers.keySet()) {
+                    if (!Arrays.asList(tags).contains(other)) {
+                        for (Marker m : mapTagMarkers.get(other)) {
+                            m.setVisible(false);
+                        }
+                    }
+                }
+            }
+        });
+
+    }
+
+    public void init(GoogleMap map) {
+        addPointsOfInterest(parser.getPointsOfInterest(), map);
+    }
+
+
+//    public void addTag(final Marker marker, final String tagName) {
+//
+//        if (mapTagMarkers.containsKey(tagName)) {
+//            mapTagMarkers.get(tagName).add(marker);
+//        } else {
+//            List<Marker> list = new ArrayList<>();
+//            list.add(marker);
+//            mapTagMarkers.put(tagName, list);
+//        }
+//
+//    }
 
 
 }
