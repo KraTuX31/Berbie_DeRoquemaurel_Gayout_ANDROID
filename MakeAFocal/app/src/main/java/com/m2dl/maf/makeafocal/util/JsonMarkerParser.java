@@ -1,24 +1,17 @@
 package com.m2dl.maf.makeafocal.util;
 
-import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.util.JsonReader;
-import android.util.JsonToken;
 import android.content.res.Resources;
-import android.util.Log;
 
 
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
-import com.google.android.gms.nearby.messages.Message;
 import com.m2dl.maf.makeafocal.R;
 import com.m2dl.maf.makeafocal.model.PointOfInterest;
-import com.m2dl.maf.makeafocal.model.User;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,7 +22,7 @@ public class JsonMarkerParser extends AsyncTask<Void, Void, Void>{
 
     private InputStream in;
 
-    private List<PointOfInterest> markers;
+    private List<PointOfInterest> pointOfInterest;
 
     private final float COLOR_CARTON = BitmapDescriptorFactory.HUE_ORANGE;
     private final float COLOR_PAPER = BitmapDescriptorFactory.HUE_CYAN;
@@ -41,17 +34,17 @@ public class JsonMarkerParser extends AsyncTask<Void, Void, Void>{
 
     public JsonMarkerParser(Resources resources) {
         this.in = resources.openRawResource(R.raw.markers);
-        markers = new ArrayList<PointOfInterest>();
+        pointOfInterest = new ArrayList<PointOfInterest>();
     }
 
-    public void getPointsOfInterest() {
+    public void parse() {
         try {
             JsonReader reader = new JsonReader(
                     new InputStreamReader(in, "UTF-8"));
 
             reader.beginArray();
             while (reader.hasNext()) {
-                markers.add(readMessage(reader));
+                pointOfInterest.add(readMessage(reader));
             }
             reader.endArray();
 
@@ -103,11 +96,16 @@ public class JsonMarkerParser extends AsyncTask<Void, Void, Void>{
 
     @Override
     protected Void doInBackground(Void... params) {
-        getPointsOfInterest();
+        parse();
         return null;
     }
 
-    public List<PointOfInterest> getMarkers() {
-        return markers;
+    @Override
+    protected void onPostExecute(Void aVoid) {
+        super.onPostExecute(aVoid);
+    }
+
+    public List<PointOfInterest> getPointsOfInterest() {
+        return pointOfInterest;
     }
 }

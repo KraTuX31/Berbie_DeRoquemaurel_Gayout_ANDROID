@@ -3,8 +3,6 @@ package com.m2dl.maf.makeafocal;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
@@ -14,12 +12,10 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.util.Pair;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -30,12 +26,11 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.m2dl.maf.makeafocal.controller.GPSLocationListener;
-import com.m2dl.maf.makeafocal.model.Photo;
 import com.m2dl.maf.makeafocal.controller.OnSearchQueryListener;
-import com.m2dl.maf.makeafocal.model.PointOfInterest;
+import com.m2dl.maf.makeafocal.model.Photo;
 import com.m2dl.maf.makeafocal.model.Session;
 import com.m2dl.maf.makeafocal.model.User;
-import com.m2dl.maf.makeafocal.util.JsonMarkerParser;
+import com.m2dl.maf.makeafocal.util.MarkersManager;
 
 public class MainActivity
         extends AppCompatActivity
@@ -43,10 +38,10 @@ public class MainActivity
         NavigationView.OnNavigationItemSelectedListener,
         OnMapReadyCallback {
 
-    private GoogleMap mMap;
+    private GoogleMap map;
     public static Context context;
     private GPSLocationListener gps;
-    private JsonMarkerParser parser;
+    MarkersManager markersManager;
 
     @TargetApi(Build.VERSION_CODES.M)
     @Override
@@ -55,8 +50,7 @@ public class MainActivity
         setContentView(R.layout.activity_main);
         context = getBaseContext();
 
-        parser = new JsonMarkerParser(getResources());
-        parser.execute();
+        markersManager = new MarkersManager(this);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -93,7 +87,7 @@ public class MainActivity
             //redimensionnement de l'image
             BitmapDescriptor icon = BitmapDescriptorFactory.fromBitmap(photoToAdd.getImage().createScaledBitmap(photoToAdd.getImage(),120,120,false));
             //Marker
-            mMap.addMarker(new MarkerOptions()
+            map.addMarker(new MarkerOptions()
                     .position(new LatLng(location.first,location.second))
                     .title(photoToAdd.getTags().toString())
                     .snippet(photoToAdd.getUser().getUserName())
@@ -120,9 +114,11 @@ public class MainActivity
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
+
         MenuItem myActionMenuItem = menu.findItem( R.id.action_filter);
         SearchView searchView = (SearchView) myActionMenuItem.getActionView();
-        searchView.setOnQueryTextListener(new OnSearchQueryListener());
+        searchView.setOnQueryTextListener(
+                new OnSearchQueryListener(markersManager));
 
         return true;
     }
@@ -137,10 +133,10 @@ public class MainActivity
         //noinspection SimplifiableIfStatement
         if (id == R.id.nav_filter) {
             return true;
-        } else if (id == R.id.nav_add_location) {
-            return true;
-        } else if (id == R.id.nav_search) {
-            return true;
+//        } else if (id == R.id.nav_add_location) {
+//            return true;
+//        } else if (id == R.id.nav_search) {
+//            return true;
         }
 
         return super.onOptionsItemSelected(item);
@@ -156,11 +152,11 @@ public class MainActivity
             // Handle the camera action
             Intent intent = new Intent(this,ModificationPseudoActivity.class);
             startActivity(intent);
-        } else if (id == R.id.nav_filter) {
+//        } else if (id == R.id.nav_filter) {
 
-        } else if (id == R.id.nav_add_location) {
-
-        } else if (id == R.id.nav_search) {
+//        } else if (id == R.id.nav_add_location) {
+//
+//        } else if (id == R.id.nav_search) {
 
         } else if (id == R.id.nav_about) {
 
@@ -195,11 +191,11 @@ public class MainActivity
             LatLng myLocation = new LatLng(gps.getLatitude(), gps.getLongitude());
             // \n is for new line
 
-            mMap.moveCamera(
+            map.moveCamera(
                     CameraUpdateFactory.newLatLng(myLocation));
-            mMap.animateCamera(CameraUpdateFactory.zoomTo(17F));
-            mMap.getUiSettings().setMyLocationButtonEnabled(true);
-            mMap.addMarker(
+            map.animateCamera(CameraUpdateFactory.zoomTo(17F));
+            map.getUiSettings().setMyLocationButtonEnabled(true);
+            map.addMarker(
                     new MarkerOptions().position(myLocation)
                             .title("Vous êtes ici"));
         } else {
@@ -222,17 +218,18 @@ public class MainActivity
     @TargetApi(Build.VERSION_CODES.M)
     @Override
     public void onMapReady(final GoogleMap googleMap) {
-        mMap = googleMap;
-        for (PointOfInterest p : parser.getMarkers()) {
-            mMap.addMarker(new MarkerOptions()
-                    .position(new LatLng(p.getLatitude(), p.getLongitude()))
-                    .title(p.getName())
-                    .icon(BitmapDescriptorFactory.defaultMarker(p.getColor())));
-        }
-        mMap.setMyLocationEnabled(true);
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(
+        map = googleMap;
+        markersManager.init(map);
+//        for (PointOfInterest p : parser.getPointsOfInterest()) {
+//            map.addMarker(new MarkerOptions()
+//                    .position(new LatLng(p.getLatitude(), p.getLongitude()))
+//                    .title(p.getName())
+//                    .icon(BitmapDescriptorFactory.defaultMarker(p.getColor())));
+//        }
+        map.setMyLocationEnabled(true);
+        map.moveCamera(CameraUpdateFactory.newLatLng(
                 new LatLng(43.56053780000001, 1.468691900000067)));
-        mMap.animateCamera(CameraUpdateFactory.zoomTo(15F));
+        map.animateCamera(CameraUpdateFactory.zoomTo(15F));
 
 
 

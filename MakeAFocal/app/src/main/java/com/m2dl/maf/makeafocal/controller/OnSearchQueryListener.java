@@ -2,6 +2,8 @@ package com.m2dl.maf.makeafocal.controller;
 
 import android.support.v7.widget.SearchView;
 
+import com.m2dl.maf.makeafocal.util.MarkersManager;
+
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -13,10 +15,16 @@ public class OnSearchQueryListener implements SearchView.OnQueryTextListener {
     /** Text inputted in tool bar. */
     private String query;
 
+    /** Manger. */
+    private MarkersManager manager;
+
+
     /**
      * Construct a Manager of event inputted in search bar.
+     * @param markersManager
      */
-    public OnSearchQueryListener() {
+    public OnSearchQueryListener(MarkersManager markersManager) {
+        manager = markersManager;
         timer = new Timer();
         query = "";
     }
@@ -38,12 +46,11 @@ public class OnSearchQueryListener implements SearchView.OnQueryTextListener {
      * @param inputQuery Inputted query.
      */
     private void filterQuery(String inputQuery) {
-        if (!inputQuery.isEmpty()) {
-            stopTimer();
-            query = inputQuery;
-            startTimer();
-        }
+        stopTimer();
+        query = inputQuery;
+        startTimer();
     }
+
 
     /**
      * Start timer.
@@ -78,6 +85,13 @@ public class OnSearchQueryListener implements SearchView.OnQueryTextListener {
     public void executeQuery() {
         // TODO
         // Here execute query with filter bar
+        String[] split = query.toLowerCase().split(" ");
+//        if (split.length == 0) {
+//            manager.setVisibleAllTags();
+//        } else {
+            manager.setVisibleTags(split);
+//        }
+
 
     }
 
