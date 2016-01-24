@@ -220,20 +220,8 @@ public class MainActivity
     public void onMapReady(final GoogleMap googleMap) {
         map = googleMap;
         markersManager.init(map);
-//        for (PointOfInterest p : parser.getPointsOfInterest()) {
-//            map.addMarker(new MarkerOptions()
-//                    .position(new LatLng(p.getLatitude(), p.getLongitude()))
-//                    .title(p.getName())
-//                    .icon(BitmapDescriptorFactory.defaultMarker(p.getColor())));
-//        }
         map.setMyLocationEnabled(true);
-        map.moveCamera(CameraUpdateFactory.newLatLng(
-                new LatLng(43.56053780000001, 1.468691900000067)));
-        map.animateCamera(CameraUpdateFactory.zoomTo(15F));
-
-
-
-
+        map.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(43.56053780000001, 1.468691900000067), 15f));
     }
 
 
