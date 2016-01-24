@@ -1,8 +1,10 @@
 package com.m2dl.maf.makeafocal;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -19,27 +21,45 @@ public class ModificationPseudoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_modification_pseudo);
         newPseudoEdit = (EditText) findViewById(R.id.newPseudo);
-        }
+    }
 
     public void changePseudo(View v) {
-        if (!newPseudoEdit.getText().toString().equals("")) {
-            User usernameActual = Session.instance().getCurrentUser();
+        if (!newPseudoEdit.getText().toString().isEmpty()) {
+            User username = Session.instance().getCurrentUser();
             User u = new User(newPseudoEdit.getText().toString());
-            if (usernameActual.pseudoExists(this)) {
+            if (username != null && username.pseudoExists(this)) {
 
-                usernameActual.delete(this); // remove old user
+                username.delete(this); // remove old user
                 u.create(this); // Create a user with the new pseudal
                 Session.instance().setCurrentUser(u);
-                Toast.makeText(ModificationPseudoActivity.this, "Pseudo changé", Toast.LENGTH_SHORT).show();
+                Toast.makeText(
+                        ModificationPseudoActivity.this,
+                        R.string.pseudo_changed,
+                        Toast.LENGTH_SHORT).show();
+//                setUsernameOnNavigationMenu(u.getUserName());
                 this.finish();
             } else {
                 u.create(this);
                 Session.instance().setCurrentUser(u);
-                Toast.makeText(ModificationPseudoActivity.this, "Pseudo créer", Toast.LENGTH_SHORT).show();
-                this.finish();
+                Toast.makeText(
+                        ModificationPseudoActivity.this,
+                        R.string.pseudo_created,
+                        Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(
+                        ModificationPseudoActivity.this, MainActivity.class);
+//                setUsernameOnNavigationMenu(u.getUserName());
+                startActivity(intent);
             }
         } else {
-            Toast.makeText(ModificationPseudoActivity.this, "Veuillez saisir un pseudo", Toast.LENGTH_SHORT).show();
+            Toast.makeText(
+                    ModificationPseudoActivity.this,
+                    R.string.please_input_pseudo,
+                    Toast.LENGTH_SHORT).show();
         }
+    }
+
+    public void setUsernameOnNavigationMenu(final String username) {
+        MenuItem item = (MenuItem) findViewById(R.id.nav_user);
+        item.setTitle(username);
     }
 }

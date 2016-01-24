@@ -131,13 +131,13 @@ public class MainActivity
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.nav_filter) {
-            return true;
+//        if (id == R.id.nav_filter) {
+//            return true;
 //        } else if (id == R.id.nav_add_location) {
 //            return true;
 //        } else if (id == R.id.nav_search) {
 //            return true;
-        }
+//        }
 
         return super.onOptionsItemSelected(item);
     }

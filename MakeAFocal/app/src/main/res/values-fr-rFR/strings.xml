@@ -28,9 +28,12 @@
     <string name="add_your_tags">Ajouter vos tags</string>
     <string name="tags">Tags:</string>
     <string name="valid">Valider</string>
-    <string name="choose_new_pseudo">Choisir un nouveau pseudal</string>
-    <string name="hint_new_pseudo">Pseudal</string>
+    <string name="choose_new_pseudo">Choisir un nouveau pseudo</string>
+    <string name="pseudo">Pseudo</string>
     <string name="valider">Valider</string>
     <string name="userName">Username</string>
+    <string name="pseudo_changed">Le pseudo a été modifié</string>
+    <string name="pseudo_created">Nouveau pseudo créé </string>
+    <string name="please_input_pseudo">Veuillez saisir un pseudo</string>
 
 </resources>
