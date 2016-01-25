@@ -14,6 +14,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.provider.Settings;
+import android.support.v4.app.ActivityCompat;
 import android.util.Log;
 
 import com.m2dl.maf.makeafocal.R;
@@ -68,7 +69,7 @@ public class GPSLocationListener extends Service implements LocationListener {
                 this.canGetLocation = true;
                 if (isNetworkEnabled) {
                     if (Build.VERSION.SDK_INT >= 23 &&
-                            checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                            ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                         // TODO: Consider calling
                         //    public void requestPermissions(@NonNull String[] permissions, int requestCode)
                         // here to request the missing permissions, and then overriding

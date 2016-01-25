@@ -167,7 +167,7 @@ public class TakePhotoActivity extends Activity {
     }
 
     public void applyLocationToPhoto() {
-        GPSLocationListener gps = new GPSLocationListener(TakePhotoActivity.this);
+        GPSLocationListener gps = new GPSLocationListener(this);
 
         // Check if GPS enabled
         if(gps.canGetLocation()) {
