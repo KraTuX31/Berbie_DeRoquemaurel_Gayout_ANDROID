@@ -5,15 +5,16 @@ import android.widget.Toast;
 
 import com.amazonaws.mobileconnectors.s3.transferutility.TransferListener;
 import com.amazonaws.mobileconnectors.s3.transferutility.TransferState;
+import com.m2dl.maf.makeafocal.TakePhotoActivity;
 
 /**
  * Created by florent on 25/01/16.
  */
 public class UploadListener implements TransferListener {
 
-    private Context c;
+    private TakePhotoActivity c;
 
-    public UploadListener(Context context) {
+    public UploadListener(TakePhotoActivity context) {
         c = context;
     }
 
@@ -21,7 +22,7 @@ public class UploadListener implements TransferListener {
     public void onStateChanged(int i, TransferState transferState) {
         Toast.makeText(
                 c,
-                "Upload " + i + " " + transferState.name(),
+                "Upload " + i + " " + transferState.toString(),
                 Toast.LENGTH_SHORT).show();
     }
 
@@ -29,7 +30,7 @@ public class UploadListener implements TransferListener {
     public void onProgressChanged(int i, long l, long l1) {
         Toast.makeText(
                 c,
-                "Upload " + i + ", " + l + ", li",
+                "Upload " + i + ", " + l + ", " + l1,
                 Toast.LENGTH_SHORT).show();
     }
 

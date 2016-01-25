@@ -79,10 +79,12 @@ public class TakePhotoActivity extends Activity {
         imageView.setOnTouchListener(imageViewListener);
         imageView.setOnLongClickListener(imageViewListener);
 
+        transferUtility = Util.getTransferUtility(this);
+
         takePhoto();
         applyLocationToPhoto();
 
-        transferUtility = Util.getTransferUtility(this);
+
 
     }
 
@@ -119,12 +121,12 @@ public class TakePhotoActivity extends Activity {
 
     public void onAcceptButtonClick(View v) {
         // TODO remove Toast: only use to test
-
-        Toast.makeText(this, photo.toString(), Toast.LENGTH_LONG).show();
-        Session.instance().setPhotoToAddToMap(photo);
-        // TODO photo.create(this);
         beginUpload();
-        finish();
+//        Toast.makeText(this, photo.toString(), Toast.LENGTH_LONG).show();
+//        Session.instance().setPhotoToAddToMap(photo);
+//        // TODO photo.create(this);
+//
+//        finish();
     }
 
     //On a reçu le résultat d'une activité
@@ -199,11 +201,11 @@ public class TakePhotoActivity extends Activity {
                 file.getName(),
                 file);
         observer.setTransferListener(new UploadListener(this));
-        observers.add(observer);
-        HashMap<String, Object> map = new HashMap<String, Object>();
-        Util.fillMap(map, observer, false);
-        transferRecordMaps.add(map);
-        observer.setTransferListener(new UploadListener(this));
+//        observers.add(observer);
+//        HashMap<String, Object> map = new HashMap<String, Object>();
+//        Util.fillMap(this, map, observer, false);
+//        transferRecordMaps.add(map);
+//        observer.setTransferListener(new UploadListener(this));
     }
 
     public Photo getPhoto() {

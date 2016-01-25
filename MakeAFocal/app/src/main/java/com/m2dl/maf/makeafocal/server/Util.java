@@ -2,18 +2,25 @@ package com.m2dl.maf.makeafocal.server;
 
 import android.content.Context;
 import android.net.Uri;
+import android.util.Log;
+import android.widget.Toast;
 
 import com.amazonaws.auth.CognitoCachingCredentialsProvider;
+import com.amazonaws.mobileconnectors.cognito.CognitoSyncManager;
+import com.amazonaws.mobileconnectors.cognito.Dataset;
+import com.amazonaws.mobileconnectors.cognito.DefaultSyncCallback;
 import com.amazonaws.mobileconnectors.s3.transferutility.TransferObserver;
 import com.amazonaws.mobileconnectors.s3.transferutility.TransferUtility;
 import com.amazonaws.regions.Regions;
 import com.amazonaws.services.s3.AmazonS3Client;
 import com.m2dl.maf.makeafocal.R;
+import com.m2dl.maf.makeafocal.TakePhotoActivity;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -24,6 +31,7 @@ public class Util {
     // We only need one instance of the clients and credentials provider
     private static AmazonS3Client sS3Client;
     private static CognitoCachingCredentialsProvider sCredProvider;
+    private static CognitoSyncManager syncClient;
     private static TransferUtility sTransferUtility;
 
     /**
@@ -38,10 +46,11 @@ public class Util {
             sCredProvider = new CognitoCachingCredentialsProvider(
                     context.getApplicationContext(),
                     String.valueOf(R.string.COGNITO_POOL_ID),
-                    Regions.US_EAST_1);
+                    Regions.EU_WEST_1);
         }
         return sCredProvider;
     }
+
 
     /**
      * Gets an instance of a S3 client which is constructed using the given
@@ -127,9 +136,10 @@ public class Util {
      * Fills in the map with information in the observer so that it can be used
      * with a SimpleAdapter to populate the UI
      */
-    public static void fillMap(Map<String, Object> map, TransferObserver observer, boolean isChecked) {
+    public static void fillMap(TakePhotoActivity c, Map<String, Object> map, TransferObserver observer, boolean isChecked) {
         int progress = (int) ((double) observer.getBytesTransferred() * 100 / observer
                 .getBytesTotal());
+        Toast.makeText(c, "Progession: " + progress, Toast.LENGTH_SHORT).show();
         map.put("id", observer.getId());
         map.put("checked", isChecked);
         map.put("fileName", observer.getAbsoluteFilePath());
