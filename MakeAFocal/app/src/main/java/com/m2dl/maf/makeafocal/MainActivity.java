@@ -77,7 +77,6 @@ public class MainActivity
                 (SupportMapFragment) getSupportFragmentManager()
                         .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
-        Session.instance().setCurrentUser(new User("userName"));
 
 
     }

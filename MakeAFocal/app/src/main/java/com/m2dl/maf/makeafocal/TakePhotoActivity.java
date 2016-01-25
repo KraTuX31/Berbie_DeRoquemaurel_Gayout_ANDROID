@@ -3,6 +3,11 @@ package com.m2dl.maf.makeafocal;
 import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -35,6 +40,10 @@ public class TakePhotoActivity extends Activity {
     private ImageView imageView;
     private TextView textViewTags;
     private Photo photo;
+    /** Tools for drawing **/
+    private Canvas canvas;
+    private Paint paint = new Paint();
+    private Bitmap mutableBitmap;
 
     private static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 100;
 
@@ -88,6 +97,7 @@ public class TakePhotoActivity extends Activity {
     public void onAcceptButtonClick(View v) {
         // TODO remove Toast: only use to test
         Toast.makeText(this, photo.toString(), Toast.LENGTH_LONG).show();
+        //photo.setImage(workingBitmap);
         Session.instance().setPhotoToAddToMap(photo);
         // TODO photo.create(this);
         finish();
@@ -109,6 +119,28 @@ public class TakePhotoActivity extends Activity {
                     photo.setImage(android.provider.MediaStore.Images.Media
                             .getBitmap(cr, selectedImage));
                     imageView.setImageBitmap(photo.getImage());
+
+                    BitmapFactory.Options myOptions = new BitmapFactory.Options();
+                    myOptions.inDither = true;
+                    myOptions.inScaled = false;
+                    myOptions.inPreferredConfig = Bitmap.Config.ARGB_8888;// important
+                    myOptions.inPurgeable = true;
+
+
+                    //Mise en place du canevas pour dessiner les tags
+                    Bitmap bitmap = photo.getImage();
+
+                    Bitmap workingBitmap = Bitmap.createBitmap(bitmap);
+                    mutableBitmap = workingBitmap.copy(Bitmap.Config.ARGB_8888, true);
+                    paint.setAntiAlias(true);
+                    paint.setColor(0x99000000);
+                    paint.setStyle(Paint.Style.FILL_AND_STROKE);
+                    canvas = new Canvas(mutableBitmap);
+                    imageView.setAdjustViewBounds(true);
+                    imageView.setImageBitmap(mutableBitmap);
+                    photo.setImage(mutableBitmap);
+
+
                 } catch (Exception e) {
                     Toast.makeText(
                             this,
@@ -152,5 +184,13 @@ public class TakePhotoActivity extends Activity {
 
     public TextView getTextViewTags() {
         return textViewTags;
+    }
+
+    public Canvas getCanvas(){
+        return canvas;
+    }
+
+    public Paint getPaint() {
+        return paint;
     }
 }

@@ -3,6 +3,7 @@ package com.m2dl.maf.makeafocal.controller;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.Paint;
 import android.os.Vibrator;
 import android.text.InputType;
 import android.util.Log;
@@ -72,6 +73,7 @@ public class OnImageTouchListener implements View.OnTouchListener, View.OnLongCl
                                 tvText.substring(0, tvText.lastIndexOf(",")));
                     }
                 }
+                context.getCanvas().drawCircle(x,y,200,context.getPaint());
 
             }
         });
