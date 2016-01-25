@@ -4,26 +4,36 @@ import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.util.Pair;
 import android.view.View;
+import android.webkit.DownloadListener;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.amazonaws.mobileconnectors.s3.transferutility.TransferObserver;
+import com.amazonaws.mobileconnectors.s3.transferutility.TransferState;
+import com.amazonaws.mobileconnectors.s3.transferutility.TransferUtility;
 import com.m2dl.maf.makeafocal.controller.GPSLocationListener;
 import com.m2dl.maf.makeafocal.controller.OnImageTouchListener;
+import com.m2dl.maf.makeafocal.controller.UploadListener;
 import com.m2dl.maf.makeafocal.model.Photo;
 import com.m2dl.maf.makeafocal.model.Session;
 import com.m2dl.maf.makeafocal.model.User;
+import com.m2dl.maf.makeafocal.server.Util;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Created by florent on 17/01/16.
@@ -33,8 +43,22 @@ public class TakePhotoActivity extends Activity {
     private Uri imageUri;
     /** Container for the photo taken. */
     private ImageView imageView;
+    /** Textview containing list of tags added to the photo. */
     private TextView textViewTags;
+    /** Photo taken. */
     private Photo photo;
+    /** This is the main class for interacting with the Transfer Manager */
+    private TransferUtility transferUtility;
+
+    /** A List of all transfers */
+    private List<TransferObserver> observers;
+
+    /**
+     * This map is used to provide data to the SimpleAdapter above. See the
+     * fillMap() function for how it relates observers to rows in the displayed
+     * activity.
+     */
+    private List<Map<String, Object>> transferRecordMaps;
 
     private static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 100;
 
@@ -57,10 +81,18 @@ public class TakePhotoActivity extends Activity {
 
         takePhoto();
         applyLocationToPhoto();
+
+        transferUtility = Util.getTransferUtility(this);
+
     }
 
+
+
     /**
-     *
+     * Start activity to take photo and get a set of information :
+     *   - date
+     *   - URI
+     *   - path
      */
     public void takePhoto() {
         // Create intent to take photo
@@ -87,8 +119,10 @@ public class TakePhotoActivity extends Activity {
 
     public void onAcceptButtonClick(View v) {
         // TODO remove Toast: only use to test
+
         Toast.makeText(this, photo.toString(), Toast.LENGTH_LONG).show();
         Session.instance().setPhotoToAddToMap(photo);
+        beginUpload();
         finish();
     }
 
@@ -142,7 +176,33 @@ public class TakePhotoActivity extends Activity {
             // GPS or network is not enabled.
             // Ask user to enable GPS/network in settings.
             gps.showSettingsAlert();
+            photo.setLocation(new Pair<>(gps.getLatitude(), gps.getLongitude()));
         }
+    }
+
+
+    /*
+     * Begins to upload the file specified by the file path.
+     */
+    private void beginUpload() {
+        if (photo.getPath() == null) {
+            Toast.makeText(
+                    this,
+                    "Could not find the filepath of the selected file",
+                    Toast.LENGTH_LONG).show();
+            return;
+        }
+        File file = new File(photo.getPath());
+        TransferObserver observer = transferUtility.upload(
+                String.valueOf(R.string.BUCKET_NAME),
+                file.getName(),
+                file);
+        observer.setTransferListener(new UploadListener(this));
+        observers.add(observer);
+        HashMap<String, Object> map = new HashMap<String, Object>();
+        Util.fillMap(map, observer, false);
+        transferRecordMaps.add(map);
+        observer.setTransferListener(new UploadListener(this));
     }
 
     public Photo getPhoto() {
