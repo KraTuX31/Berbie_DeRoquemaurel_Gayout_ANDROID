@@ -89,6 +89,7 @@ public class TakePhotoActivity extends Activity {
         // TODO remove Toast: only use to test
         Toast.makeText(this, photo.toString(), Toast.LENGTH_LONG).show();
         Session.instance().setPhotoToAddToMap(photo);
+        // TODO photo.create(this);
         finish();
     }
 

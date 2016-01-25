@@ -16,6 +16,7 @@ import android.util.Pair;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -31,6 +32,9 @@ import com.m2dl.maf.makeafocal.model.Photo;
 import com.m2dl.maf.makeafocal.model.Session;
 import com.m2dl.maf.makeafocal.model.User;
 import com.m2dl.maf.makeafocal.util.MarkersManager;
+
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 
 public class MainActivity
         extends AppCompatActivity
@@ -94,6 +98,10 @@ public class MainActivity
                     .icon(icon));
             //on vide la photo en attente d'affichage
             Session.instance().setPhotoToAddToMap(null);
+            //On ajoute la photo dans liée au marker dans la liste
+            ArrayList<Photo> newListe = Session.instance().getListePhotoAdded();
+            newListe.add(photoToAdd);
+            Session.instance().setListePhotoAdded(newListe);
         }
 
 
@@ -222,6 +230,23 @@ public class MainActivity
         markersManager.init(map);
         map.setMyLocationEnabled(true);
         map.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(43.56053780000001, 1.468691900000067), 15f));
+        map.setOnMapLongClickListener(new GoogleMap.OnMapLongClickListener() {
+            @Override
+            public void onMapLongClick(LatLng latLng) {
+
+                for(Photo photo : Session.instance().getListePhotoAdded()) {
+
+                    if(Math.abs(Math.abs(photo.getLocation().first) - latLng.latitude) < 0.0003 && Math.abs(photo.getLocation().second - latLng.longitude) < 0.0003){
+
+                        Session.instance().setPhotoToVisualise(photo);
+                        Intent intent = new Intent(MainActivity.this, VisualisationMarkerActivity.class);
+                        startActivity(intent);
+                        return;
+                    }
+
+                }
+            }
+        });
     }
 
 
