@@ -36,6 +36,8 @@ public class OnImageTouchListener implements View.OnTouchListener, View.OnLongCl
     @Override
     public boolean onTouch(View v, MotionEvent event) {
         if (isLongClick) {
+            x = (int) event.getX();
+            y = (int) event.getY();
             isLongClick = false;
         } else {
             x = (int) event.getX();
@@ -73,7 +75,7 @@ public class OnImageTouchListener implements View.OnTouchListener, View.OnLongCl
                                 tvText.substring(0, tvText.lastIndexOf(",")));
                     }
                 }
-                context.getCanvas().drawCircle(x,y,200,context.getPaint());
+                context.getCanvas().drawCircle(y,x,200,context.getPaint());
 
             }
         });
