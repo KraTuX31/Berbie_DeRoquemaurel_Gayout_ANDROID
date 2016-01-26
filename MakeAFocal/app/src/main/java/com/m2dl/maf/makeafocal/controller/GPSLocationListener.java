@@ -146,26 +146,26 @@ public class GPSLocationListener extends Service implements LocationListener {
     /**
      * Function to get latitude
      * */
-    public double getLatitude(){
+    public float getLatitude(){
         if(location != null){
             latitude = location.getLatitude();
         }
 
         // return latitude
-        return latitude;
+        return (float) latitude;
     }
 
 
     /**
      * Function to get longitude
      * */
-    public double getLongitude(){
+    public float getLongitude(){
         if(location != null){
             longitude = location.getLongitude();
         }
 
         // return longitude
-        return longitude;
+        return (float) longitude;
     }
 
     /**

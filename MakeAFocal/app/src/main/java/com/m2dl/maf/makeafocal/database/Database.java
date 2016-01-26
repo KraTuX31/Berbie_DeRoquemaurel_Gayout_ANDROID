@@ -134,7 +134,7 @@ public class Database extends SQLiteOpenHelper {
                 "where id='"+id+"'", null);
         cur.moveToFirst();
         return new Photo(cur.getString(cur.getColumnIndex("path")),
-                        new Pair<>(cur.getDouble(cur.getColumnIndex("latitude")), cur.getDouble(cur.getColumnIndex("longitude"))
+                        new Pair<>(cur.getFloat(cur.getColumnIndex("longitude")), cur.getFloat(cur.getColumnIndex("latitude"))
                                 ),
                         new User(context, cur.getInt(cur.getColumnIndex("user"))));
     }
@@ -156,9 +156,9 @@ public class Database extends SQLiteOpenHelper {
         while(!res.isAfterLast()){
             String path = res.getString(res.getColumnIndex("path"));
             User u = new User(context, res.getInt(res.getColumnIndex("user")));
-            Photo p = new Photo(path, new Pair<>(0d,0d), u);
+            Photo p = new Photo(path, new Pair<>(res.getFloat(res.getColumnIndex("longitude")), res.getFloat(res.getColumnIndex("latitude"))), u);
             p.setId(res.getInt(res.getColumnIndex("id")));
-            Cursor res2 =  db.rawQuery( "select * from tag where id_photo="+p.getId(), null );
+            Cursor res2 =  db.rawQuery( "select * from tag, photo_tag where tag.id=photo_tag.idTag and idPhoto="+p.getId(), null );
             res2.moveToFirst();
             while(!res2.isAfterLast()) {
                 Tag t = new Tag(res.getString(res.getColumnIndex("tagName")),

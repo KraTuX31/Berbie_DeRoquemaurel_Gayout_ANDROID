@@ -29,6 +29,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.m2dl.maf.makeafocal.controller.GPSLocationListener;
 import com.m2dl.maf.makeafocal.controller.OnSearchQueryListener;
 import com.m2dl.maf.makeafocal.model.Photo;
+import com.m2dl.maf.makeafocal.model.PhotoList;
 import com.m2dl.maf.makeafocal.model.Session;
 import com.m2dl.maf.makeafocal.model.User;
 import com.m2dl.maf.makeafocal.util.MarkersManager;
@@ -77,31 +78,31 @@ public class MainActivity
                 (SupportMapFragment) getSupportFragmentManager()
                         .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
-        Session.instance().setCurrentUser(new User("userName"));
 
-
+        Session.instance().addAllPhotoToMap(new PhotoList(this));
     }
+
 
     @Override
     public void onResume(){
         super.onResume();
-        if(Session.instance().getPhotoToAddToMap() != null){
-            Photo photoToAdd = Session.instance().getPhotoToAddToMap();
-            Pair<Double,Double> location = photoToAdd.getLocation();
-            //redimensionnement de l'image
-            BitmapDescriptor icon = BitmapDescriptorFactory.fromBitmap(photoToAdd.getImage().createScaledBitmap(photoToAdd.getImage(),120,120,false));
-            //Marker
-            map.addMarker(new MarkerOptions()
-                    .position(new LatLng(location.first,location.second))
-                    .title(photoToAdd.getTags().toString())
-                    .snippet(photoToAdd.getUser().getUserName())
-                    .icon(icon));
-            //on vide la photo en attente d'affichage
-            Session.instance().setPhotoToAddToMap(null);
-            //On ajoute la photo dans liée au marker dans la liste
-            ArrayList<Photo> newListe = Session.instance().getListePhotoAdded();
-            newListe.add(photoToAdd);
-            Session.instance().setListePhotoAdded(newListe);
+        if(Session.instance().getPhotoToAddToMap().size() > 0 && map != null) {
+            for(Photo p : Session.instance().getPhotoToAddToMap()) {
+                Pair<Float, Float> location = p.getLocation();
+                // Resize image
+                BitmapDescriptor icon = BitmapDescriptorFactory.fromBitmap(p.getImage().createScaledBitmap(p.getImage(), 120, 120, false));
+                //Marker
+                map.addMarker(new MarkerOptions()
+                        .position(new LatLng(location.first, location.second))
+                        .title(p.getTags().toString())
+                        .snippet(p.getUser().getUserName())
+                        .icon(icon));
+                // on vide la photo en attente d'affichage
+                // On ajoute la photo dans liée au marker dans la liste
+                Session.instance().getListePhotoAdded().add(p);
+            }
+
+            Session.instance().cleanPhotosToAdd();
         }
 
 
@@ -247,6 +248,7 @@ public class MainActivity
                 }
             }
         });
+        onResume();
     }
 
 

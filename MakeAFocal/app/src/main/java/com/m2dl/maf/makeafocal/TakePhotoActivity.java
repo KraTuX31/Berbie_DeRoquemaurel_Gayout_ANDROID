@@ -4,36 +4,28 @@ import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.Intent;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.util.Pair;
 import android.view.View;
-import android.webkit.DownloadListener;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.amazonaws.mobileconnectors.s3.transferutility.TransferObserver;
-import com.amazonaws.mobileconnectors.s3.transferutility.TransferState;
-import com.amazonaws.mobileconnectors.s3.transferutility.TransferUtility;
 import com.m2dl.maf.makeafocal.controller.GPSLocationListener;
 import com.m2dl.maf.makeafocal.controller.OnImageTouchListener;
-import com.m2dl.maf.makeafocal.controller.UploadListener;
 import com.m2dl.maf.makeafocal.model.Photo;
 import com.m2dl.maf.makeafocal.model.Session;
-import com.m2dl.maf.makeafocal.model.User;
-import com.m2dl.maf.makeafocal.server.Util;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 
 /**
  * Created by florent on 17/01/16.
@@ -48,10 +40,6 @@ public class TakePhotoActivity extends Activity {
     /** Photo taken. */
     private Photo photo;
     /** This is the main class for interacting with the Transfer Manager */
-    private TransferUtility transferUtility;
-
-    /** A List of all transfers */
-    private List<TransferObserver> observers;
 
     /**
      * This map is used to provide data to the SimpleAdapter above. See the
@@ -82,7 +70,6 @@ public class TakePhotoActivity extends Activity {
         takePhoto();
         applyLocationToPhoto();
 
-        transferUtility = Util.getTransferUtility(this);
 
     }
 
@@ -121,9 +108,8 @@ public class TakePhotoActivity extends Activity {
         // TODO remove Toast: only use to test
 
         Toast.makeText(this, photo.toString(), Toast.LENGTH_LONG).show();
-        Session.instance().setPhotoToAddToMap(photo);
-        // TODO photo.create(this);
-        beginUpload();
+        Session.instance().addPhotoToMap(photo);
+        photo.create(this);
         finish();
     }
 
@@ -181,30 +167,6 @@ public class TakePhotoActivity extends Activity {
         }
     }
 
-
-    /*
-     * Begins to upload the file specified by the file path.
-     */
-    private void beginUpload() {
-        if (photo.getPath() == null) {
-            Toast.makeText(
-                    this,
-                    "Could not find the filepath of the selected file",
-                    Toast.LENGTH_LONG).show();
-            return;
-        }
-        File file = new File(photo.getPath());
-        TransferObserver observer = transferUtility.upload(
-                String.valueOf(R.string.BUCKET_NAME),
-                file.getName(),
-                file);
-        observer.setTransferListener(new UploadListener(this));
-        observers.add(observer);
-        HashMap<String, Object> map = new HashMap<String, Object>();
-        Util.fillMap(map, observer, false);
-        transferRecordMaps.add(map);
-        observer.setTransferListener(new UploadListener(this));
-    }
 
     public Photo getPhoto() {
         return photo;

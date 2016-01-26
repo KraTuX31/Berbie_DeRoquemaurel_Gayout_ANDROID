@@ -2,8 +2,10 @@ package com.m2dl.maf.makeafocal.model;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.util.Pair;
 
+import java.io.File;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -14,7 +16,7 @@ public class Photo extends Model {
     /** The Bitmap image of the photo. */
     private Bitmap image;
     /** The position of the photo. */
-    private Pair<Double, Double> location;
+    private Pair<Float, Float> location;
     /** Tags of the photo. */
     private Set<Tag> tags;
     /** The user which take the photo. */
@@ -29,14 +31,18 @@ public class Photo extends Model {
      * Create an empty photo
      * TODO : search usefull constructors
      */
-    public Photo(String path, Pair<Double, Double> location, User u) {
+    public Photo(String path, Pair<Float, Float> location, User u) {
         super();
         this.tags = new HashSet<>();
         this.path = path;
+        File f = new File(path);
+        BitmapFactory.Options bmOptions = new BitmapFactory.Options();
+        image = BitmapFactory.decodeFile(f.getAbsolutePath(), bmOptions);
+        image = Bitmap.createScaledBitmap(image, 120, 130, true);
+
         this.location = location;
         this.user = u;
         tags = new HashSet<>();
-        image = null;
     }
 
     public Photo(Context c, final int id) {
@@ -76,7 +82,7 @@ public class Photo extends Model {
     @Override
     public void create(Context c) {
         for(Tag t : tags) {
-            t.create(c);
+            //t.create(c);
         }
         getDb(c).insertPhoto(this);
     }
@@ -102,14 +108,14 @@ public class Photo extends Model {
         this.path = path;
     }
 
-    public void setLocation(Pair<Double, Double> location) {
+    public void setLocation(Pair<Float, Float> location) {
         this.location = location;
     }
     public void setImage(Bitmap image) {
         this.image = image;
     }
 
-    public Pair<Double, Double> getLocation() {
+    public Pair<Float, Float> getLocation() {
         return location;
     }
 
