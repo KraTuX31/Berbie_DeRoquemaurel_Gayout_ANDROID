@@ -1,6 +1,7 @@
 package com.m2dl.maf.makeafocal.model;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Marc on 22/01/2016.
@@ -9,7 +10,7 @@ public class Session {
     private static Session instance;
     private User currentUser;
     private ArrayList<Photo> listePhotoAdded = new ArrayList<Photo>();
-    private Photo photoToAddToMap;
+    private List<Photo> photosToAddToMap;
     private Photo photoToVisualise;
 
     public Photo getPhotoToVisualise() {
@@ -30,15 +31,17 @@ public class Session {
         this.listePhotoAdded = listePhotoAdded;
     }
 
-    public Photo getPhotoToAddToMap() {
-        return photoToAddToMap;
+    public List<Photo> getPhotoToAddToMap() {
+        return photosToAddToMap;
     }
 
-    public void setPhotoToAddToMap(Photo photoToAddToMap) {
-        this.photoToAddToMap = photoToAddToMap;
+    public void addPhotoToMap(Photo photo) {
+        photosToAddToMap.add(photo);
     }
 
-
+    public void addAllPhotoToMap(List<Photo> photos) {
+        photosToAddToMap.addAll(photos);
+    }
 
     public static Session instance() {
         if(instance == null) {
@@ -49,7 +52,7 @@ public class Session {
     }
 
     private Session() {
-
+        photosToAddToMap = new ArrayList<Photo>();
     }
 
     public User getCurrentUser() {
@@ -58,5 +61,9 @@ public class Session {
 
     public void setCurrentUser(User currentUser) {
         this.currentUser = currentUser;
+    }
+
+    public void cleanPhotosToAdd() {
+        this.photosToAddToMap.clear();
     }
 }

@@ -31,7 +31,7 @@ public class TestDatabasePhoto extends AndroidTestCase {
         User u = new User("toto");
         u.create(context);
         Photo p = new Photo("/superpath",
-                new Pair<>(0.1d, 0.2d), u
+                new Pair<>(0.1f, 0.2f), u
         );
 
         db.insertPhoto(p);
@@ -45,7 +45,7 @@ public class TestDatabasePhoto extends AndroidTestCase {
     @SmallTest
     public void testDbModelAddUser() {
         Photo p = new Photo("/superpath",
-                new Pair<>(0.1d, 0.2d), new User("toto")
+                new Pair<>(0.1f, 0.2f), new User("toto")
         );
         p.create(context);
     }

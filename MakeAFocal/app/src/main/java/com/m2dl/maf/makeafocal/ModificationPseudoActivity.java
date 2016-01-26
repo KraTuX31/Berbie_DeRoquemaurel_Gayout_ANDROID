@@ -34,7 +34,6 @@ public class ModificationPseudoActivity extends AppCompatActivity {
 
                 username.delete(this); // remove old user
                 u.create(this); // Create a user with the new pseudal
-                Session.instance().setCurrentUser(u);
                 Toast.makeText(
                         ModificationPseudoActivity.this,
                         R.string.pseudo_changed,
@@ -43,7 +42,6 @@ public class ModificationPseudoActivity extends AppCompatActivity {
                 this.finish();
             } else {
                 u.create(this);
-                Session.instance().setCurrentUser(u);
                 Toast.makeText(
                         ModificationPseudoActivity.this,
                         R.string.pseudo_created,
@@ -53,6 +51,7 @@ public class ModificationPseudoActivity extends AppCompatActivity {
 //                setUsernameOnNavigationMenu(u.getUserName());
                 startActivity(intent);
             }
+            Session.instance().setCurrentUser(u);
         } else {
             Toast.makeText(
                     ModificationPseudoActivity.this,
