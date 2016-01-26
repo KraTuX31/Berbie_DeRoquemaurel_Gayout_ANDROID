@@ -51,8 +51,8 @@ public class Database extends SQLiteOpenHelper {
                 "create table photo " +
                 "(id integer primary key autoincrement not null, path text, longitude float, latitude float, user integer)"
        );
-        db.execSQL("create table tag (id integer, tagName text, x float, y float, size float)");
-        db.execSQL("create table photo_tag (idTag integer primary key autoincrement not null, idPhoto integer)");
+        db.execSQL("create table tag (id integer primary key autoincrement not null, tagName text, x float, y float, size float)");
+        db.execSQL("create table photo_tag (idTag integer, idPhoto integer)");
         db.execSQL("create table user (id integer primary key autoincrement not null, userName text)");
 
         // Alters table
@@ -120,12 +120,22 @@ public class Database extends SQLiteOpenHelper {
         contentValues.put("x", t.getZone().getX());
         contentValues.put("y", t.getZone().getY());
         contentValues.put("size", t.getZone().getSize());
-        t.setId(db.insert("tags", null, contentValues));
+        t.setId(db.insert("tag", null, contentValues));
     }
 
     public Cursor getTag(String tagName) {
         SQLiteDatabase db = this.getReadableDatabase();
-        return db.rawQuery( "select * from tags where tagName='"+tagName+"'", null );
+        return db.rawQuery( "select * from tag where tagName='"+tagName+"'", null );
+    }
+
+    public Tag getTag(final int id) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cur = db.rawQuery( "select * from tag " +
+                "where id='"+id+"'", null);
+        cur.moveToFirst();
+        Tag t = new Tag(cur.getString(cur.getColumnIndex("tagName")), new Zone(0, 0, 0));
+        t.setId(id);
+        return t;
     }
 
     public Photo getPhoto(final long id) {
@@ -158,13 +168,12 @@ public class Database extends SQLiteOpenHelper {
             User u = new User(context, res.getInt(res.getColumnIndex("user")));
             Photo p = new Photo(path, new Pair<>(res.getFloat(res.getColumnIndex("longitude")), res.getFloat(res.getColumnIndex("latitude"))), u);
             p.setId(res.getInt(res.getColumnIndex("id")));
-            Cursor res2 =  db.rawQuery( "select * from tag, photo_tag where tag.id=photo_tag.idTag and idPhoto="+p.getId(), null );
+            SQLiteDatabase db2 = this.getReadableDatabase();
+
+            Cursor res2 =  db2.rawQuery( "select * from photo_tag where idPhoto="+p.getId(), null );
             res2.moveToFirst();
             while(!res2.isAfterLast()) {
-                Tag t = new Tag(res.getString(res.getColumnIndex("tagName")),
-                        new Zone(0, 0, 0));
-                t.setId(res.getInt(res.getColumnIndex("id")));
-                p.addTag(t);
+                p.addTag(new Tag(context, res2.getInt(res2.getColumnIndex("idTag"))));
                 res2.moveToNext();
             }
             ret.add(p);
@@ -182,6 +191,12 @@ public class Database extends SQLiteOpenHelper {
         return new User(cur.getString(cur.getColumnIndex("userName")));
     }
 
+    public User getLastUser() {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cur = db.rawQuery( "select * from user order by id desc", null);
+        cur.moveToFirst();
+        return new User(cur.getString(cur.getColumnIndex("userName")), cur.getInt(cur.getColumnIndex("id")));
+    }
 
     public boolean pseudoExists(String userName) {
         SQLiteDatabase db = this.getReadableDatabase();

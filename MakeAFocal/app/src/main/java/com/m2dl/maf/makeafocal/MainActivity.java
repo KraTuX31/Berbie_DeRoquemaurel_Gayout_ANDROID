@@ -57,6 +57,8 @@ public class MainActivity
         if(!Database.instance(this).exists()) {
             Intent intent = new Intent(MainActivity.this, ModificationPseudoActivity.class);
             startActivity(intent);
+        } else {
+            Session.instance().setCurrentUser(Database.instance(this).getLastUser());
         }
         setContentView(R.layout.activity_main);
         context = getBaseContext();

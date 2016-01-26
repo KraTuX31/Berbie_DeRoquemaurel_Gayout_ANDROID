@@ -19,6 +19,12 @@ public class User extends Model {
         this.userName = username;
     }
 
+    public User(String username, final int id) {
+        super();
+        this.userName = username;
+        this.id = id;
+    }
+
     public User(Context c, final int id) {
         super(c, id);
         User u = getDb(c).getUser(id);

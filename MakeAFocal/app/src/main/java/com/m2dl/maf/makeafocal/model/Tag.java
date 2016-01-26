@@ -3,6 +3,8 @@ package com.m2dl.maf.makeafocal.model;
 import android.content.Context;
 import android.database.Cursor;
 
+import com.m2dl.maf.makeafocal.database.Database;
+
 /**
  * Created by aroquemaurel on 21/01/16.
  */
@@ -29,7 +31,10 @@ public class Tag extends Model {
 
        public Tag(Context c, final int id) {
         super(c, id);
-        throw new RuntimeException("Not implemented");
+        Tag t = Database.instance(c).getTag(id);
+        setId(t.getId());
+       setTagName(t.getTagName());
+       setZone(t.getZone());
     }
 
     public Zone getZone() {
@@ -56,12 +61,11 @@ public class Tag extends Model {
     @Override
     public void create(Context c) {
         Cursor cur = (Cursor) getDb(c).getTag(tagName);
+        cur.moveToFirst();
 
-        if(cur == null) {
+        if(cur.getCount() == 0) {
             getDb(c).insertTag(this);
         } else {
-            cur.moveToFirst();
-
             id = cur.getInt(cur.getColumnIndex("id"));
         }
     }

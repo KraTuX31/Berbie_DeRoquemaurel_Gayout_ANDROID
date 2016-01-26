@@ -82,7 +82,7 @@ public class Photo extends Model {
     @Override
     public void create(Context c) {
         for(Tag t : tags) {
-            //t.create(c);
+            t.create(c);
         }
         getDb(c).insertPhoto(this);
     }
