@@ -1,14 +1,13 @@
 package com.m2dl.maf.makeafocal.util;
 
 import android.app.Activity;
-import android.content.res.Resources;
 
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.m2dl.maf.makeafocal.model.PointOfInterest;
+import com.m2dl.maf.makeafocal.model.pointofinterest.MarkerPointOfInterest;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -36,8 +35,9 @@ public class MarkersManager {
 
     }
 
-    private void addPointsOfInterest(final List<PointOfInterest> points, final GoogleMap map) {
-        for (PointOfInterest p : points) {
+    private void addPointsOfInterest(final List<MarkerPointOfInterest> points,
+                                     final GoogleMap map) {
+        for (MarkerPointOfInterest p : points) {
             addMarker(
                 map.addMarker(new MarkerOptions()
                     .position(new LatLng(p.getLatitude(), p.getLongitude()))

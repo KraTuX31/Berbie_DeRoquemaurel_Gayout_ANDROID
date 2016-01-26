@@ -1,13 +1,13 @@
 package com.m2dl.maf.makeafocal.util;
 
+import android.content.res.Resources;
 import android.os.AsyncTask;
 import android.util.JsonReader;
-import android.content.res.Resources;
-
 
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.m2dl.maf.makeafocal.R;
-import com.m2dl.maf.makeafocal.model.PointOfInterest;
+import com.m2dl.maf.makeafocal.model.pointofinterest.MarkerPointOfInterest;
+import com.m2dl.maf.makeafocal.model.pointofinterest.PolygonPointOfInterest;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -22,7 +22,8 @@ public class JsonMarkerParser extends AsyncTask<Void, Void, Void>{
 
     private InputStream in;
 
-    private List<PointOfInterest> pointOfInterest;
+    private List<MarkerPointOfInterest> markers;
+    private List<PolygonPointOfInterest> polygons;
 
     private final float COLOR_CARTON = BitmapDescriptorFactory.HUE_ORANGE;
     private final float COLOR_PAPER = BitmapDescriptorFactory.HUE_CYAN;
@@ -33,8 +34,8 @@ public class JsonMarkerParser extends AsyncTask<Void, Void, Void>{
 
 
     public JsonMarkerParser(Resources resources) {
-        this.in = resources.openRawResource(R.raw.markers);
-        pointOfInterest = new ArrayList<PointOfInterest>();
+        this.in = resources.openRawResource(R.raw.pointsofinterest);
+        markers = new ArrayList<MarkerPointOfInterest>();
     }
 
     public void parse() {
@@ -42,11 +43,30 @@ public class JsonMarkerParser extends AsyncTask<Void, Void, Void>{
             JsonReader reader = new JsonReader(
                     new InputStreamReader(in, "UTF-8"));
 
-            reader.beginArray();
+            reader.beginObject();
+            String elt;
             while (reader.hasNext()) {
-                pointOfInterest.add(readMessage(reader));
+                elt = reader.nextName();
+                if (elt.equals("markers")) {
+                    reader.endArray();
+                    while (reader.hasNext()) {
+                        markers.add(readMarkerMessage(reader));
+                    }
+                    reader.endArray();
+                } else if (elt.equals("zones")) {
+                    reader.endArray();
+                    while (reader.hasNext()) {
+                        polygons.add(readPolygonMessage(reader));
+                    }
+                    reader.endArray();
+                }
             }
-            reader.endArray();
+            reader.endObject();
+//            reader.beginArray();
+//            while (reader.hasNext()) {
+//                pointOfInterest.add(readMarkerMessage(reader));
+//            }
+//            reader.endArray();
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -55,8 +75,12 @@ public class JsonMarkerParser extends AsyncTask<Void, Void, Void>{
 
     }
 
+    private PolygonPointOfInterest readPolygonMessage(JsonReader reader) {
+        return null;
+    }
 
-    public PointOfInterest readMessage(JsonReader reader) throws IOException {
+
+    public MarkerPointOfInterest readMarkerMessage(JsonReader reader) throws IOException {
         String title = null;
         float latitude = 0F;
         float longitude = 0F;
@@ -91,8 +115,10 @@ public class JsonMarkerParser extends AsyncTask<Void, Void, Void>{
         }
         reader.endObject();
 
-        return new PointOfInterest(title, latitude, longitude, color);
+        return new MarkerPointOfInterest(title, latitude, longitude, color);
     }
+
+
 
     @Override
     protected Void doInBackground(Void... params) {
@@ -105,7 +131,7 @@ public class JsonMarkerParser extends AsyncTask<Void, Void, Void>{
         super.onPostExecute(aVoid);
     }
 
-    public List<PointOfInterest> getPointsOfInterest() {
-        return pointOfInterest;
+    public List<MarkerPointOfInterest> getPointsOfInterest() {
+        return markers;
     }
 }
