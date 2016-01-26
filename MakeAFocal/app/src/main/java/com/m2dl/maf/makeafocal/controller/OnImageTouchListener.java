@@ -3,6 +3,7 @@ package com.m2dl.maf.makeafocal.controller;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.Paint;
 import android.os.Vibrator;
 import android.text.InputType;
 import android.util.Log;
@@ -10,6 +11,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.m2dl.maf.makeafocal.R;
 import com.m2dl.maf.makeafocal.TakePhotoActivity;
@@ -27,6 +29,8 @@ public class OnImageTouchListener implements View.OnTouchListener, View.OnLongCl
     private boolean isLongClick;
     private int x;
     private int y;
+    private int width;
+    private int height;
 
     public OnImageTouchListener(TakePhotoActivity activity) {
         context = activity;
@@ -43,6 +47,8 @@ public class OnImageTouchListener implements View.OnTouchListener, View.OnLongCl
 
             Log.d("IMG", "touch: (" + x + "," + y + ")");
         }
+        width = v.getWidth();
+        height = v.getHeight();
 
 
         return false;
@@ -73,6 +79,12 @@ public class OnImageTouchListener implements View.OnTouchListener, View.OnLongCl
                                 tvText.substring(0, tvText.lastIndexOf(",")));
                     }
                 }
+
+                //Produit en croix
+                int posx = (x * context.getImageView().getWidth()) / width;
+                int posy = (y * context.getImageView().getHeight()) / height;
+                //Toast.makeText(context, "posx : "+x+"posy : "+y, Toast.LENGTH_SHORT).show();
+                context.getCanvas().drawCircle(posx,posy,200,context.getPaint());
 
             }
         });

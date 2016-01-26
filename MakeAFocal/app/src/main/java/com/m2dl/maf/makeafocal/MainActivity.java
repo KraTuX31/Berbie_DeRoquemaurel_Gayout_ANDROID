@@ -16,7 +16,6 @@ import android.util.Pair;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -35,7 +34,6 @@ import com.m2dl.maf.makeafocal.model.Session;
 import com.m2dl.maf.makeafocal.model.User;
 import com.m2dl.maf.makeafocal.util.MarkersManager;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -87,6 +85,7 @@ public class MainActivity
                 (SupportMapFragment) getSupportFragmentManager()
                         .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+        Session.instance().setCurrentUser(new User("userName"));
 
         Session.instance().addAllPhotoToMap(new PhotoList(this));
     }
@@ -94,7 +93,7 @@ public class MainActivity
     @Override
     public void onResume(){
         super.onResume();
-        if(Session.instance().getPhotoToAddToMap() != null){
+        if(Session.instance().getPhotoToAddToMap() != null && map != null){
             List<Photo> photoToAdd = Session.instance().getPhotoToAddToMap();
             for(Photo p : photoToAdd) {
                 Pair<Float, Float> location = p.getLocation();

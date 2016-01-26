@@ -28,7 +28,11 @@ public class VisualisationMarkerActivity extends AppCompatActivity {
         Photo photoToDisplay = Session.instance().getPhotoToVisualise();
         //On affiche les infos
         author.setText(photoToDisplay.getUser().getUserName());
-        listeTags.setText(photoToDisplay.getTags().toString());
+        if(!photoToDisplay.getTags().toString().equals("[]")){
+            listeTags.setText(photoToDisplay.getTags().toString());
+        } else {
+            listeTags.setText("Aucun tags");
+        }
         image.setImageBitmap(photoToDisplay.getImage());
 
 
