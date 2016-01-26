@@ -131,7 +131,7 @@ public class TakePhotoActivity extends Activity {
                     Bitmap bitmap = photo.getImage();
 
                     Bitmap workingBitmap = Bitmap.createBitmap(bitmap);
-                    mutableBitmap = workingBitmap.copy(Bitmap.Config.ARGB_8888, true);
+                    mutableBitmap = workingBitmap.copy(workingBitmap.getConfig(), true);
                     paint.setAntiAlias(true);
                     paint.setColor(0x99000000);
                     paint.setStyle(Paint.Style.FILL_AND_STROKE);
@@ -193,4 +193,5 @@ public class TakePhotoActivity extends Activity {
     public Paint getPaint() {
         return paint;
     }
+    public ImageView getImageView() { return imageView;}
 }
