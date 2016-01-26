@@ -11,8 +11,10 @@ public class PolygonPointOfInterest extends PointOfInterest {
 
     private List<Pair<Double, Double>> listOfPoints;
 
-    public PolygonPointOfInterest(final String title, float color) {
+    public PolygonPointOfInterest(final String title, float color,
+                                  final List<Pair<Double, Double>> points) {
         super(title, color);
+        listOfPoints = points;
     }
 
     public List<Pair<Double, Double>> getListOfPoints() {
