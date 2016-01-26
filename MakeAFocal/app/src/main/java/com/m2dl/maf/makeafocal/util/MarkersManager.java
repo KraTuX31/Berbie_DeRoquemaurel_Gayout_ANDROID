@@ -59,22 +59,42 @@ public class MarkersManager {
 
     }
 
+    public void addPhotoMarker(final Marker marker) {
+        String[] tags = marker.getTitle().toLowerCase()
+                .replace("[","").replace("]", "")
+                .replace("#","")
+                .replace(" ","")
+                .split(",");
+
+        for (String tag : tags) {
+
+            if (mapTagMarkers.containsKey(tag)) {
+                mapTagMarkers.get(tag).add(marker);
+            } else {
+                List<Marker> list = new ArrayList<>();
+                list.add(marker);
+                mapTagMarkers.put(tag, list);
+            }
+        }
+
+    }
+
     public void setVisibleTags(final String[] tags) {
         context.runOnUiThread(new Runnable() {
             public void run() {
-
-                for (String tag : tags) {
-                    if (mapTagMarkers.containsKey(tag)) {
-                        for (Marker m : mapTagMarkers.get(tag)) {
-                            m.setVisible(true);
-                        }
-                    }
-                }
 
                 for (String other : mapTagMarkers.keySet()) {
                     if (!Arrays.asList(tags).contains(other)) {
                         for (Marker m : mapTagMarkers.get(other)) {
                             m.setVisible(false);
+                        }
+                    }
+                }
+
+                for (String tag : tags) {
+                    if (mapTagMarkers.containsKey(tag)) {
+                        for (Marker m : mapTagMarkers.get(tag)) {
+                            m.setVisible(true);
                         }
                     }
                 }

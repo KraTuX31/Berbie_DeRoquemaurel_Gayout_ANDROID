@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 
+import com.m2dl.maf.makeafocal.R;
 import com.m2dl.maf.makeafocal.TakePhotoActivity;
 import com.m2dl.maf.makeafocal.model.Photo;
 import com.m2dl.maf.makeafocal.model.Tag;
@@ -49,7 +50,7 @@ public class OnImageTouchListener implements View.OnTouchListener, View.OnLongCl
 
     private void displayPopup() {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
-        builder.setTitle("Title");
+        builder.setTitle(R.string.new_tag);
 
         final AutoCompleteTextView input = new AutoCompleteTextView(context);
         input.setInputType(InputType.TYPE_CLASS_TEXT);

@@ -39,6 +39,7 @@
         android:layout_gravity="center_horizontal"
         android:text="@string/valider"
         android:background="@color/colorPrimary"
+        android:textColor="@color/common_plus_signin_btn_text_dark"
         android:id="@+id/button"
         android:onClick="changePseudo"
         android:layout_alignParentRight="true"

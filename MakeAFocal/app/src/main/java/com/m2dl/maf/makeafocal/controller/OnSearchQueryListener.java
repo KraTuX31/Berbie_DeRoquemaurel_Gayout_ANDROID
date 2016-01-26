@@ -85,12 +85,13 @@ public class OnSearchQueryListener implements SearchView.OnQueryTextListener {
     public void executeQuery() {
         // TODO
         // Here execute query with filter bar
-        String[] split = query.toLowerCase().split(" ");
-//        if (split.length == 0) {
-//            manager.setVisibleAllTags();
-//        } else {
+        if (query.isEmpty()) {
+            manager.setVisibleAllTags();
+        } else {
+            String[] split = query.toLowerCase().split(" ");
             manager.setVisibleTags(split);
-//        }
+        }
+
 
 
     }

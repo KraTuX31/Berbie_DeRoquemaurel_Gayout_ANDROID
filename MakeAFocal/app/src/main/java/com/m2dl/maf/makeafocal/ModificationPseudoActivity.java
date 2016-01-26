@@ -1,8 +1,10 @@
 package com.m2dl.maf.makeafocal;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -21,6 +23,7 @@ public class ModificationPseudoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_modification_pseudo);
         newPseudoEdit = (EditText) findViewById(R.id.newPseudo);
+
     }
 
     public void changePseudo(View v) {
@@ -62,4 +65,5 @@ public class ModificationPseudoActivity extends AppCompatActivity {
         MenuItem item = (MenuItem) findViewById(R.id.nav_user);
         item.setTitle(username);
     }
+
 }

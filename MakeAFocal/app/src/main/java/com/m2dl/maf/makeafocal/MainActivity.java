@@ -91,11 +91,13 @@ public class MainActivity
             //redimensionnement de l'image
             BitmapDescriptor icon = BitmapDescriptorFactory.fromBitmap(photoToAdd.getImage().createScaledBitmap(photoToAdd.getImage(),120,120,false));
             //Marker
-            map.addMarker(new MarkerOptions()
+            markersManager.addPhotoMarker(
+                map.addMarker(new MarkerOptions()
                     .position(new LatLng(location.first,location.second))
                     .title(photoToAdd.getTags().toString())
                     .snippet(photoToAdd.getUser().getUserName())
-                    .icon(icon));
+                    .icon(icon))
+            );
             //on vide la photo en attente d'affichage
             Session.instance().setPhotoToAddToMap(null);
             //On ajoute la photo dans liée au marker dans la liste

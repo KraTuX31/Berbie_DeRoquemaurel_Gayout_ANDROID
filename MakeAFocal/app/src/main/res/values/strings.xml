@@ -20,7 +20,7 @@
     <string name="repository_fail_created">Impossible to create repository</string>
     <string name="error_take_photo">Failed to load photo</string>
     <string name="add">Add</string>
-    <string name="new_tag">new tag</string>
+    <string name="new_tag">New tag</string>
     <string name="gps_disabled">GPS disabled</string>
     <string name="add_your_tags">Add your tags</string>
     <string name="tags">Tags: </string>

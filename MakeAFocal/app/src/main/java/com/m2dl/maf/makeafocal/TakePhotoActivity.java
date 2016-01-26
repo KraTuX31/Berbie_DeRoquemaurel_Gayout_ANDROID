@@ -123,7 +123,7 @@ public class TakePhotoActivity extends Activity {
         Toast.makeText(this, photo.toString(), Toast.LENGTH_LONG).show();
         Session.instance().setPhotoToAddToMap(photo);
         // TODO photo.create(this);
-        beginUpload();
+        //beginUpload();
         finish();
     }
 
