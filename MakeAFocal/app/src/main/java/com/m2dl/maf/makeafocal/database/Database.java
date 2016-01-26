@@ -188,4 +188,10 @@ public class Database extends SQLiteOpenHelper {
         Cursor c = db.rawQuery( "select * from User where userName='"+userName+"'", null );
         return (c.getCount() != 0);
     }
+
+    public boolean exists() {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor c = db.rawQuery( "select * from User", null );
+        return (c.getCount() > 0);
+    }
 }

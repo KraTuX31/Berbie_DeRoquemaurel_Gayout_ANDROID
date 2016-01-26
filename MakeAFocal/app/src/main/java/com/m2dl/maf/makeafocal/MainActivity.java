@@ -28,6 +28,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.m2dl.maf.makeafocal.controller.GPSLocationListener;
 import com.m2dl.maf.makeafocal.controller.OnSearchQueryListener;
+import com.m2dl.maf.makeafocal.database.Database;
 import com.m2dl.maf.makeafocal.model.Photo;
 import com.m2dl.maf.makeafocal.model.PhotoList;
 import com.m2dl.maf.makeafocal.model.Session;
@@ -52,6 +53,11 @@ public class MainActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        if(!Database.instance(this).exists()) {
+            Intent intent = new Intent(MainActivity.this, ModificationPseudoActivity.class);
+            startActivity(intent);
+        }
         setContentView(R.layout.activity_main);
         context = getBaseContext();
 
