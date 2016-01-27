@@ -34,4 +34,14 @@
     <string name="please_input_pseudo">Please, enter an username</string>
     <string name="COGNITO_POOL_ID">eu-west-1:439d562e-af8d-435f-bc65-5fedb4b0ada8</string>
     <string name="BUCKET_NAME">Make A Focal</string>
+    <string-array name="default_tags">
+        <item>recycling</item>
+        <item>degradation</item>
+        <item>waterLeak</item>
+    </string-array>
+    <string name="recycling">recycling</string>
+    <string name="degradation">degradation</string>
+    <string name="waterLeak">waterLeak</string>
+
+
 </resources>

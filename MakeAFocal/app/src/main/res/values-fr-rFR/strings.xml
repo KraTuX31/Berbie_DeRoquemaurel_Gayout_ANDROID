@@ -35,5 +35,12 @@
     <string name="pseudo_changed">Le pseudo a été modifié</string>
     <string name="pseudo_created">Nouveau pseudo créé </string>
     <string name="please_input_pseudo">Veuillez saisir un pseudo</string>
-
+    <string-array name="default_tags">
+        <item>recyclage</item>
+        <item>dégradation</item>
+        <item>fuiteEau</item>
+    </string-array>
+    <string name="recycling">recyclage</string>
+    <string name="degradation">dégradation</string>
+    <string name="waterLeak">fuiteEau</string>
 </resources>

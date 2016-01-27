@@ -9,6 +9,7 @@ import android.text.InputType;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -60,6 +61,15 @@ public class OnImageTouchListener implements View.OnTouchListener, View.OnLongCl
 
         final AutoCompleteTextView input = new AutoCompleteTextView(context);
         input.setInputType(InputType.TYPE_CLASS_TEXT);
+        input.setAdapter(new ArrayAdapter<String>(
+                context,
+                R.layout.support_simple_spinner_dropdown_item,
+                context.getResources().getStringArray(R.array.default_tags)));
+
+        input.setHint(
+                context.getString(R.string.recycling) + ", "
+                + context.getString(R.string.degradation) + ", "
+                + context.getString(R.string.waterLeak));
         builder.setView(input);
 
         builder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
