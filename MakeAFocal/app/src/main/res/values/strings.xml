@@ -39,5 +39,9 @@
         <item>degradation</item>
         <item>waterLeak</item>
     </string-array>
+    <string name="recycling">recycling</string>
+    <string name="degradation">degradation</string>
+    <string name="waterLeak">waterLeak</string>
+
 
 </resources>

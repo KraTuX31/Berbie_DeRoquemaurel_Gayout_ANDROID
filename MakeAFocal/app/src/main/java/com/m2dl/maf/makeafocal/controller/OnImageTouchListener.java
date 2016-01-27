@@ -65,6 +65,11 @@ public class OnImageTouchListener implements View.OnTouchListener, View.OnLongCl
                 context,
                 R.layout.support_simple_spinner_dropdown_item,
                 context.getResources().getStringArray(R.array.default_tags)));
+
+        input.setHint(
+                context.getString(R.string.recycling) + ", "
+                + context.getString(R.string.degradation) + ", "
+                + context.getString(R.string.waterLeak));
         builder.setView(input);
 
         builder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {

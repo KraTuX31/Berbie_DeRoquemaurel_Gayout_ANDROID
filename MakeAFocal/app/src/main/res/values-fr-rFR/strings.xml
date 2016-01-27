@@ -40,5 +40,7 @@
         <item>dégradation</item>
         <item>fuiteEau</item>
     </string-array>
-
+    <string name="recycling">recyclage</string>
+    <string name="degradation">dégradation</string>
+    <string name="waterLeak">fuiteEau</string>
 </resources>
