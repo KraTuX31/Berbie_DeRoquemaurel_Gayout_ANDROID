@@ -121,7 +121,7 @@ public class TakePhotoActivity extends Activity {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        Log.e("ResultCode : " , String.valueOf(resultCode));
+        Log.e("ResultCode : ", String.valueOf(resultCode));
         if(resultCode == 0){
             this.finish();
         }
@@ -187,13 +187,13 @@ public class TakePhotoActivity extends Activity {
 
         // Check if GPS enabled
         if(gps.canGetLocation()) {
-            photo.setLocation(new Pair<>(gps.getLatitude(), gps.getLongitude()));
+            photo.setLocation(new Pair<>(43.561630F, 1.465130F));
         } else {
             // Can't get location.
             // GPS or network is not enabled.
             // Ask user to enable GPS/network in settings.
             gps.showSettingsAlert();
-            photo.setLocation(new Pair<>(gps.getLatitude(), gps.getLongitude()));
+            photo.setLocation(new Pair<>(43.561630F, 1.465130F));
         }
     }
 

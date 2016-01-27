@@ -124,37 +124,30 @@ public class MarkersManager {
         context.runOnUiThread(new Runnable() {
             public void run() {
 
-                for (String other : mapTagMarkers.keySet()) {
-                    if (!Arrays.asList(tags).contains(other)) {
-                        for (Marker m : mapTagMarkers.get(other)) {
+                for (String tag : mapTagMarkers.keySet()) {
+                    if (!Arrays.asList(tags).contains(tag)) {
+                        for (Marker m : mapTagMarkers.get(tag)) {
                             m.setVisible(false);
                         }
-                    }
-                }
-
-                for (String other : mapTagPolygons.keySet()) {
-                    if (!Arrays.asList(tags).contains(other)) {
-                        for (Polygon p : mapTagPolygons.get(other)) {
-                            p.setVisible(false);
-                        }
-                    }
-                }
-
-                for (String tag : tags) {
-                    if (mapTagMarkers.containsKey(tag)) {
+                    } else if (mapTagMarkers.containsKey(tag)) {
                         for (Marker m : mapTagMarkers.get(tag)) {
                             m.setVisible(true);
                         }
                     }
                 }
 
-                for (String tag : tags) {
-                    if (mapTagMarkers.containsKey(tag)) {
+                for (String tag : mapTagPolygons.keySet()) {
+                    if (!Arrays.asList(tags).contains(tag)) {
+                        for (Polygon p : mapTagPolygons.get(tag)) {
+                            p.setVisible(false);
+                        }
+                    } else if (mapTagMarkers.containsKey(tag)) {
                         for (Polygon p : mapTagPolygons.get(tag)) {
                             p.setVisible(true);
                         }
                     }
                 }
+
             }
         });
 
