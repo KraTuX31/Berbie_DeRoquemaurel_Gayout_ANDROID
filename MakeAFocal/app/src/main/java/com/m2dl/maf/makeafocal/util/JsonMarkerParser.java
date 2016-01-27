@@ -1,6 +1,7 @@
 package com.m2dl.maf.makeafocal.util;
 
 import android.content.res.Resources;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.util.JsonReader;
 import android.util.Pair;
@@ -18,7 +19,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.LinkedHashSet;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by florent on 22/01/16.
@@ -40,7 +44,8 @@ public class JsonMarkerParser extends AsyncTask<Void, Void, Void>{
 
     public JsonMarkerParser(Resources resources) {
         this.in = resources.openRawResource(R.raw.pointsofinterest);
-        markers = new ArrayList<MarkerPointOfInterest>();
+        markers = new ArrayList<>();
+        polygons = new ArrayList<>();
     }
 
     public void parse() throws JSONException {
@@ -67,11 +72,6 @@ public class JsonMarkerParser extends AsyncTask<Void, Void, Void>{
                 }
             }
             reader.endObject();
-//            reader.beginArray();
-//            while (reader.hasNext()) {
-//                pointOfInterest.add(readMarkerMessage(reader));
-//            }
-//            reader.endArray();
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -82,10 +82,10 @@ public class JsonMarkerParser extends AsyncTask<Void, Void, Void>{
 
     private PolygonPointOfInterest readPolygonMessage(JsonReader reader) throws IOException {
         String title = null;
-        List<Pair<Double, Double>> list = new ArrayList<>();
-        Double lat = 0D;
-        Double lng = 0D;
-        float color = 0F;
+        Set<Pair<Double, Double>> list = new LinkedHashSet<>();
+        Double lat = null;
+        Double lng = null;
+        int color = 0;
 
         reader.beginObject();
         String elt;
@@ -94,28 +94,32 @@ public class JsonMarkerParser extends AsyncTask<Void, Void, Void>{
             if (elt.equals("name")) {
                 title = reader.nextString();
                 if (title.equals("Carton")) {
-                    color = COLOR_CARTON;
+                    color = Color.argb(170, 255, 170, 0);
                 } else if (title.equals("Papier")) {
-                    color = COLOR_PAPER;
-                } else if (title.equals("Textile")) {
-                    color = COLOR_TEXTILE;
+                    color = Color.argb(170, 0, 207, 255);
                 } else if (title.equals("Pile")) {
-                    color = COLOR_BATTERY;
-                } else if (title.equals("Verre")) {
-                    color = COLOR_GLASS;
+                    color = Color.argb(170, 155, 0, 255);
                 } else {
-                    color = COLOR_BUILDING;
+                    color = Color.argb(170, 130, 119, 23);
                 }
             } else if (elt.equals("points")) {
                 reader.beginArray();
                 while (reader.hasNext()) {
-                    elt = reader.nextName();
-                    if (elt.equals("latitude")) {
-                        lat = reader.nextDouble();
-                    } else if (elt.equals("longitude")) {
-                        lng = reader.nextDouble();
+                    lat = null;
+                    lng = null;
+                    reader.beginObject();
+                    while (reader.hasNext()) {
+                        elt = reader.nextName();
+                        if (elt.equals("latitude")) {
+                            lat = reader.nextDouble();
+                        } else if (elt.equals("longitude")) {
+                            lng = reader.nextDouble();
+                        }
+                        if (lat != null && lng != null) {
+                            list.add(new Pair<Double, Double>(lat, lng));
+                        }
                     }
-                    list.add(new Pair<Double, Double>(lat, lng));
+                    reader.endObject();
                 }
                 reader.endArray();
             } else {
@@ -170,7 +174,11 @@ public class JsonMarkerParser extends AsyncTask<Void, Void, Void>{
 
     @Override
     protected Void doInBackground(Void... params) {
-        parse();
+        try {
+            parse();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
         return null;
     }
 
@@ -179,7 +187,11 @@ public class JsonMarkerParser extends AsyncTask<Void, Void, Void>{
         super.onPostExecute(aVoid);
     }
 
-    public List<MarkerPointOfInterest> getPointsOfInterest() {
+    public List<MarkerPointOfInterest> getMarkers() {
         return markers;
+    }
+
+    public List<PolygonPointOfInterest> getPolygons() {
+        return polygons;
     }
 }

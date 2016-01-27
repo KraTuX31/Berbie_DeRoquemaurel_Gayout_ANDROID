@@ -7,13 +7,15 @@ package com.m2dl.maf.makeafocal.model.pointofinterest;
 public class MarkerPointOfInterest extends PointOfInterest {
     private float latitude;
     private float longitude;
+    private float color;
 
 
     public MarkerPointOfInterest(
             final String title,
             final float lat, final float lng,
             final float colorString) {
-        super(title, colorString);
+        super(title);
+        color = colorString;
         latitude = lat;
         longitude = lng;
     }
@@ -25,6 +27,10 @@ public class MarkerPointOfInterest extends PointOfInterest {
 
     public float getLongitude() {
         return longitude;
+    }
+
+    public float getColor() {
+        return color;
     }
 
 

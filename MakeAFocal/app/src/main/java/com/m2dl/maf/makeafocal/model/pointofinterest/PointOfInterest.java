@@ -6,17 +6,12 @@ package com.m2dl.maf.makeafocal.model.pointofinterest;
 public class PointOfInterest {
 
     private String name;
-    private float color;
 
-    public PointOfInterest(final String title, final float colorString) {
+    public PointOfInterest(final String title) {
         name = title;
-        color = colorString;
     }
 
     public String getName() {
         return name;
-    }
-    public float getColor() {
-        return color;
     }
 }
