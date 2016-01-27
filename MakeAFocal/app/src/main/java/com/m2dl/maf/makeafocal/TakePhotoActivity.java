@@ -97,9 +97,9 @@ public class TakePhotoActivity extends Activity {
         // File to save photo
         File filePhoto = new File(
             Environment.getExternalStorageDirectory()
-                + "/" + R.string.maf_repository,
-            String.valueOf(
-                    Calendar.getInstance().get(Calendar.SECOND)) + ".jpg");
+                + "/MakeAFocal",
+                String.valueOf(
+                    Calendar.getInstance().get(Calendar.SECOND))+String.valueOf(Calendar.getInstance().get(Calendar.MILLISECOND)) + ".jpg");
         intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(filePhoto));
         imageUri = Uri.fromFile(filePhoto);
 
@@ -121,6 +121,10 @@ public class TakePhotoActivity extends Activity {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        Log.e("ResultCode : " , String.valueOf(resultCode));
+        if(resultCode == 0){
+            this.finish();
+        }
         switch (requestCode) {
         //Si l'activité était une prise de photo
         case CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE:
@@ -169,7 +173,7 @@ public class TakePhotoActivity extends Activity {
 
     public boolean  createDirIfNotExists() {
         File folder = new File(
-            Environment.getExternalStorageDirectory() + "/" + R.string.maf_repository);
+            Environment.getExternalStorageDirectory() + "/MakeAFocal");
         boolean success = true;
         if (!folder.exists()) {
             success = folder.mkdir();

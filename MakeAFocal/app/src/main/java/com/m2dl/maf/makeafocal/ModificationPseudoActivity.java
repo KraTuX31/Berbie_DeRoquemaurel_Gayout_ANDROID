@@ -8,6 +8,7 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -23,6 +24,7 @@ public class ModificationPseudoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_modification_pseudo);
         newPseudoEdit = (EditText) findViewById(R.id.newPseudo);
+        newPseudoEdit.setImeOptions(EditorInfo.IME_ACTION_DONE);
 
     }
 
